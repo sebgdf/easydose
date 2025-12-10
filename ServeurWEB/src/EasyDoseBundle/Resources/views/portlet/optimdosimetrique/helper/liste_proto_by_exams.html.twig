@@ -1,0 +1,13 @@
+<!-- liste_proto_by_exams.html.twig -->
+
+<select id="listeprotocoles" class="browser-default custom-select mb-4 w-100">                        
+     <option value="" disabled>Choisir Fonction</option>
+                            
+        {% for proto in protocoles %}
+           <option value="{{ proto.protocole | convert_encoding('latin1','UTF-8')| raw  }}" > {{ proto.protocole | convert_encoding('latin1','UTF-8')| raw  }}</option>
+        {% endfor %}
+                                                       
+</select>
+
+
+

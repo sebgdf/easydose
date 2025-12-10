@@ -1,0 +1,34 @@
+
+<div class="text-center  purple-text"> {{ stat.modalite }}</div>
+
+
+<div class="text-center">
+<span class="min-chart mt-0 mb-0" id="pdept" data-percent="{{ stat.pourcentage }}">
+  <span class="percent"></span>
+</span>
+
+</div>
+
+<div class="text-center">
+    <div>
+    <p class="d-inline">Nombre de dépassements: </p><p class="font-weight-bold d-inline">{{ stat.nbalert }}</p>
+    </div>
+    <div>
+    <p class="d-inline">Nombre de doses </p><p class="font-weight-bold d-inline">{{ stat.totalexam }}</p>
+    </div>
+
+</div>
+<script>
+$(function () {
+  $('.min-chart#pdept').easyPieChart({
+    barColor: "#6200ea",
+    trackColor: "#bbdefb",
+    scaleColor : "#6200ea",
+    onStep: function (from, to, percent) {
+      $(this.el).find('.percent').text(percent.toFixed(2));
+    }
+  });
+});
+
+
+</script>

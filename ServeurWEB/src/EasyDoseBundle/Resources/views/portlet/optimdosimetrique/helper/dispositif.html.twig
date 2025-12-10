@@ -1,0 +1,81 @@
+<!-- Modal: modalQuickView -->
+<div class="modal fade" id="listedispositifsoptim" tabindex="-1" role="dialog" aria-labelledby="listedispositifsoptim"
+  aria-hidden="true">
+  <div class="modal-dialog cascading-modal modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-5" id="descriptiondispositif3">
+          </div>
+          
+          <div class="col-lg-7">
+                <h2 class="h2-responsive product-name">
+                  <strong>Sélectionner un dispositif</strong>
+                </h2>            
+                <div class="row" style="height: 13em; overflow-y: auto; overflow-x: hidden;"> 
+                {% for dispositif in dispositifs %}
+                	 {% include ("@EasyDose/portlet/Esr/show_dispositif.html.twig") with {'dispositif' : dispositif} %}
+               
+                {% endfor %}
+                </div>                  
+               <div class="row">
+                     <div class="col-lg-12">
+                         <button class="btn btn-info my-4 btn-block" type="button" onclick="chooseDispositifAndClose2();" >
+              					Sélectionner
+            			</button>
+        			</div>
+               </div> 
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+
+<script>
+
+
+$('#confirmaction_view').on('shown.bs.modal', function (e) {
+	var optimid = $(e.relatedTarget).attr('data-id');
+	$("#valueOptimHidden").val(optimid);
+	
+});
+
+
+var currentelement="";
+var leaved=true;
+var currentvalue="";
+var currentoptimid=0;
+$( "body" ).mousedown(function(e) {
+
+	 if (currentelement!='')   {
+		 if(leaved){		 
+         	$(currentelement).html(currentvalue);	 
+         	elementid=$(currentelement).attr('id').split("_");
+         	id=elementid[0];
+         	optimid=elementid[1];
+         	changeValueOptimAsynck("{{url('saveOptimValue')}}",optimid,id,currentvalue);
+            
+		 }
+
+      }    
+  });
+
+
+
+function chooseDispositifAndClose2(){
+
+	$('#dispositif').attr('value',dispositifid);
+	$('#dispositif_visible').attr('value',dispositiflabel);
+	//changeValueEsr(url,id_esr_courant,'dispositif',dispositifid);
+	$('#listedispositifsoptim').modal('hide');
+	
+}
+var dispositifid=1;
+var dispositiflabel="";
+url="{{url('show_desc_dispositif',{'dispositif_id': '_dispositif_id' })}}";
+chargimgdispositif3(url.replace("_dispositif_id",1));
+</script>

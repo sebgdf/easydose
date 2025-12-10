@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>EASYDOSE</title>
+  {% block stylesheets %} 
+      {% include ("@EasyDose/portlet/stylesheet.html.twig") %}
+  {% endblock %}
+</head>
+
+<body class="fixed-sn mdb-skin" style="background-color:rgba(255,255,255,0.5);">
+  <header>
+    {% include ("@EasyDose/portlet/left.html.twig") %} 
+    {% include ("@EasyDose/portlet/top.html.twig") %} 
+  </header>
+    <div id="content" class="color-block content mt-5">
+        <div class="row">
+           		<div class="col-md-9 col-xs-12" style="height: 50px;"> &nbsp;</div>
+            </div>
+          	<div class="row mt-5">
+          		<div class="col-md-10 col-xs-12">
+            		<div class="container-fluid mt-5" style="margin-right:-20px;" id="maincontent" >
+        	            {% block content %} 
+                        {% endblock %}
+              		</div>
+         		</div>
+         		
+                {% include ("@EasyDose/Patient/mail.html.twig") %} 
+         	</div> 
+         	<div class="row">
+           		<div class="col-md-12" id="tabledetailcontent" >
+           		</div>
+         	</div>
+
+  </div>
+  
+
+    <!-- 
+    
+      <main style="margin-right: auto;padding-left:3%;margin-left:12rem;margin-top:2rem;margin-bottom:2rem;">
+  	
+   </main>
+   
+   
+    <footer style="padding-left:0px;padding-bottom:0px;">
+          <nav class="navbar bottom navbar-toggleable-md navbar-expand-lg scrolling-navbar double-nav" >
+    
+          <div class="breadcrumb-dn mr-auto" style="height: 90px;">
+            
+          </div>
+     	</nav>
+    </footer>
+      -->
+    {% include ("@EasyDose/portlet/script.html.twig") %}
+    {% include ("@EasyDose/portlet/mail.html.twig") %} 
+    {% include ("@EasyDose/portlet/apropos.html.twig") %} 
+    {% include ("@EasyDose/portlet/modalesearch.html.twig") %} 
+    {% include ("@EasyDose/portlet/contact.html.twig") %} 
+    {% include ("@EasyDose/portlet/recherchepatient.html.twig") %} 
+    <!-- Modal: modalPoll -->
+    <input type="text" hidden id="modsendallmail2">
+    {% include ("@EasyDose/portlet/filter.html.twig") %} 
+
+</body>
+
+   {% include ("@EasyDose/portlet/scriptbody.html.twig") %} 
+
+</html>
+
+

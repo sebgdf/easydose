@@ -1,0 +1,307 @@
+{#
+
+This file is part of the EASYDOSE package.
+
+(c) Sebastien GIRIER-DUFOURNIER <s.girierd@c2i-reunion.com>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+{% block htmlDoctype %}
+
+{% endblock %}
+
+
+#}
+
+
+<!DOCTYPE html>
+{% block htmlDoctype %}
+<html lang="{{ app.request.locale }}" {% block html_attributes %}class="no-js"{% endblock %}>
+{% endblock %}
+	<head>
+	   {% block meta_tags %}
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta charset="UTF-8">
+            <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+        {% endblock %}
+    {% block stylesheets %}   
+    <link rel="stylesheet" href="{{ asset('assets/bootstrap-3.3.7-dist/Assets/css/bootstrap.min.css') }}" >  
+	<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}" />
+	<link rel="stylesheet" href="{{ asset('assets/css/simple-calendar.css') }}" />
+	<link rel="stylesheet" href="{{ asset('assets/css/style2.css') }}" />
+	<link rel="stylesheet" href="{{ asset('assets/fontawesome-free-5.8.1-web/css/all.css') }}" />
+	
+	<link rel="stylesheet" href="{{ asset('assets/css/loading.css') }}" />	
+	<script src="{{ asset('assets/js/loading.js') }}" ></script>	
+	<!--  script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script -->
+	
+	
+	  <link href="{{ asset('assets/css/demo.css') }}" rel="stylesheet">
+
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+ 
+  
+
+    {% endblock %}
+
+
+<style type="text/css">
+    .bs-example{
+    	margin: 20px;
+    }
+</style>
+
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" >
+  <!-- Bootstrap core CSS -->
+  <link href="{{ asset('assets/mdb/css/bootstrap.min.css') }}" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="{{ asset('assets/mdb/css/mdb.min.css') }}" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="{{ asset('assets/mdb/css/style.css') }}" rel="stylesheet">
+  
+	</head>
+	
+	<script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js') }}" ></script>
+	<script src="{{ asset('assets/js/loading.js') }}" ></script>
+	<script src="{{ asset('assets/js/bootstrap.min.js') }}" ></script>
+	<script src="{{ asset('assets/js/jquery.simple-calendar.js') }}" ></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	 <script type="text/javascript" src="{{ asset('mdb/js/jquery-3.3.1.min.js') }}"></script>
+  	<!-- Bootstrap tooltips -->
+  	<script type="text/javascript" src="{{ asset('mdb/js/popper.min.js') }}"></script>
+  	<!-- Bootstrap core JavaScript -->
+  	<script type="text/javascript" src="{{ asset('mdb/js/bootstrap.min.js') }}"></script>
+  	<!-- MDB core JavaScript -->
+  	<script type="text/javascript" src="{{ asset('mdb/js/mdb.min.js') }}"></script>
+	
+<body>
+
+
+    
+	<div class=" h-100 ">
+		
+		{% block header %}
+		<div class="row rowheader">
+			<div class="col-md-12" id="header">
+				<div class="row rowheader h-100 ">
+					<div class="col-md-3 my-auto logo">
+					{% block logo %}
+						
+                    {% endblock %}
+					</div>   
+					
+					
+					<div class="col-md-5 my-auto ">
+					{% block hautdroit%}
+
+
+					{% endblock %}
+					</div>
+					
+					<div class="col-md-3 infologin">
+					{% block hautdroitlogin%}
+
+
+					{% endblock %}
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endblock %}
+		
+		
+		<div class="row">
+			<div class="col-md-12 separationheader" ></div>
+		</div>
+	
+		<div class="row">
+		
+		  
+			<div class="col-md-1 bhoechie-tab-menu col1" >{% block leftcol1 %} {% endblock %}</div>		
+			<div class="col-md-2 bhoechie-tab" >{% block leftcol2 %} {% endblock %}</div>
+			
+			
+			<div class="col-md-9 content" >
+			<div class="row">
+			  <div class="offset-md-7 "></div><div class="col-md-1 ongletheader liendossierpatient">WORKLIST</div>  <div class="col-md-1 ongletheader liendossierpatient">PLANNING</div>  
+			</div>
+			<div class="row">
+			<div class="offset-md-1 col-md-1 liendossierpatient" id="divretour"><div class="fa fa-chevron-left"></div>  RETOUR</div>
+			</div>
+			<div class="row">
+			<div class="col-md-10">&nbsp;</div>
+			</div>
+			<div class="row">
+			<div class="offset-md-1 col-md-1 ongletcontent">WORKLIST</div>
+			</div>
+				<div class="row">
+						
+						<div  class="offset-md-1 col-md-10 offset-md-1 intra" id="intra">
+						
+						
+		                    {% block content %} {% endblock %}
+		                </div>
+		               
+		        </div>
+		        
+		
+		    </div>
+			
+		</div>
+		
+	        		<div class="row rowfooter">
+        			<div class="col-md-12" id="footer">
+        				{% block footer %}{% endblock %}
+        			</div>
+        		</div>
+		
+		
+	</div>
+	
+	
+	
+	
+
+		
+</body>
+</html>
+
+
+    					
+<script>
+
+
+function rechercherpatient(form){
+
+	//Searchnom
+	Searchnom=$('#search-firstname').val();
+	if(!Searchnom)
+		Searchnom='null';
+	//Searchprenom
+	Searchprenom=$('#Searchprenom').val();
+	if(!Searchprenom)
+		Searchprenom='null';
+	//SearchpIPP
+	SearchpIPP=$('#SearchpIPP').val();
+	if(!SearchpIPP)
+		SearchpIPP='null';
+	//SearchIDR
+	SearchIDR=$('#SearchIDR').val();
+	if(!SearchIDR)
+		SearchIDR='null';
+	//SearchBD
+	SearchBD=$('#SearchBD').val();
+	if(!SearchBD)
+		SearchBD='null';
+	//SearchHRDV
+	SearchHRDV=$('#SearchHRDV').val();
+	if(!SearchHRDV)
+		SearchHRDV='null';
+
+
+
+
+	$('#intra').loading({
+		stoppable: true,
+        message: 'Chargement...',
+        theme: 'dark'
+      });
+    
+    url="{{  url('worklistsearch',{'nom':'Searchnom','prenom':'Searchprenom','IPP':'SearchpIPP' ,'IDR':'SearchIDR','BD':'SearchBD','HDRV':'SearchHRDV'} ) }}";
+    url=url.replace('Searchnom',Searchnom);
+    url=url.replace('Searchprenom',Searchprenom);
+    url=url.replace('SearchpIPP',SearchpIPP);
+    url=url.replace('SearchIDR',SearchIDR);
+    url=url.replace('SearchBD',SearchBD); 
+    url=url.replace('SearchHRDV',SearchHRDV);
+    
+	$('#intra').load(url);
+
+	return false;
+}
+jQuery(document).ready(function() {
+	
+    // full height for main div (windows height - "header" height - "footer" height)
+    $(window).resize(function() {
+        $('.col1').css('min-height', $(window).height() - $('#header').height() - $('.rowfooter').height()-20);
+       // $('.intra').css('min-height', $(window).height() - $('.header').outerHeight(true)-30);
+        $('.intra').css('min-height', $(window).height()- $('#header').height() - $('.rowfooter').height()-20);
+    }).resize();
+
+
+
+});
+
+$(document).ready(function() {
+	
+    $("div.bhoechie-tab-menu>div.list-group>a").click(function(e) {
+        e.preventDefault();
+        $(this).siblings('a.active').removeClass("active");
+        $(this).addClass("active");
+        var index = $(this).index();
+       
+        $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
+        $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
+    });
+});
+
+
+$(document).ready(function() {
+
+	$('#checkVALNON').change(function(){
+		
+		if(this.checked)
+			$('#checkVALOUI').checked=!this.checked;	
+
+		});
+
+	$('#checkVALOUI').change(function(){
+		if(this.checked)
+			$('#checkVALNON').checked=!this.checked;		
+		});
+
+	
+	$('#intra').loading({
+		stoppable: true,
+        message: 'Chargement...',
+        theme: 'dark'
+      });
+	$('#intra').load("{{url('worklist')}}");
+	
+
+
+
+	$('#divretour').click(function(){
+
+		//alert('test');
+		//$('#custom-overlay').css('visibility', 'visible');
+		
+		$('#intra').loading({
+			stoppable: true,
+            message: 'Chargement...',
+            theme: 'dark'
+          });
+
+		
+        
+		$('#intra').load("{{url('worklist')}}");
+
+		
+		});	
+
+
+});
+
+
+
+
+</script>
+
+

@@ -1,0 +1,44 @@
+<div class="font-weight-bolder titreinfopatientworklist">
+					
+<span>Notes</span>
+</div>
+<div class="row">
+<div class="col-md-12">
+    <span style="text-decoration: underline;" id="lablllastnotesworklist{{ patient.id }}">Dernières notes:</span>
+     {% set url2= url('shownotesAll',{idpatient:"patientid"}) %}
+    <code><span id="lastcomentuserworklist{{ patient.id }}" ></span><span id="lastcommentdateworklist{{ patient.id }}" ></span></code><span style="font-style: italic; color:rgb(132,132,132);" id="lastcomentworklist{{ patient.id }}" >{{ note.content |default ("")}}</span><span style="color:blue;"> <a data-toggle="collapse" href="#commentairepatientworklist{{ patient.id }}" aria-expanded="false" aria-controls="commentairepatientworklist{{ patient.id }}"  id="moreworklist{{ patient.id }}" onclick="getNotes2({{patient.id}} ,'{{ url2 }}')">.....En voir plus</a></span>
+</div>
+</div>
+
+<div class="row">
+     <div class=" col-md-11  collapse commentairepatientworklist" id="commentairepatientworklist{{ patient.id }}" >liste des commentaires
+            		
+     </div>
+</div>
+
+<div class="row">
+     <div  class="col-md-12">               		
+ 		 <center> <a data-toggle="collapse" href="#commentairepatientworklist{{ patient.id }}" aria-expanded="false" aria-controls="commentairepatientworklist{{ patient.id }}"  id="moinsNworklist{{ patient.id }}" onclick="openlastnotes2({{ patient.id }});" style="display:none;" >Cacher</a></center></span>
+	 </div>            	
+</div>
+       
+             
+
+<form id='forminsertnote{{patient.id}}' action="{{ path('insertNote') }}">
+		<div class="row">
+		<div class="offset-md-2 col-md-9">&nbsp;</div>
+		</div>
+	    	<div class="row">
+	    		<div class="offset-md-1 col-md-10"><textarea class="form-control" id="notepatient{{patient.id}}" rows="3"></textarea></div>
+	    	</div>
+			<input type='text' hidden value='{{patient.id}}' name='{{patient.id}}' id='{{patient.id}}'>
+	    	<div class="row">
+	    		<div class="col-md-12"><center>
+			    	<a style="margin:0px;padding:10px;margin-top:4px;background-color:rgb(56,107,255);color:white;" target="_blank" role="button"  class="btn Ripple-parent" onclick="insertNote2({{patient.id}},'{{ url('shownotesAll',{idpatient:"patientid"}) }}','{{ url('havecomments',{idpatient:"_patientid"}) }}');">Ajouter une note
+							<div class="Ripple " style="top: 0px; left: 0px; width: 0px; height: 0px;"></div>
+					</a>
+					</center>
+	    		</div>
+	    	</div>
+    	
+    	</form>

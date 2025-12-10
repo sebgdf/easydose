@@ -1,0 +1,15 @@
+{% set function= functionnamelast~"( "~(offset)~" ,'"~url~"');"%}  
+
+{% if nbpagesToview >1 %}                 
+     {% if offset <1 %}
+   		<li class="paginate_button page-item previous disabled" id="dtBasicExample_previous">
+    {% else %}
+   		<li class="paginate_button page-item previous " id="dtBasicExample_previous">
+    {% endif %}
+    <a href="#" aria-controls="dtBasicExample" data-dt-idx="{{ offset }}" tabindex="0" class="page-link" 
+    
+     onclick="{{ function }}">
+           Précédent
+    </a>
+    </li>
+{% endif %}

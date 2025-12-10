@@ -1,0 +1,157 @@
+<!-- Modal -->
+<div class="modal fade" id="choixPatientModal" tabindex="-1" role="dialog" aria-labelledby="choixPatientModal"
+  aria-hidden="true">
+  <div class="modal-dialog cascading-modal modal-lg" role="document">
+    <div class="modal-content">
+      
+       
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick='uncheckCheckBoxPatient();'>
+          <span aria-hidden="true">&times;</span>
+        </button>
+     
+      <div class="modal-body">
+        <h2 class="h2-responsive product-name">
+                  <strong>Rechercher un Patient</strong>
+        </h2> 
+
+		<div class="row mb-4">
+           <div class="col-lg-12">
+                <!-- First name -->
+              <input type="text" id="nomPatient" class="form-control mdb-autocomplete" placeholder="Saisissez le nom ou l'Identifiant du Patient">
+           </div>
+        </div>  
+                    
+      
+      
+            <div  style="border: 1px solid #d2d6de; height: 13em;" class="form-row custom-checkbox">
+                <div id="resultatrecherche" class="custom-control d-flex flex-column w-100" style="height: 13em; overflow-y: auto; overflow-x: hidden;;">
+
+
+                </div>
+            </div>
+                    
+                  
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn"  style="background-color: #72afd2;" data-dismiss="modal" onclick='uncheckCheckBoxPatient();'>Fermer</button>
+        <button type="button" class="btn btn-secondary"  data-dismiss="modal" onclick="savepatientser();">Enregistrer</button>
+        <input type="hidden" id="idpatientesrselected"> 
+        <input type="hidden" id="namepatientesrselected"> 
+        <input type="hidden" id="esrid"> 
+        <input type="hidden" id="urlchange"> 
+        <input type="hidden" id="edpatientselected"> 
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+function savepatientser(){
+
+	value=$('#idpatientesrselected').prop("value");
+	patientname=$('#namepatientesrselected').prop("value");
+	urlchange=$('#urlchange').prop("value");
+	esrid=$('#esrid').prop("value");
+	if(patientname=== undefined || patientname===null || patientname==='')
+		{
+			patientname=$('#nomPatient').prop("value");
+			changeValueAsynck(urlchange,esrid,'patientname',patientname);
+		}
+	console.log(patientname);
+	edpatientselected=$('#edpatientselected').prop("value");
+	console.log(edpatientselected);		
+	
+	
+	$('#esrpatientevent2').html(patientname);
+	changeValueAsynck(urlchange,esrid,'patientesr',value);	
+	$('#cardptnomprenom'+esrid).html(patientname);
+    $('#cardptideasydose'+esrid).html(edpatientselected);
+}
+
+function resultatrecherchePatient(_nom,_prenom,_num,_id){
+
+       url2="{{ url('viewesrsearchpatient') }}";
+	   $.ajax({
+        	    url: url2,
+        	    type: 'POST',
+        	    data : {
+        	    	nom: _nom,
+        	    	prenom: _prenom,
+        	    	num: _num,
+        	    	id: _id
+        	    },
+        	    success: function(data){
+        	    	$('#resultatrecherche').html(data);
+        	  }
+	    });	
+}
+
+
+function addresultatrecherchePatient(_nom,_prenom,_num,_id,_ed){
+
+    url2="{{ url('viewesrsearchpatient') }}";
+	   $.ajax({
+     	    url: url2,
+     	    type: 'POST',
+     	    data : {
+     	    	nom: _nom,
+     	    	prenom: _prenom,
+     	    	num: _num,
+     	    	id: _id,
+     	    	ed: _ed
+     	    },
+     	    success: function(data){
+     	    	$('#resultatrecherche').append(data);
+     	       }
+	    });	
+}
+
+var patients = [];
+function uncheckCheckBoxPatient(){
+	$('#Patientcheckbox').prop( "checked", false );
+}
+
+
+
+
+function changeValuePatientAsynck(url2,_value){
+
+	   $.ajax({
+	    url: url2,
+	    type: 'POST',
+	    data : {
+	    	entityName: 'Patient',
+	    	attrName: 'nom',
+	    	attrvalue: _value
+	    },
+	    dataType : 'json',
+	    success: function(datas){
+	    	$('#resultatrecherche').empty();
+
+            $.each(datas, function(index, value){
+                //$("#colors").append(index + ": " + value + '<br>');
+
+                addresultatrecherchePatient(value["nom"],value["prenom"],value["numipp"],value["id"],value["idregional"]);
+            });
+
+            
+			
+	        }
+	    });
+	}
+	
+	$('#nomPatient').on('input',function(e){    
+		changeValuePatientAsynck("{{ url('loadAutocompleteData') }}",this.value);
+    });
+
+
+
+    
+
+	$('#nomPatient').mdbAutocomplete({
+		data: patients
+		});
+
+</script>

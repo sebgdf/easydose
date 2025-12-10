@@ -1,0 +1,49 @@
+<!-- desc_note.html.twig -->
+
+{% set somme=0 %}
+{% set nb=0 %}
+{% set somme= bestevaluation.maxscore %}
+{% set nb=nombrenotes.cnt %}
+
+            {% set note= somme %}
+                            
+            {% if nb > 0 %}
+                            
+             {% if note>=1 %}
+                  <a href="#" title="Très mauvaise évaluation"><span class="fa fa-star" style="color:orange;"></span></a>
+             {% else %}
+                 <a href="#" title="Très mauvaise évaluation"><span class="fa fa-star" style="color:#e1e5e8;" ></span></a>
+             {% endif %}
+                                    		
+                                    	
+                                    	
+             {% if note>=2 %}
+                 <a href="#"  title="Mauvaise évaluation"><span class="fa fa-star" style="color:orange;"></span></a>
+             {% else %}
+                <a href="#"  title="Mauvaise évaluation"><span class="fa fa-star"style="color:#e1e5e8;" ></span></a>
+             {% endif %} 
+                       
+                                    	
+             {% if note>=3 %}
+               <a href="#"  title="Evaluation moyenne"><span class="fa fa-star" style="color:orange;"></span></a>
+             {% else %}
+                <a href="#"  title="Evaluation moyenne"><span class="fa fa-star"style="color:#e1e5e8;" ></span></a>
+             {% endif %}
+	
+                                    	
+             {% if note>=4 %}
+                  <a href="#"  title="Bonne Evaluation"><span class="fa fa-star" style="color:orange;"></span></a>
+             {% else %}
+                  <a href="#"  title="Bonne Evaluation"><span class="fa fa-star"style="color:#e1e5e8;" ></span></a>
+             {% endif %}
+                                    		
+                                    		
+                                    		
+            {% if note==5 %}
+                   <a href="#"  title="Très bonne évaluation"><span class="fa fa-star" style="color:orange;"></span></a>
+            {% else %}
+                   <a href="#"  title="Très bonne évaluation"><span class="fa fa-star"style="color:#e1e5e8;" ></span></a>
+            {% endif %}
+                  <span> {{ ((note /5) *100) | round }}%</span> &nbsp; <span>( {{ nb }}  note{% if nb > 1 %}s {% endif %} )</span>
+                                    		
+           {% endif %}

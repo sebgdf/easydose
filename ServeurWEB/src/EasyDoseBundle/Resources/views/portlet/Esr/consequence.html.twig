@@ -1,0 +1,62 @@
+    <div style="height:600px;overflow-y:scroll;">
+			<div  id="identitiedeclarant">
+                    <form class="border border-light p-3" action="#!">
+						<p class="h4 mb-1 text-center">Conséquences sur les personnes concernées</p>
+                  
+
+                     	<p  class="text-center  mb-1 mt-1" style="border-bottom:1px solid #ced4da;">                     	
+                        <strong>4.</strong>
+                        Conséquences réelles immédiates
+                        </p>  
+                     	<div class="form-group">
+                          <textarea placeholder="Décrire les conséquences" class="form-control rounded-0" id="consequencereelleim" rows="7">{{ esr.consequencereelleim }}</textarea>
+                        </div>
+                        
+ 
+ 
+                      	<p  class="text-center  mb-1 mt-1" style="border-bottom:1px solid #ced4da;">                     	
+                        <strong>5.</strong>
+                        Conséquences potentielles (réalistes)
+                        </p>  
+                     	<div class="form-group">
+                          <textarea placeholder="Décrire les conséquences" class="form-control rounded-0" id="consequencepotentielle" rows="7">{{ esr.consequencepotentielle }}</textarea>
+                        </div>                       
+                        
+                        {% include ("@EasyDose/portlet/Esr/precedent_next_esr.html.twig") %} 
+                    </form>
+      </div>    
+</div>
+
+
+<script>
+
+changeesrValueGlobal('{{urlsaveesrvalue}}',{{id_esr_courant}},'input','agePersonneConserne');
+changeesrValueGlobal('{{urlsaveesrvalue}}',{{id_esr_courant}},'input','consequencereelleim');
+changeesrValueGlobal('{{urlsaveesrvalue}}',{{id_esr_courant}},'input','consequencepotentielle');
+
+$('#homme').change(function() {
+    // this will contain a reference to the checkbox   
+    if (this.checked) {
+        
+    	$('#femme').prop( "checked", false );
+    	changeValueAsynck('{{urlsaveesrvalue}}',{{id_esr_courant}},'sex','HOMME');
+    } else {
+        // the checkbox is now no longer checked
+    	if($('#femme').prop( "checked")==false)
+        	changeValueAsynck('{{urlsaveesrvalue}}',{{id_esr_courant}},'sex',' '); 
+    }
+});
+
+
+$('#femme').change(function() {
+    // this will contain a reference to the checkbox   
+    if (this.checked) {
+    	$('#homme').prop( "checked", false );
+    	changeValueAsynck('{{urlsaveesrvalue}}',{{id_esr_courant}},'sex','FEMME');
+    } else {
+        // the checkbox is now no longer checked
+        if($('#homme').prop( "checked")==false)
+        	changeValueAsynck('{{urlsaveesrvalue}}',{{id_esr_courant}},'sex',' '); 
+    }
+});
+</script>

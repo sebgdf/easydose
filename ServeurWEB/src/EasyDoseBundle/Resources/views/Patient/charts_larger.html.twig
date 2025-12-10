@@ -1,0 +1,32 @@
+<canvas id="myChartlarger"  width="100%" height="70%"></canvas>
+<script>
+
+
+var ctxlarger = document.getElementById('myChartlarger').getContext('2d');
+var myChartlarger = new Chart(ctxlarger, {
+    type: 'bar',
+    data: {
+        
+        labels: [{% for stat in statprotocole %}{% if loop.last %}'{{ stat.protocole |convert_encoding('latin1','UTF-8')| raw | slice(0, 24) }}({{stat.nbbodypart}})'{% else %}'{{ stat.protocole |convert_encoding('latin1','UTF-8')| raw | slice(0, 24) }}({{stat.nbbodypart}})',{% endif %}{% endfor %}],
+        datasets: [{
+            label: 'Radiation moyenne par zone d\'exposition en {{ unite }}',
+            data: [{% for stat in statprotocole  %}{% if loop.last %}{{ stat.valeur | round }}{% else %}{{ stat.valeur | round }},{% endif %}{% endfor %}],            
+            borderWidth: 1,
+            backgroundColor:[{% for stat in statprotocole  %}{% if loop.first %}'#4285F4'{% else %}  ,'#4285F4' {% endif %}{% endfor %}],
+            borderColor:[{% for stat in statprotocole  %}{% if loop.first %}'#4285F4'{% else %}  ,'#4285F4' {% endif %}{% endfor %}]
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+
+myChartlarger.update();
+</script>

@@ -1,0 +1,387 @@
+{% extends "@EasyDose/portlet/onglet.html.twig" %}
+{% block content %}
+	
+<!--Accordion wrapper-->
+<div class="accordion md-accordion accordion-3 flatcard " id="accordionEx194" role="tablist"
+  aria-multiselectable="true">
+  
+  <div class="row">
+    <div class="col-md-12 ml-3" style="left:-3px; padding-right:2.55rem!important;">
+        <div class="row">
+        	<div class="col-md-10 onglet1a pr-0 mr-0 pt-1" >Patients </div> <div class="pl-0 ml-0 col-md-2 onglet1b" > </div>
+        
+        </div>
+    </div>
+</div>
+<div class="row">
+   <div class="col-sm-12 col-md-5">
+        <div class="dataTables_info mt-2 mb-1 ml-3 " id="dtBasicExample_info" role="status" aria-live="polite">
+        <div class="primary-color-dark rounded-pill text-white pt-2 pb-2 btnaddfilter z-depth-1 w-25 text-center" type="button" data-toggle="modal" data-target="#filtrePatient">&nbsp;Gérer les filtres&nbsp;</div>       
+          &nbsp
+        </div>
+   </div>
+   <!--La pagination-->
+   <div class="col-sm-12 col-md-7" >
+       {% include ("@EasyDose/portlet/classifier/pagination_patient.html.twig") %} 
+   </div>
+</div>
+
+
+{% for patient in patients %}
+  <!-- Accordion card -->
+  <div class="card listedragable" id="card{{ patient.id }}">
+
+    <!-- Card header -->
+    {% if patient.age<=15 %}
+           <div class="row " style="background-color:rgba(242,242,242,1);margin-left:0px;border-left: 5px solid rgb(61,113,13);border-bottom:1px solid grey;margin-right:0px; " >
+    {% else %}
+            {% if patient.sex=="FEMME" and  patient.age>15 and patient.age<50 %}
+            <div class="row " style="background-color:rgba(242,242,242,1);margin-left:0px;border-left: 5px solid #9933CC;border-bottom:1px solid grey;margin-right:0px; " >
+            {% else %}
+            <div class="row" style="background-color:rgba(242,242,242,1);margin-left:0px;border-left: 5px solid rgb(0,11,60);border-bottom:1px solid grey;margin-right:0px; " >
+            {% endif %}
+    
+     {% endif %}
+    <div class="col-md-4 listepatientdragable">
+    {% if patient.sex=="FEMME" and  patient.age>15 and patient.age<50 %}
+    <h6 class="mb-0 mt-3 mdb-card-title" style="font-weight:400;font-size:large;"> 
+    {% else %}
+    <h6 class="mb-0 mt-3 mdb-card-title" style="font-weight:400;font-size:large;"> 
+     {% endif %}
+	{% if patient.nrdhavealerte %}
+        	<i class="fas fa-exclamation red-text"></i>
+    {% endif %}
+        	{{ patient.nom }} {{ patient.prenom }} 
+    
+        	
+     <span id="havecomment{{ patient.id }}">   	
+     {% if patient.havenotes %}
+   
+    {% if patient.age<=15 %}
+ 
+    <i class="far fa-comment-dots" style="color:rgb(61,113,13);position:relative;top:-0.5rem;"></i>
+    {% else %}
+        {% if patient.sex=="FEMME" %}
+       	 	<i class="far fa-comment-dots" style="color:#9933CC;position:relative;top:-0.5rem;"></i>
+        {% else %}
+        	<i class="far fa-comment-dots" style="color:rgb(12,87,207);position:relative;top:-0.5rem;"></i>
+        {% endif %}
+    {% endif %}
+    
+    
+    
+    {% endif %}
+    </span>
+    
+    
+    </h6>
+    </div>
+    
+     <div class="offset-md-1 col-md-1">  
+               
+    <div class="card-header" role="tab" id="heading{{ patient.id }}">
+    {% if patient.age<=15 %}
+            <a class="black-text" data-toggle="collapse" data-parent="#accordionEx194" href="#collapse{{ patient.id }}" aria-expanded="true"
+                    aria-controls="collapse{{ patient.id }}">
+    
+    {% else %}
+    
+
+                {% if patient.sex=="FEMME" and  patient.age>15 and patient.age<50 %}
+                  <a class="black-text" data-toggle="collapse" data-parent="#accordionEx194" href="#collapse{{ patient.id }}" aria-expanded="true"
+                    aria-controls="collapse{{ patient.id }}">
+                    
+                {% else %} 
+                  <a class="black-text" data-toggle="collapse" data-parent="#accordionEx194" href="#collapse{{ patient.id }}" aria-expanded="true"
+                    aria-controls="collapse{{ patient.id }}">
+                  
+                {% endif %}
+     {% endif %}      
+        
+        <h3 class="mb-0 mt-3" style="position:absolute;width:50%;height:30px;top:10px;background-color:rgba(242,242,242,1);border-radius:10px;z-index:9;border-bottom:1px solid grey;"> 
+            
+            
+            	
+            	<center>     			                    				
+                <i class="fas fa-angle-down" style="top:50px;float:none;"></i>
+                </center>
+             
+        </h3>
+      </a>
+      </div>
+      </div>
+    
+    <div class="offset-md-4 col-md-1">
+    {% if( patient.sumhavealerte) %}
+        <h5 class="mb-0 mt-3 blue-text" style="margin-top:0.5rem !important;margin-bottom:0.5rem !important;"> 
+        	<span class="badge danger-color badge-pill">{{ patient.nbdoses }}</span>
+
+        </h5>
+    {% else %}
+        <h5 class="mb-0 mt-3 blue-text" style="margin-top:0.5rem !important;margin-bottom:0.5rem !important;"> 
+        	<span class="badge stylish-color-dark badge-pill">{{ patient.nbdoses }}</span>
+        
+        </h5>
+    {% endif %}
+    </div>
+            
+            	<div class="col-md-1">
+            	<a class="liendossierpatient"  onclick='getinfopatient({{ patient.id }},"{{url('infopatient',{'id':'idtoreplace'})}}","{{ url('tdpatient',{'id':'idtoreplace'}) }}");'>
+            	<h5 class="mb-0 mt-3 " style="margin-top:0.5rem !important;margin-bottom:0.5rem !important;"> 			
+              			<span class="badge badge-primary badge-pill" style="background-color:rgb(56,107,255) !important;" >i</span>
+           		</h5>
+           		</a>		
+                </div>  
+    
+             			
+    </div>
+
+    <!-- Card body -->
+     {% if loop.first %}
+    <div id="collapse{{ patient.id }}" class="collapse " role="tabpanel" aria-labelledby="heading{{ patient.id }}"
+      data-parent="#accordionEx194" style="border-top: 1px solid #e0e0e0;">
+     {% else %}
+     <div id="collapse{{ patient.id }}" class="collapse" role="tabpanel" aria-labelledby="heading{{ patient.id }}"
+      data-parent="#accordionEx194" style="border-top: 1px solid #e0e0e0;">
+      {% endif %}
+      
+      
+      {% if patient.age<=15 %}
+           <div class=" card-body pt-0" style="margin-left:0px;border-left: 5px solid rgb(61,113,13);">
+    
+      {% else %}
+    
+          {% if patient.sex=="FEMME" and  patient.age>15 and patient.age<50 %}
+          	<div class=" card-body pt-0" style="margin-left:0px;border-left: 5px solid #9933CC;">
+          {% else %}
+          	<div class=" card-body pt-0" style="margin-left:0px;border-left: 5px solid rgb(0,11,60); ">
+          {% endif %}
+      {% endif %}
+      
+        <div class=" col-md-11 contentBodyP" id="contentBodyP{{ patient.id }}" >
+                    	
+                    		<p>Chargement...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Accordion card -->
+   {% endfor %}   
+
+
+</div>
+
+</div>
+<script>
+
+
+function havecollisition(el1,el2,decalage){
+	//console.log("-----------------------Begin---------------------");
+
+	var rect = el1.getBoundingClientRect();
+	//console.log(rect.top, rect.right, rect.bottom, rect.left);
+	
+	var rect2 = el2.getBoundingClientRect();
+	//console.log(rect2.top, rect2.right, rect2.bottom, rect2.left);
+
+
+	//console.log("-----------------------Result---------------------");
+
+    result=!((rect.bottom < rect2.top+decalage) ||
+            (rect.top > rect2.bottom-decalage) ||
+            (rect.right < rect2.left+decalage) ||
+            (rect.left > rect2.right-decalage));
+    
+   // console.log(result); 
+	   
+//	console.log("-----------------------END---------------------");
+
+	 return result;
+}
+
+
+
+
+var $startCounter = $('.start-event');
+var $dragCounter = $('.drag-event');
+var $stopCounter = $('.stop-event');
+var zindex=new Object();
+var bordertop=new Object();
+var borderleft=new Object();
+var borderRight=new Object();
+var css=new Object();
+var cssisset=false;
+var isincollision=false;
+var inserer=false;
+	var counts = {
+		  start: 0,
+		  drag: 0,
+		  stop: 0
+		};
+
+		function onDragStart() {
+		  counts.start++;
+		  updateCounter($startCounter, counts.start);
+		  zindex[this.id]=this.style.zIndex;
+		  bordertop[this.id]=this.style.borderTop;
+		  borderleft[this.id]=this.style.borderLeft;
+		  borderRight[this.id]=this.style.borderRight;
+		  this.style.zIndex=3000;   
+		  this.style.borderTop = " 1px solid grey";
+		  this.style.borderRight = " 1px solid grey";
+		  this.style.borderLeft = " 1px solid grey";
+		  $(this).animate({width:'40%',duration: 20,endDelay:1})
+		}
+
+		function onDrag() {
+		  counts.drag++;
+		  updateCounter($dragCounter, counts.drag);
+		 //alert(this.id);
+		// $(this).animate({width:'400',duration: 20,endDelay:1})
+		 
+		  isincollision= havecollisition(this,document.getElementById('divEpinglerPatient'),40);
+		  //var rect2 = this.getBoundingClientRect();
+		  //console.log(rect2.top, rect2.right, rect2.bottom, rect2.left);
+
+
+		  //var rect = document.getElementById('divEpinglerPatient').getBoundingClientRect();
+		  //console.log(rect.top, rect.right, rect.bottom, rect.left);
+
+		  if(isincollision){
+			  if(!cssisset){
+					css["bgcolor"]=$("#divEpinglerPatientBody").css("background-color");
+					cssisset=true;
+			  }
+			$("#divEpinglerPatientBody").css("background-color", "#e3f2fd");
+
+			$("#imageepingler").attr("hidden",true);
+			inserer=true;
+
+			$('#divEpinglerPatientBody').loading({
+				stoppable: true,
+			    message: '...',
+			    theme: 'dark'
+			  });
+			
+		  }else{
+			 
+			  $("#divEpinglerPatientBody").css("background-color", css["bgcolor"]);
+			  $("#imageepingler").attr("hidden",false);
+			  inserer=false;
+			  }
+		}
+
+
+
+
+
+		
+		function onDragStop() {
+		  counts.stop++;
+		  updateCounter($stopCounter, counts.stop);
+		  this.style.zIndex= zindex[this.id];
+		  this.style.borderTop = bordertop[this.id];
+		  this.style.borderRight = borderRight[this.id];
+		  this.style.borderLeft = borderleft[this.id];
+		  $(this).animate({width:"100%",duration: 20,endDelay:1})
+		  
+		  
+		  
+		  isincollision= havecollisition(this,document.getElementById('divEpinglerPatient'),40);
+		  if(!isincollision){
+				  $("#divEpinglerPatientBody").css("background-color", css["bgcolor"]);
+				  $("#imageepingler").attr("hidden",false);
+				  }
+
+		  if(inserer){
+			  patientid=this.id.substring(4).split("^");
+			  url="{{ path('getinfopatient',{'patientid':'_patientid'}) }}";
+			  url2=url.replace('_patientid',patientid);
+		  		//patientid=infopatient[0];
+		  		//patientnom=infopatient[1];
+		  		//patientprenom=infopatient[2];	
+		  		//console.log(patientid);
+		  		//console.log(patientnom);
+		  		//console.log(patientprenom);
+		  	 
+		  	 
+		  	 $.ajax({
+                    url: url2,
+                    type: 'GET',
+                    dataType : 'json',
+                    success: function(datas){
+                    	$('#divEpinglerPatientBody').loading('stop');
+                            console.log(datas);
+                            var whithalerte="";
+                            if(datas.have_alerte==true)
+                            	whithalerte="<i class=\"fas fa-exclamation red-text\"></i>";
+                            
+                            if(datas.typepatient=='femmeproc')
+                            	$("#divinsertion").append('<div  id="PtEpingl'+datas.patientid+'" class="col-md-12 patientavecepinglewithoutbottom" style="height: 50px;display:flex;padding-left:0px;"> <div class="pink-arrow-right"></div>&nbsp;<div class="middled hovered" onclick=\'getinfopatient('+datas.patientid+',"{{url('infopatient',{'id':'idtoreplace'})}}","{{ url('tdpatient',{'id':'idtoreplace'}) }}");\'>'+datas.nompatient+' '+datas.prenompatient+'&nbsp;'+whithalerte+'</div>  <div class="middled" style="margin-left:auto;"><button  onclick="delectepatientEpingle(\'PtEpingl'+datas.patientid+'\',\'{{ path('dropepinglepatient',{'patientid':'_patientid'}) }}\');"  type="button" class="close black-text"><span aria-hidden="true">&times;</span></button></div> </div>'); 
+                            else
+                                if(datas.typepatient=='pediatrie')
+                            	$("#divinsertion").append('<div  id="PtEpingl'+datas.patientid+'" class="col-md-12 patientavecepinglewithoutbottom" style="height: 50px;display:flex;padding-left:0px;"> <div class="green-arrow-right"></div>&nbsp;<div class="middled hovered" onclick=\'getinfopatient('+datas.patientid+',"{{url('infopatient',{'id':'idtoreplace'})}}","{{ url('tdpatient',{'id':'idtoreplace'}) }}");\'>'+datas.nompatient+' '+datas.prenompatient+'&nbsp;'+whithalerte+'</div>  <div class="middled" style="margin-left:auto;"><button  onclick="delectepatientEpingle(\'PtEpingl'+datas.patientid+'\',\'{{ path('dropepinglepatient',{'patientid':'_patientid'}) }}\');"  type="button" class="close black-text"><span aria-hidden="true">&times;</span></button></div> </div>'); 
+                            else
+                            	$("#divinsertion").append('<div  id="PtEpingl'+datas.patientid+'" class="col-md-12 patientavecepinglewithoutbottom" style="height: 50px;display:flex;padding-left:0px;"> <div class="darkblue-arrow-right"></div>&nbsp;<div class="middled hovered" onclick=\'getinfopatient('+datas.patientid+',"{{url('infopatient',{'id':'idtoreplace'})}}","{{ url('tdpatient',{'id':'idtoreplace'}) }}");\'>'+datas.nompatient+' '+datas.prenompatient+'&nbsp;'+whithalerte+'</div>  <div class="middled" style="margin-left:auto;"><button  onclick="delectepatientEpingle(\'PtEpingl'+datas.patientid+'\',\'{{ path('dropepinglepatient',{'patientid':'_patientid'}) }}\');"  type="button" class="close black-text"><span aria-hidden="true">&times;</span></button></div> </div>'); 
+                            
+                        },
+                    });
+             
+				 
+				 }
+			}
+
+		
+
+		
+
+		function updateCounter(selector, value) {
+		  $(selector).text(value);
+		}
+
+		
+
+	
+$(document).ready(function() {	
+	$('#maincontent').loading('stop');
+	var oldcss="";
+	 {% for patient in patients %}
+
+		$('#contentBodyP{{ patient.id }}').load("{{url('worklistbody',{'id': patient.id  })}}");
+
+
+		$('#card{{ patient.id }}').draggable({
+            containment: '#body',
+            revert: true,
+            start: onDragStart,
+            drag: onDrag,
+            stop: onDragStop,
+            handle: '.listepatientdragable'
+        });
+        
+ {% endfor %}   
+
+
+
+
+
+
+
+ 
+	});
+	
+</script>
+
+
+<script>
+$(document).ready(function() {
+	$('#maincontent').loading('stop');
+	});
+
+</script>
+
+
+
+</div>
+</div>
+{% endblock %}

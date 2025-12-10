@@ -1,0 +1,4 @@
+{% set url=url('meseisearch',{screenheigth:"_screenheigth",offset:"numoffset",categorie : "_categorie",souscategorieslist : "_souscategorieslist", datedebutf : "_datedebutf", datefinf : "_datefinf"}) ~'+'~url('pagination',{nbpagesToview:nbpagesToview,offset:"numoffset"}) %}
+{% include ("@EasyDose/portlet/classifier/classifier.html.twig")   with{'isesr':false } %} 
+               
+            

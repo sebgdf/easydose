@@ -1,0 +1,89 @@
+{#
+
+This file is part of the EASYDOSE package.
+
+(c) Sebastien GIRIER-DUFOURNIER <s.girierd@c2i-reunion.com>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+{% block htmlDoctype %}
+
+{% endblock %}
+
+
+#}
+
+
+
+<html lang="{{ app.request.locale }}" {% block html_attributes %}class="no-js"{% endblock %}>
+
+	<head>
+	   {% block meta_tags %}
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta charset="UTF-8">
+            <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+        {% endblock %}
+    {% block stylesheets %}    
+	<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}" />
+	<link rel="stylesheet" href="{{ asset('assets/css/style2.css') }}" />
+	<link rel="stylesheet" href="{{ asset('assets/fontawesome-free-5.8.1-web/css/all.css') }}" />
+	{% endblock %}
+
+	</head>
+	
+	<script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js') }}" ></script>
+	
+</body>
+	<div class="container h-100 ">
+		
+		{% block header %}
+		<div class="row rowheader">
+			<div class="col-md-12 header">
+				<div class="row rowheader h-100 ">
+					<div class="col-sm-3 my-auto logo">
+					{% block logo %}
+						
+                    {% endblock %}
+					</div>   
+					
+					
+					<div class="col-sm-5 offset-sm-4 my-auto ">
+					{% block hautdroit%}
+
+
+					{% endblock %}
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endblock %}
+		<div class="row">
+			<div class="col-md-12 separationheader" ></div>
+		</div>
+		<div class="row">
+		
+		    
+			<div class="col-sm-1 col1" >{% block leftcol1 %} {% endblock %}</div>
+			
+			
+			<div class="col-sm-2 col2" >{% block leftcol2 %} {% endblock %}</div>
+			
+			
+			<div class="col-sm-9 content" >{% block content %} {% endblock %}</div>
+			
+		</div>
+	</div>
+</body>
+</html>
+
+
+<script>
+jQuery(document).ready(function() {
+	
+    // full height for main div (windows height - "header" height - "footer" height)
+    $(window).resize(function() {
+        $('.col1').css('min-height', $(window).height() - $('.header').outerHeight(true));
+    }).resize();
+});
+</script>

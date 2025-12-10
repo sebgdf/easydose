@@ -1,0 +1,61 @@
+security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: bcrypt
+
+    role_hierarchy:
+        ROLE_CANDIDAT:       [ROLE_USER,ROLE_CANDIDAT]
+        ROLE_CLIENTM:       [ROLE_USER,ROLE_CLIENTM]
+        ROLE_CLIENTP:       [ROLE_USER,ROLE_CLIENTP]
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username
+
+
+    firewalls:
+        extra:
+            pattern: ^/auth
+            form_login:
+                login_path: /auth/login
+                check_path: /auth/login_check
+                provider: fos_userbundle
+                default_target_path: /auth/
+                csrf_token_generator: security.csrf.token_manager
+                success_handler: authentication.handler.login_auth_success_handler
+            logout: 
+                path: /auth/logout
+                target: /auth/login
+                
+            anonymous:    true
+            remember_me:
+                secret:   '%secret%'
+                lifetime: 604800 #une semaine
+                always_remember_me: true 
+                
+        main:
+            pattern: ^/
+            form_login:
+                provider: fos_userbundle
+                csrf_token_generator: security.csrf.token_manager
+                success_handler: authentication.handler.login_success_handler
+            logout: 
+                path: /logout
+                target: /auth/login
+            anonymous:    true
+            remember_me:
+                secret:   '%secret%'
+                lifetime: 604800 #une semaine
+                always_remember_me: true 
+
+
+                
+    access_control:
+        - { path: ^/auth$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/%base_url_admin%/, role: ROLE_ADMIN }
+        - { path: ^/patient/, role: ROLE_ADMIN }
+        

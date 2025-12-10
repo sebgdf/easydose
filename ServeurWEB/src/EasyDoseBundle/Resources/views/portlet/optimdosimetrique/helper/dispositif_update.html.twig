@@ -1,0 +1,52 @@
+<!-- Modal: modalQuickView -->
+<div class="modal fade" id="listedispositifsoptim_update" tabindex="-1" role="dialog" aria-labelledby="listedispositifsoptim_update"
+  aria-hidden="true">
+  <div class="modal-dialog cascading-modal modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-5" id="descriptiondispositif2">
+          </div>
+          
+          <div class="col-lg-7">
+                <h2 class="h2-responsive product-name">
+                  <strong>Sélectionner un dispositif</strong>
+                </h2>            
+                <div class="row" style="height: 13em; overflow-y: auto; overflow-x: hidden;"> 
+                {% for dispositif in dispositifs %}
+                	 {% include ("@EasyDose/portlet/optimdosimetrique/helper/show_dispositif.html.twig") with {'dispositif' : dispositif} %}
+               
+                {% endfor %}
+                </div>                  
+               <div class="row">
+                     <div class="col-lg-12">
+                         <button class="btn btn-info my-4 btn-block" type="button" onclick="chooseDispositifAndClose4();" >
+              					Sélectionner
+            			</button>
+        			</div>
+               </div> 
+          </div>
+          <input type="hidden" id="hiddenidoptim2" >
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+
+<script>
+function chooseDispositifAndClose4(){
+	
+	optimid=$('#hiddenidoptim2').attr('value');
+	$('#machinedetail_'+optimid).attr('value',dispositiflabel);
+	//$('#dispositif_visible').attr('value',dispositiflabel);
+	//changeValueEsr(url,id_esr_courant,'dispositif',dispositifid);listedispositifsoptim
+	$('#listedispositifsoptim_update').modal('hide');
+	
+}
+var dispositifid=1;
+var dispositiflabel="";
+url="{{url('show_desc_dispositif',{'dispositif_id': '_dispositif_id' })}}";
+chargimgdispositif2(url.replace("_dispositif_id",1));
+</script>

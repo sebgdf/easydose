@@ -1,0 +1,44 @@
+{
+    "name": "infocom/workflow-bundle",
+    "type": "symfony-bundle",
+    "description": "Infocom WorkflowBundle",
+    "keywords": [
+        "User management"
+    ],
+    "homepage": "http://infocomreunion.re",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sébastien GIRIER-DUFOURNIER",
+            "email": "sebastien.girier-dufournier@gmail.com"
+        },
+        {
+            "name": "Sébastien GIRIER-DUFOURNIER"
+        },
+        {
+            "name": "FriendsOfSymfony Community",
+            "homepage": "http://infocomreunion.re"
+        }
+    ],
+    "require": {
+    },
+    "conflict": {
+
+    },
+    "require-dev": {
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.5-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": { "WorkflowBundle\\": "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "WorkflowBundle\\Tests\\": "tests/" }
+    }
+}

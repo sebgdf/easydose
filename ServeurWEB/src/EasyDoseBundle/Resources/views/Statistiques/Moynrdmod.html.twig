@@ -1,0 +1,67 @@
+<!-- Moynrdmod.html.twig -->
+
+
+<canvas id="Moynrdmod" height="300" style="height: 300px; display: block; width: 901px;" width="901" class="chartjs-render-monitor">
+</canvas>
+
+<script>
+
+    var ctx = document.getElementById('Moynrdmod').getContext('2d');
+    var Moynrdmod = new Chart(ctx, {
+        type: 'line',
+        data: {
+        	{% set posradio=0 %}
+        	{% set posscanner=0 %}
+        	{% set possmammo=0 %}
+            labels: [{% for value in label %}  {% if loop.first %} "{{value}}"{% else %},"{{value}}"{% endif %}{% endfor %}],
+            
+            datasets: [{
+                label: 'Moyenne des dépassements Radiographie',
+                data: [{% for datem in label %}{% set detected=0 %}{% set posradio=posradio+1 %}{% for value in moynrdmod %} {% if value.date == datem %}  {% if value.modalite == 'Radiographie' %} {% if posradio==1 %}{{value.valeur}}{% else %},{{value.valeur}}{% endif %}{% set detected=1 %}{% endif %}{% endif %}{% endfor %}{% if detected==0 %}{% if posradio==1 %}0.0{%else%} ,0.0 {% endif %} {% endif %} {% endfor %}],
+                backgroudColor:[
+                	'rgba(0,137,132,.2)',
+                ],
+            borderColor:[
+            	'rgba(0,10,130,.7)',
+            ],
+                borderWidth: 1
+            },
+            {
+                label: 'Moyenne des dépassements Scanner',
+                data: [{% for datem in label %}{% set detected=0 %}{% set posscanner=posscanner+1 %}{% for value in moynrdmod %} {% if value.date == datem %}  {% if value.modalite == 'Scanner' %} {% if posscanner==1 %}{{value.valeur}}{% else %},{{value.valeur}}{% endif %}{% set detected=1 %}{% endif %}{% endif %}{% endfor %}{% if detected==0 %}{% if posscanner==1 %}0.0{%else%} ,0.0 {% endif %} {% endif %} {% endfor %}],
+                backgroudColor:[
+                	'rgba(100,137,132,.2)',
+                ],
+            borderColor:[
+            	'rgba(100,10,130,.7)',
+            ],
+                borderWidth: 1
+            },
+
+            {
+                label: 'Moyenne des dépassements Mammographie',
+                data: [{% for datem in label %}{% set detected=0 %}{% set possmammo=possmammo+1 %}{% for value in moynrdmod %} {% if value.date == datem %}  {% if value.modalite == 'Mammographie' %} {% if possmammo==1 %}{{value.valeur}}{% else %},{{value.valeur}}{% endif %}{% set detected=1 %}{% endif %}{% endif %}{% endfor %}{% if detected==0 %}{% if possmammo==1 %}0.0{%else%} ,0.0 {% endif %} {% endif %} {% endfor %}],
+                backgroudColor:[
+                	'rgba(50,137,132,.2)',
+                ],
+            borderColor:[
+            	'rgba(50,10,130,.7)',
+            ],
+                borderWidth: 1
+            }
+            
+            ]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+    Moynrdmod.update();
+
+    </script>

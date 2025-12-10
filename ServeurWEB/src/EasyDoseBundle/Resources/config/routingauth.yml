@@ -1,0 +1,17 @@
+login:
+  path: /login
+  defaults: { _controller : EasyDoseBundle:Default:index }
+  methods: [GET, POST]
+  
+login_check:
+  path: /login_check
+  defaults: { _controller : EasyDoseBundle:Default:check }
+  methods: [POST]
+  
+     
+fos_user_security_logout2:
+  path: /logout
+  defaults: { _controller : EasyDoseBundle:Default:logout }
+  methods: [GET,POST]
+  
+ 

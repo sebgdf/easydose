@@ -1,0 +1,1 @@
+RUN  npm install -D @babel/preset-react --force

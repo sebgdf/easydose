@@ -1,0 +1,123 @@
+{% extends "@EasyDose/portlet/onglet.html.twig" %}
+	
+
+{% block content %}
+	<!-- iv class="col-md-12 onglet1" > </div -->
+<div class="flatcard">	
+	  <div class="row">
+        <div class="col-md-12 ml-3" style="left:-2px; padding-right:2.65rem!important;">
+            <div class="row">
+            	<div class="col-md-10 onglet1a pr-0 mr-0 pt-1" >Liste des déclarations </div> <div class="pl-0 ml-0 col-md-2 onglet1b" > </div>
+            
+            </div>
+        </div>
+	</div>
+	
+
+	<div class="row">
+		
+		
+		<div class="col-sm-12 col-md-5" onclick="loadesrpage();" data-toggle="modal" data-target="#md_delarationesr" id="buttonesr"> <p class="d-inline rounded ml-3 boxcliquable" style="font-size: 2em">{% if granted('app', 'esr', 'create') %} {% include ("@EasyDose/portlet/Esr/viewer/add.svg.twig") %} </p> <p class="d-inline boxcliquable"><strong>Nouvel évènement significatif</strong> </p>{% else %} <p>&nbsp;</p> {% endif %}</div> 
+		
+		<div class="col-sm-12 col-md-5 d-none" data-toggle="modal" data-target="#md_delarationesr" id="buttonesrhidden"></div> 
+		
+		<div class="col-sm-12 col-md-7" >{% include ("@EasyDose/portlet/classifier/pagination_esr.html.twig")  with{'nbpagesToview':nbpagesToview,'offset':offset}%} 
+	</div>
+	</div>
+	<div class="col-md-12"> &nbsp;</div>
+    <div class="row  mx-1 overflow-auto h-50" id="esrmesdelarations" >
+            
+            
+    </div>
+        
+    <hr>
+
+    <div class="row" id="esrtoutesdelarations">
+        &nbsp;
+        
+    </div>
+        
+    <!-- button id="buttonesr" type="button" class="btn btn-primary" data-toggle="modal" data-target="#md_delarationesr">Déclarer un nouvel évènement significatif</button-->
+
+
+
+
+  <button class="d-none" id="buttonesrview" data-toggle="modal" data-target="#esrvewer">Launch Modal LogIn/Register</button>
+
+
+</div>
+{% include ("@EasyDose/portlet/Esr/personne_declare.html.twig")  with {'isesr':true} %} 
+
+{% include ("@EasyDose/portlet/Esr/esr_viewer.html.twig") %} 
+
+{% include ("@EasyDose/portlet/Esr/choix_patient.html.twig") %} 
+
+
+
+  <script>
+  var action="";
+
+  function autoload(){
+      //Vérification si page courante
+      url4="{{url('havewaitingesr')}}";
+      $.ajax({
+	       url: url4,
+	       type: 'GET',
+	       dataType : 'json',
+	       success: function(datas){
+	               console.log(datas);
+	               if(datas.haveWaitingEsr){
+
+   	               $('#buttonesr').click();
+   	           }
+	              
+	       }
+
+      });
+}
+
+  function rechargerpageESR2(){
+		url="{{ url('mesesr',{"screenheigth": screenheigth,'offset':0} ) }}";
+		var url2=url.replace("_screenheigth", screen.height);
+		$('#esrmesdelarations').load(url2);
+	}
+	  
+  function loadesrpage(){ 
+	                
+	               url3="{{url('getopeningesrpage')}}";
+	               $.ajax({
+	        	       url: url3,
+	        	       type: 'GET',
+	        	       dataType : 'json',
+	        	       success: function(datas){
+		        	   
+	        	               console.log(datas);
+	        	               loadesr('image_esr',datas.openingimagepage);
+	        	               loadesr('contenu_esr',datas.openingpage);
+							   if(datas.type='new')
+	        	               		rechargerpageESR2();
+		        	              
+	        	           }
+	        	           
+	        	       });
+  }
+  
+//Material Select Initialization
+  $(document).ready(function() {
+
+  $('.mdb-select').materialSelect();
+  $('#maincontent').loading('stop');
+
+  $('#esrmesdelarations').load("{{ url('mesesr',{"screenheigth": screenheigth,'offset':offset} ) }}");
+
+  loadesr('image_esr','{{  url('getpageesr',{idesr:"0",typepage:"getimgdeclarant"}) }}');
+  });
+
+ // autoload();
+
+  
+  
+  </script>
+
+
+{% endblock %}

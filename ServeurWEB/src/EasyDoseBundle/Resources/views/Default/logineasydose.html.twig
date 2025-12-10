@@ -1,0 +1,111 @@
+
+ {% trans_default_domain 'FOSUserBundle' %}
+ <!DOCTYPE html>
+{% block htmlDoctype %}
+<html lang="{{ app.request.locale }}" {% block html_attributes %}class="no-js"{% endblock %}>
+{% endblock %}
+	<head>
+ {% block stylesheets %}  
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+
+
+
+    
+   
+<link rel="stylesheet" href="{{ asset('assets/css/stylelogin.css') }}" />
+{% endblock %}
+	
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!-- Include the above in your HEAD tag -->
+
+
+	
+
+
+</head>
+
+<body>
+<div class="main">
+<!-- 
+    
+ <div class=" headerlogin">
+ <div class=" logologin"><span class="loginlogoeasy">EASY</span><span class="loginlogodose">DOSE</span></div> <div class="loginheaderlabo ">Centre d'imagerie du Capricorne</div>
+</div>   
+ -->
+<div class="container">
+
+<center>
+<div class="middle">
+      <div id="login">
+
+ {% if error %}
+    <div style="color:red; font-size:small;">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+{% endif %}       
+        <form action="{{ path("login_check") }}" method="post" >
+        {% if csrf_token %}
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+        {% endif %}
+
+          <fieldset class="clearfix">
+
+            <p ><span class="fa fa-user"></span><input type="text" id="username" name="_username" value="{{ last_username }}" Placeholder="Login" required></p> <!-- JS because of IE support; better: placeholder="Username" -->
+            <p><span class="fa fa-lock"></span><input type="password"  id="password" name="_password"  Placeholder="Mot de passe" autocomplete="current-password" required></p> <!-- JS because of IE support; better: placeholder="Password" -->
+            
+             <div>
+                                <span style="width:48%; text-align:left;  display: inline-block;"><a class="small-text" href="#">Mot de passe oublié ?</a></span>
+                                <span style="width:50%; text-align:right;  display: inline-block;"><input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}"></span>
+                            </div>
+
+          </fieldset>
+<div class="clearfix"></div>
+        </form>
+
+
+
+
+
+        <div class="clearfix"></div>
+
+      </div> <!-- end login -->
+      <div class="logo">
+      <div class="row">
+          <div class="col-md-1" style="left:-10%;">{% include ("@EasyDose/Default/logoeasydose2.html.twig") %} </div><div class="col-md-1" style="left:-10%;">
+       <span class="loginlogoeasy loginsize">EASY</span><span class="loginlogodose loginsize">DOSE</span></div>
+        
+       </div>  
+          <div class="clearfix"></div>
+      </div>
+      
+      </div>
+</center>
+    </div>
+
+</div>
+</body>
+
+</html>
+
+<script>
+jQuery(document).ready(function() {
+	
+    // full height for main div (windows height - "header" height - "footer" height)
+    $(window).resize(function() {
+        $('.headerlogin').css('min-height', ($(window).height() /100)*10);
+        $('.main').css('min-height', $(window).height() -$('.headerlogin').outerHeight(true));        
+        $('.headerlogin').css('min-width', ($(window).width()));
+        $('.main').css('min-width', ($(window).width()));
+    }).resize();
+});
+
+</script>

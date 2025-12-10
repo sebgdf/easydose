@@ -1,0 +1,55 @@
+ <!--  Annulation -->
+     <div class="row">
+           <div class="col-lg-6">
+                  	<button  type="cancel" class="btn my-4 btn-block"  style="background-color: #72afd2;" onclick="loadpageesr('{{ urlimgprece }}','{{ urlprece }}','{{ idtemplateprecedent }}');return false;">Précédent</button>                   
+      		</div>
+<!--  data-dismiss="modal" aria-label="Close"-->
+           <div class="col-lg-6">
+                 	<button type="cancel" class="btn btn-secondary my-4 btn-block" onclick="cloturerDeclaration();return false;" >Valider la déclaration</button>                   
+           <button class="btn btn-secondary my-4 btn-block invisible" data-dismiss="modal" id='valclose' aria-label="Close">CLOSE</button>
+		   </div>
+</div>
+
+                        
+<script>
+
+
+function cloturerDeclaration(){
+	url2="{{url('clotureesr')}}";
+	$("#md_delarationesr").loading({
+		stoppable: true,
+        message: 'Validation de la déclatation...',
+        theme: 'dark'
+      });
+
+	
+	 $.ajax({
+
+	       url: url2,
+	       type: 'GET',
+	       dataType : 'json',
+	       success: function(datas)
+	       		{ 
+	              console.log(datas);
+				  if(datas.cloture=='false')
+				  {
+					$('#error').html(datas.listemanquant)
+				  }else{
+	              $('#md_delarationesr').loading('stop');
+	              rechargerpageESR();
+				   $('#valclose').click();
+				  }
+	              //rechargerpageEI();
+	           	},
+
+	           error: function(resultat,statut,erreur)
+	           {	   	  		
+		  			$('#md_delarationesr').loading('stop');	  
+				}
+	       });
+    
+	
+}
+
+
+</script>

@@ -1,0 +1,126 @@
+{% extends "@EasyDose/portlet/easydose_card_template.html.twig" %}
+
+{% block stylecard %}  
+ 	style="width:18.5em;height: 36em;"
+{% endblock %}
+{%  block content %}
+      <button type="button"  class="close" style="width:1em;" data-id="{{ optim.id  }}" data-toggle="modal" data-target="#confirmaction_view">
+          <span aria-hidden="true">&times;</span>
+        </button>
+<div class="card-body pb-3">
+      
+	<h4 class="card-title font-weight-bold">{{ optim.protocole }}</h4>      
+    <hr>
+    <div class="row">
+    	<div class="col-lg-4 mb-1 card-text"><strong>Dose </strong>: </div><div  class="writable boxcliquable col-lg-8" id="valeur_{{ optim.id }}">{{ optim.valeur }}</div>
+    </div>
+    <div class="row">
+    	<div class="col-lg-4 mb-1  card-text"><strong>Kvp</strong>: </div><div  class="writable  boxcliquable col-lg-8" id="kvp_{{ optim.id }}">{{ optim.kvp }}</div>
+    </div>
+    <div class="row">
+    	<div class="col-lg-4 mb-1  card-text"><strong>Charge</strong>: </div><div class="col-lg-8  boxcliquable writable" id="xraytubecurrent_{{ optim.id }}">{{ optim.xraytubecurrent }}</div>
+    </div>
+    
+    <div class="row">
+    	<div class="col-lg-4 mb-1  card-text"><strong>Modalité</strong>: </div><div class="col-lg-8 boxcliquable  writable" id="modalite_{{ optim.id }}">{{ optim.modalite }}</div>
+    </div>
+    
+    <div class="row">
+    	<div class="col-lg-4 mb-1  card-text"><strong>Machine</strong>:  </div><div class="col-lg-8 boxcliquable  writabledispositif" id="machine_{{ optim.id }}">{{ optim.machine }}</div>
+    </div>
+    <hr>
+    <p class="mb-2  card-text"><strong>Commentaire</strong>:</p>
+    <p  class="writable boxcliquable " id="commentaire_{{ optim.id }}" style="max-height: 4em; overflow-y: auto;">{{ optim.commentaire }}</p>
+    
+    <hr>
+    <div class="row">
+        <div class="col-md-12 text-center font-weight-bold">
+        	<a  data-toggle="modal" data-target="#optimdetailmodal" onclick="loadoptimdetail({{ optim.id }});"><u>Gérer les évaluations</u></a>
+      	</div>
+   </div>
+    <hr>
+    
+    
+    
+    Meilleure note : <div id='bestcomment_{{ optim.id }}'></div>
+    
+    
+</div>
+<script>
+
+
+
+url="{{ url('BestComment',{optimid:"_optimid"}) }}";
+loadbestEval(url,{{ optim.id }});
+</script>
+
+
+{% endblock %}
+
+{%  block javascript %}
+<script>
+
+    function loadoptimdetail(idoptim){
+    	$('#hiddenidoptim').attr('value',idoptim);	
+    	$('#hiddenidoptim2').attr('value',idoptim);	
+    }
+    
+    $( ".writable" ).mouseleave(function() {
+    	  leaved=true;
+    	});
+
+	
+    $('.writable').on('click', function (e) {
+
+            	var content=this.innerText;
+            	if(content!=''){
+            		var html="<input class='form-control unwritable' id='optimwritable' type='text' value='"+content+"'>";
+                	$(this).html(html);
+                	currentelement=$(this);
+                	currentvalue=content;
+                	leaved=false;
+                	currentoptimid="{{ optim.id }}";
+            		$('#optimwritable').on('input',function(e){    
+            			currentvalue =this.value;
+            	    });                            	
+            	}	
+    });
+
+
+    $('.writabledispositif').on('click', function (e) {
+
+    	var content=this.innerText;
+    	if(content!=''){
+    		var html="<input class='form-control unwritable' id='optimwritable2' type='text' value='"+content+"' data-toggle='modal' data-target='#listedispositifsoptim2'>";
+        	$(this).html(html);
+        	currentelement=$(this);
+        	currentvalue=content;
+        	leaved=false;
+        	currentoptimid="{{ optim.id }}";
+
+        	
+    		$('#optimwritable2').on('change',function(e){    
+    			currentvalue =this.value;
+    			alert(this.value);
+    	    });                            	
+    	}	
+});
+
+    $('#optimdetailmodal').on('shown.bs.modal', function (e) {
+    	//chargement id
+    	var optimid=$('#hiddenidoptim').attr('value');
+    	$('#hiddenidoptim2').attr('value',optimid);
+    	//chargement  page
+
+    	url="{{ url('optimdosedetail',{numdetail:"_numdetail"}) }}";
+        url2=url.replace("_numdetail", optimid);
+       
+        $('#contentoptimdetail').load(url2);
+    });
+
+
+
+
+
+</script>
+{% endblock %}

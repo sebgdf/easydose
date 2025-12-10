@@ -1,0 +1,44 @@
+{
+    "name": "infocom/getmailfact-bundle",
+    "type": "symfony-bundle",
+    "description": "Infocom GetmailfactBundle",
+    "keywords": [
+        "mail FAc management"
+    ],
+    "homepage": "http://infocomreunion.re",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sébastien GIRIER-DUFOURNIER",
+            "email": "sebastien.girier-dufournier@gmail.com"
+        },
+        {
+            "name": "Sébastien GIRIER-DUFOURNIER"
+        },
+        {
+            "name": "FriendsOfSymfony Community",
+            "homepage": "http://infocomreunion.re"
+        }
+    ],
+    "require": {
+    },
+    "conflict": {
+
+    },
+    "require-dev": {
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.8-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": { "getMailFactBundle\\": "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "getMailFactBundle\\Tests\\": "tests/" }
+    }
+}

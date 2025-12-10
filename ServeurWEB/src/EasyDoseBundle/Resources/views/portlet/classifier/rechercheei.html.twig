@@ -1,0 +1,268 @@
+  <div class="row">
+    <div class="col-lg-9 border rounded-5  ">
+
+        <div class="form-check mb-4" style="padding-left:0px !important;">
+        <input class="form-check-input" type="checkbox" value="" id="checkboxrechercheparprocess" />
+        <label class="form-check-label" for="checkboxrechercheparprocess">Recherche par processus</label>
+        </div>
+        <div id='rechcategblock'>
+                <select id="recherchecategorie" class="browser-default custom-select mb-4">                        
+                    <option value="" disabled>Choisir Catégorie</option>
+                                        
+                        {% for categorie in categories %}
+                            {% if categorie.id == currentcategorie.id %}
+                                <option value="{{ categorie.id }}" selected> {{ categorie }}</option>
+                            {% else %}
+                                <option value="{{ categorie.id }}"> {{ categorie }}</option>
+                            {% endif %}
+                        {% endfor %}
+                                                            
+                </select>  
+                <p  class="text-center  mb-3 mt-3">                     	
+                    sous processus
+                </p>  
+                <div id="recherchesouscategorie">
+                </div>
+        </div>
+    </div>
+    <div class="col-lg-3 border rounded-5">
+    <div class="form-check  mb-4" style="padding-left:0px !important;">
+        <input class="form-check-input" type="checkbox" value="" id="checkboxrecherchepardate" />
+        <label class="form-check-label" for="checkboxrecherchepardate">Recherche par date</label>
+    </div>
+     <div id='rechdateblock'>
+        <div class="form-row mb-4">
+            <div class="col">
+            <!-- First name -->
+                <input type="text" id="rechercherchedatedebut" class="form-control" placeholder="Choisissez la date de début" value="{{datedebut}}">
+            </div>
+        </div>
+        <div class="form-row mb-4">
+            <div class="col">
+            <!-- First name -->
+                <input type="text" id="rechercherchedatefin" class="form-control" placeholder="Choisissez la date de fin" value="{{datefin}}" >
+            </div>
+        </div> 
+    </div>
+    </div>
+</div>
+<script>
+
+function reinit(){
+                var checked=$('#checkboxrecherchepardate').is(':checked');
+                datedebut=$("#rechercherchedatedebut").val()
+                    if(datedebut != ''  && checked)
+                    {
+                        var date=new Date(datedebut);
+                        day=date.getDate() 
+                        month=date.getMonth()
+                        month=((month+1)+'').padStart(2,'0')
+                        day=((day)+'').padStart(2,'0')
+                        var strdate=day +'-'+month+'-'+date.getFullYear();  
+                    }else
+                        var strdate='-'
+
+
+            datefin=$("#rechercherchedatefin").val()
+                if(datefin != ''  && checked)
+                {
+                    var date2=new Date(datefin);
+                    day2=date2.getDate() 
+                    month2=date2.getMonth()
+                    month2=((month2+1)+'').padStart(2,'0')
+                    day2=((day2)+'').padStart(2,'0')
+                    var strdate2=day2 +'-'+month2+'-'+date2.getFullYear();  
+                }else
+                    var strdate2='-'
+
+
+                souscategorieslist='-';
+                var url='{{ url('meseisearch',{screenheigth:"_screenheigth",offset : 0, categorie:"_categorie",souscategorieslist:"_souscategorieslist",datedebutf:"_datedebutf",datefinf:"_datefinf"}) }}';
+                url2=url.replace("_datedebutf",strdate).replace("_datefinf",strdate2).replace("_souscategorieslist",souscategorieslist);
+                url2=url2.replace("_screenheigth", screen.height);
+                $('#eimesdelarations').load(url2);
+}
+
+
+function reinit2(){
+                datedebut=$("#rechercherchedatedebut").val()
+                
+                    if(datedebut != '')
+                    {
+                        var date=new Date(datedebut);
+                        day=date.getDate() 
+                        month=date.getMonth()
+                        month=((month+1)+'').padStart(2,'0')
+                        day=((day)+'').padStart(2,'0')
+                        var strdate=day +'-'+month+'-'+date.getFullYear();  
+                    }else
+                        var strdate='-'
+
+
+            datefin=$("#rechercherchedatefin").val()
+                if(datefin != '')
+                {
+                    var date2=new Date(datefin);
+                    day2=date2.getDate() 
+                    month2=date2.getMonth()
+                    month2=((month2+1)+'').padStart(2,'0')
+                    day2=((day2)+'').padStart(2,'0')
+                    var strdate2=day2 +'-'+month2+'-'+date2.getFullYear();  
+                }else
+                    var strdate2='-'
+
+                var url='{{ url('meseisearch',{screenheigth:"_screenheigth",offset : 0, categorie:"_categorie",souscategorieslist:"_souscategorieslist",datedebutf:"_datedebutf",datefinf:"_datefinf"}) }}';
+                url2=url.replace("_datedebutf","-").replace("_datefinf","-").replace("_souscategorieslist",souscategorieslist);
+                url2=url2.replace("_screenheigth", screen.height);
+                $('#eimesdelarations').load(url2);
+}
+    function rechargerpagerechercheEI(categorieid){
+            url="{{ url('getAllEiSousCategorie2',{'categorieid':'_categorieid'} ) }}";
+            url2=url.replace('_categorieid',categorieid);
+            $('#recherchesouscategorie').load(url2);
+    }
+
+
+ 
+    $('#checkboxrecherchepardate').on( "click", function() {   
+            var isChecked = $(this).is(':checked');
+            if(isChecked)
+            {
+                console.log('checked')
+                $('#rechdateblock').show();
+            }else
+            {
+                $('#rechdateblock').hide();
+                reinit2();
+
+            }
+        
+    });
+
+    $('#checkboxrechercheparprocess').on( "click", function() {   
+            var isChecked = $(this).is(':checked');
+            if(isChecked)
+            {
+                console.log('checked')
+                $('#rechcategblock').show();
+            }else
+            {
+                $('#rechcategblock').hide();
+                reinit();
+            }
+        
+    });
+    $('#recherchecategorie').change(function() {   
+            var categorieid = $(this).children("option:selected").val();
+            rechargerpagerechercheEI(categorieid);
+            souscategorieslist='';
+    });
+
+    //rechargerpagerechercheEI({{currentcategorie.id}})
+
+
+            	// Data Picker Initialization
+		$('#rechercherchedatedebut').pickadate({
+			 monthsFull: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre',
+					'Novembre', 'Decembre'],
+					// Light or Dark theme
+		        	darktheme: true,
+		        	onSet: function(context) {		        			
+						date=new Date(context.select)
+                        day=date.getDate() 
+                        month=date.getMonth()
+                        month=((month+1)+'').padStart(2,'0')
+                        day=((day)+'').padStart(2,'0')
+						var strdate=day +'-'+month+'-'+date.getFullYear();
+						//changeValueEsr('{{urlsaveesrvalue}}',{{id_esr_courant}},'dateDetectionESR',strdate);
+                        var url='{{ url('eisearch',{screenheigth:"_screenheigth",categorie:"_categorie",souscategorieslist:"_souscategorieslist",datedebut:"_datedebut",datefin:"_datefin"}) }}';
+                    
+                        datefin=$("#rechercherchedatefin").val()
+                            if(datefin == '')
+                                {
+                                    var date2=new Date();
+                                    day2=date2.getDate() 
+                                    month2=date2.getMonth()
+                                    month2=((month2+1)+'').padStart(2,'0')
+                                    day2=((day2)+'').padStart(2,'0')
+                                    var strdate2=day2 +'-'+month2+'-'+date2.getFullYear();
+                                }else{
+                                    var date2=new Date(datefin);
+                                    day2=date2.getDate() 
+                                    month2=date2.getMonth()
+                                    month2=((month2+1)+'').padStart(2,'0')
+                                    day2=((day2)+'').padStart(2,'0')
+                                    var strdate2=day2 +'-'+month2+'-'+date2.getFullYear(); 
+                                }
+
+	        		    //url2=url.replace("_datedebut",strdate).replace("_datefin",strdate2);
+                        //esr(url2);
+
+                        var url='{{ url('meseisearch',{screenheigth:"_screenheigth",offset : 0,categorie:"_categorie",souscategorieslist:"_souscategorieslist",datedebutf:"_datedebutf",datefinf:"_datefinf"}) }}';
+                        url2=url.replace("_datedebutf",strdate).replace("_datefinf",strdate2);
+                        url2=url2.replace("_screenheigth", screen.height).replace("_souscategorieslist",souscategorieslist).replace("_categorie","0");
+                        $('#eimesdelarations').load(url2);
+                    }
+			}	);
+
+  function rechargerpageEI(){
+		url="{{ url('mesei',{"screenheigth": screenheigth,'offset':0} ) }}";
+		var url2=url.replace("_screenheigth", screen.height);
+		$('#eimesdelarations').load(url2);
+	}
+	  
+        	// Data Picker Initialization
+		$('#rechercherchedatefin').pickadate({
+			 monthsFull: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre',
+					'Novembre', 'Decembre'],
+					// Light or Dark theme
+		        	darktheme: true,
+		        	onSet: function(context) {		        			
+						date=new Date(context.select)
+                        day=date.getDate() 
+                        month=date.getMonth()
+                        month=((month+1)+'').padStart(2,'0')
+                        day=((day)+'').padStart(2,'0')
+						var strdate=day +'-'+month+'-'+date.getFullYear();
+						//changeValueEsr('{{urlsaveesrvalue}}',{{id_esr_courant}},'dateDetectionESR',strdate);
+                        //var url='{{ url('eisearch',{screenheigth:"_screenheigth",categorie:"_categorie",souscategorieslist:"_souscategorieslist",datedebut:"_datedebut",datefin:"_datefin"}) }}';
+                    
+                        datedebut=$("#rechercherchedatedebut").val()
+                            if(datedebut == '')
+                                {
+                                    var date2=new Date();
+                                    day2=date2.getDate() 
+                                    month2=date2.getMonth()
+                                    month2=((month2+1)+'').padStart(2,'0')
+                                    day2=((day2)+'').padStart(2,'0')
+                                    var strdate2=day2 +'-'+month2+'-'+date2.getFullYear();
+                                }else{
+                                    var date2=new Date(datedebut);
+                                    day2=date2.getDate() 
+                                    month2=date2.getMonth()
+                                    month2=((month2+1)+'').padStart(2,'0')
+                                    day2=((day2)+'').padStart(2,'0')
+                                    var strdate2=day2 +'-'+month2+'-'+date2.getFullYear(); 
+                                }
+
+	        		    //url2=url.replace("_datefin",strdate).replace("_datedebut",strdate2);
+                        //esr(url2);
+                        var url='{{ url('meseisearch',{screenheigth:"_screenheigth",offset : 0,categorie:"_categorie",souscategorieslist:"_souscategorieslist",datedebutf:"_datedebutf",datefinf:"_datefinf"}) }}';
+                        url2=url.replace("_datedebutf",strdate2).replace("_datefinf",strdate);
+                        url2=url2.replace("_screenheigth", screen.height).replace("_souscategorieslist",souscategorieslist).replace("_categorie","0");
+                        $('#eimesdelarations').load(url2);
+	        			}
+			}	);
+
+
+            
+
+      $(document).ready(function() {
+        $('#rechcategblock').hide();
+        $('#rechdateblock').hide();
+        reinit();
+
+  });
+
+
+</script>

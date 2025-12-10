@@ -1,0 +1,5 @@
+{% if cpt1 == cpt2 %}
+         {% include ("@EasyDose/portlet/classifier/helpers/cellule.html.twig") with {'status' : 'selected', 'i':cpt1,'actionfunction': function}%}
+{% else %}
+         {% include ("@EasyDose/portlet/classifier/helpers/cellule.html.twig") with {'status': 'notselected','i':cpt1,'actionfunction': function } %} 
+{% endif %}

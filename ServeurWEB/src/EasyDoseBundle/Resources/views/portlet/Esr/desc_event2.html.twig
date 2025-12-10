@@ -1,0 +1,173 @@
+        <div style="height:600px;overflow-y:scroll;">
+          <div  id="identitiedeclarant">
+                        			<!-- Default form register -->
+                    <form class="border border-light p-3" action="#!">
+                    
+                        <p class="h4 mb-4 text-center">Description de l'évènement</p>     
+                        
+                     	<!-- Circonstances de détection -->
+                     	<p  class="text-center  mb-3 mt-3" style="border-bottom:1px solid #ced4da;">                     	
+                        <strong>4.</strong>
+                        Circonstance de la détection
+                        </p>  
+                     	<div class="form-group">
+                          <textarea placeholder="Décrire l'évènement" class="form-control rounded-0" id="circonstancesDetection" rows="4">{{ esr.circonstancesDetection }}</textarea>
+                        </div>
+
+                        <!-- Cet évènement concerne le personnel --> 
+                        
+                        {% if esr.type !='Automatique' %}
+                        <div class="row">
+                        
+                                <div class="col-md-6 ml-3 custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="personnelcheckbox" {% if esr.idTypePersonnalEvent is defined and esr.idTypePersonnalEvent is not null %} checked="checked"  {% endif %} >
+                                    <label class="custom-control-label" for="personnelcheckbox">Cet evènement concerne le personnel</label>
+                                </div>   
+                                <div id="listetypepersonnel" {% if esr.idTypePersonnalEvent  is not defined or esr.idTypePersonnalEvent is null%} style="display:none;" {% endif %}class="col-md-5">
+                                    <select id="esreventpersonnel" class="browser-default custom-select mb-4">
+                                        <option value="" disabled selected>Choisissez</option>
+                                        
+                                        {% for type in typepersonnevent %}
+                                        	<option value="{{ type.id }}"      {% if esr.idTypePersonnalEvent is defined and esr.idTypePersonnalEvent.id==type.id %} selected  {% endif %}  > {{ type.libelle }}</option>
+                                        {% endfor %}                                                                  
+                                    </select>	
+                                </div>
+                           </div>
+                           <div class="row">
+                                <div class="col-md-5 ml-3 pr-0 custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="Patientcheckbox" {% if patient is defined and patient is not null%} checked="checked" {% endif %}>
+                                    <label class="custom-control-label" for="Patientcheckbox" >Cet evènement concerne un patient</label>
+                                </div> 
+                                
+                                
+                                <div id="listePatient" class="col-md-6">
+                                <div class="row">
+                                
+                                    <div id="esrpatientevent2" class="col-md-8">{% if patient is defined and patient is not null %} {{ patient.nom }} {{ patient.prenom }} {% endif %} {% if esr.patientname is defined and esr.patientname is not null %} {{ esr.patientname }} {% endif %}</div> <div id="modifieresrpatient" class="hovered col-md-4"> {% if patient is defined and patient is not null%} {% include ("@EasyDose/portlet/Esr/pencil.svg.twig") %} Modifier  {% endif %}</div>
+                                
+                                </div>
+                                </div>
+                                
+                        	</div>
+                        {% endif %}
+                    
+                    
+                    
+                        <!-- Dispositif concerné -->
+                    	<p class="text-center  mb-3 mt-3" style="border-bottom:1px solid #ced4da;">
+                        <strong>5.</strong>
+                        Dispositif concerné
+                        </p> 
+    					
+    					<input type="text" id="dispositif_visible" value="{{ dispositifCourant.marque }} {{ dispositifCourant.denomination}}" class="form-control mb-4" placeholder="Choisissez le dispositif" data-toggle="modal" data-target="#listedispositifs">
+                        
+                        <input type="hidden" id="dispositif" >
+                        
+                          
+                        <!-- Orignine de l'évènement -->
+                    	<p class="text-center  mb-3 mt-3" style="border-bottom:1px solid #ced4da;">
+                        <strong>6.</strong>
+                        Origine de l'évènement
+                        </p> 
+                        <select id="origine" class="browser-default custom-select mb-4">
+                            <option value="" disabled selected>Choisissez de l'origine</option>
+                            
+                            {% for origine in origines %}
+                                {% if origine.id == esr.origine %}
+                                	<option value="{{ origine.id }}" selected> {{ origine.libelle }}</option>
+                                {% else %}
+                                	<option value="{{ origine.id }}"> {{ origine.libelle  }}</option>
+                                {% endif %}
+                            {% endfor %}
+                                                      
+                        </select>
+                    
+                        
+                       {% include ("@EasyDose/portlet/Esr/precedent_next_esr.html.twig") %} 
+                        <hr>
+                        
+                   </form>                        
+               </div>
+        </div>        
+        <!-- Inclusion de la liste de la fenètre de chois des dispositifs -->
+        {% include ("@EasyDose/portlet/Esr/dispositif.html.twig") with {'dispositifs' : dispositifs} %}
+ 
+        <script>
+        
+        changeesrValueGlobal('{{urlsaveesrvalue}}',{{id_esr_courant}},'input','circonstancesDetection');
+        changeesrValueGlobal('{{urlsaveesrvalue}}',{{id_esr_courant}},'input','dispositif');
+        changeesrValueGlobal('{{urlsaveesrvalue}}',{{id_esr_courant}},'select','origine');
+
+        changeesrValueGlobal('{{urlsaveesrvalue}}',{{id_esr_courant}},'select','esreventpersonnel');
+
+
+        function deletepatientesr(esrid,url){       	 
+      	 url2=url.replace('_esrid',esrid);
+      	 $.ajax({
+             url: url2,
+             type: 'GET',
+             dataType : 'json',
+             success: function(datas){
+                 console.log(datas);
+                 },
+             });
+
+      }
+        
+        $('#personnelcheckbox').change(function() {
+            // this will contain a reference to the checkbox   
+            if (this.checked) {    
+
+            	$('#listetypepersonnel').show();
+            	$('#Patientcheckbox').prop( "checked", false );
+
+				esrid=$('#esrid').prop("value");
+            	//deletepatientEsr
+				deletepatientesr(esrid,"{{url('deletepatientEsr',{'esrid': '_esrid' })}}");
+            	$('#esrpatientevent2').html('');
+            	$('#modifieresrpatient').html('');
+            	$('#cardptnomprenom'+esrid).html('');
+            	$('#cardptideasydose'+esrid).html('');
+            } else {
+            	esrid=$('#esrid').prop("value");
+                // the checkbox is now no longer checked
+            	$('#listetypepersonnel').hide();
+            	deletepatientesr(esrid,"{{url('deletetypepersoEsr',{'esrid': '_esrid' })}}");
+            }
+        });
+
+        
+        $('#modifieresrpatient').click(function() {
+        	$('#choixPatientModal').modal('show');
+        	$('#esrid').prop("value",'{{id_esr_courant}}');	
+        	$('#urlchange').prop("value",'{{urlsaveesrvalue}}');
+        });
+        $('#Patientcheckbox').change(function() {
+            // this will contain a reference to the checkbox   
+            
+            if (this.checked) {                
+            	$('#listetypepersonnel').show();
+            	$('#esrid').prop("value",'{{id_esr_courant}}');	
+            	$('#urlchange').prop("value",'{{urlsaveesrvalue}}');
+            	// alert($('#esrid').prop("value"));
+            	$('#personnelcheckbox').prop( "checked", false );
+            	$('#listetypepersonnel').hide();
+            	
+		   //Ouverture fenetre choix patient
+				
+            	
+            	$('#choixPatientModal').modal('show'); 
+            } else {
+            	esrid=$('#esrid').prop("value");
+            	deletepatientesr(esrid,"{{url('deletepatientEsr',{'esrid': '_esrid' })}}");
+            	$('#cardptnomprenom'+esrid).html('');
+            	$('#esrpatientevent2').html('');
+            	$('#modifieresrpatient').html('');
+            	$('#cardptideasydose'+esrid).html('');
+                // the checkbox is now no longer checked
+            	$('#listetypepersonnel').hide();
+
+            	
+            }
+        });
+         </script>

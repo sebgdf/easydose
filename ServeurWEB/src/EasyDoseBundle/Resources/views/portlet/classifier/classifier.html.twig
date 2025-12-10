@@ -1,0 +1,100 @@
+{% set functionname="thisone" %}                        
+{% set functionnamenext="next" %}  
+{% set functionnamelast="last" %}  
+
+{% if isesr is defined %}  
+
+    {% set functionname="thisoneei" %}                        
+    {% set functionnamenext="nextei" %}  
+    {% set functionnamelast="lastei" %}  
+
+{% endif %}  
+
+        <div style="float:right;margin-top:5px;" class="dataTables_paginate paging_simple_numbers" id="dtBasicExample_paginate" >
+              <ul class="pagination">
+			<!-- Gestion Précédent -->
+            {% include ("@EasyDose/portlet/classifier/helpers/last.html.twig")  with {'functionnamenext':functionnamenext,'url':url}  %} 
+            
+            
+                 {% set taillemax=4 %}
+                 {% if  nbpagesToview >1%} 
+                       
+                     <!-- Début Cas où il y moins de 4 pages -->   
+                     {% if taillemax>nbpagesToview %}
+                         {% for i in 1 ..nbpagesToview %}
+                             {% set function= functionname~"( "~(i -1)~" ,'"~url~"');"%}  
+                             {% include ("@EasyDose/portlet/classifier/helpers/cellule_globale.html.twig") with {'cpt1' : i, 'cpt2':(offset +1 ),'actionfunction': function}%}                			                 
+                         {% endfor %}
+                     {% else %}
+                      <!-- Fin Cas où il y moins de 4 pages -->   
+                      
+                      
+                      
+                   <!-- Début Cas où il y a plus de 4 pages et que le offset est inférieur à 4 -->
+                      {%  if offset<taillemax%}                      
+                         {% for i in 1 ..taillemax-1 %}
+                         {% set function= functionname~"( "~(i -1)~" ,'"~url~"');"%}  
+                         {% include ("@EasyDose/portlet/classifier/helpers/cellule_globale.html.twig") with {'cpt1' : i, 'cpt2':(offset +1 ),'actionfunction': function}%}	
+                         {% endfor %}
+                         
+                         
+                         ....
+                         
+
+                         {% set last= nbpagesToview%}
+                         {% set function= functionname~"( "~(last-1)~" ,'"~url~"');"%}                        
+                         {% include ("@EasyDose/portlet/classifier/helpers/cellule_globale.html.twig") with {'cpt1' : last, 'cpt2':(offset +1 ),'actionfunction': function}%}		                            
+                  
+                        
+                   <!-- Fin Cas où il y a plus de 4 pages et que le offset est inférieur à 4 -->             
+                    {% else %}
+                    
+                    
+                   <!-- Début Cas l'offest est sur la fin -->               
+                   {%if offset > (nbpagesToview-taillemax) %} 
+                                  {% set first= 1%}
+                                  {% set function= functionname~"( "~(first -1)~" ,'"~url~"');"%}                                  
+                                  {% include ("@EasyDose/portlet/classifier/helpers/cellule_globale.html.twig") with {'cpt1' : first, 'cpt2':(offset +1 ),'actionfunction': function}%}		                            
+                                                    
+                                  ....  
+                                  {% for i in (nbpagesToview-taillemax) ..nbpagesToview %}
+                                      {% set function= functionname~"( "~(i -1)~" ,'"~url~"');"%}		
+                                      {% include ("@EasyDose/portlet/classifier/helpers/cellule_globale.html.twig") with {'cpt1' : i, 'cpt2':(offset +1 ),'actionfunction': function}%}		                            
+                                  {% endfor %}  
+                    {% else %}
+                   <!-- Fin Cas l'offest est sur la fin -->      
+                        
+                        
+                        
+                        
+                        
+                     <!-- Début Cas ou on est entre les 2 -->     
+                                  {% set first= 1%}                                  
+                                  {% include ("@EasyDose/portlet/classifier/helpers/cellule_globale.html.twig") with {'cpt1' : first, 'cpt2':(offset +1 ),'actionfunction': function}%}		                            
+                  
+                                  ...
+                                  {% for i in (offset-2) ..(offset+2) %} 
+                                      {% set function= functionname~"( "~(i -1)~" ,'"~url~"');"%}
+                                      {% include ("@EasyDose/portlet/classifier/helpers/cellule_globale.html.twig") with {'cpt1' : i, 'cpt2':(offset +1 ),'actionfunction': function}%}		                            
+                  	
+                                   {% endfor %}
+                    
+                                   ... 
+                    
+                                   {% set last= nbpagesToview%}
+                                   {% set function= functionname~"( "~(last -1)~" ,'"~url~"');"%}                                    
+                                   {% include ("@EasyDose/portlet/classifier/helpers/cellule_globale.html.twig") with {'cpt1' : last, 'cpt2':(offset +1 ),'actionfunction': function}%}		                            
+                  
+          <!-- Fin Cas ou on est entre les 2 -->       
+                       
+                       
+                                                    
+                            {% endif %} 
+                   {% endif %}           
+                 {% endif %}  
+              {% endif %}
+                    
+            <!-- Suivant -->
+            {% include ("@EasyDose/portlet/classifier/helpers/next.html.twig") with {'functionnamelast':functionnamelast,'url':url} %} 
+          </ul>
+       </div>

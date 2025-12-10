@@ -1,0 +1,110 @@
+version: "3.7"
+services:
+  easydose:
+    container_name: "easydose"
+    image: ghcr.io/sebastiengdf/easydose:latest
+    restart: always
+    tty: true
+    hostname: easydose
+    environment:
+      TZ: "Indian/Reunion"
+    ports:
+      - 80:80
+    privileged: true
+    links:
+      - mysql
+    networks:
+      - default
+    volumes:
+            - type: bind
+              source: /home/sebastien/easydosedocker/web/logs
+              target: /home/easydose/var/logs
+  dicomserver:
+    container_name: "dicomserver"
+    image: ghcr.io/sebastiengdf/dicomserver:latest
+    restart: always
+    tty: true
+    hostname: dicomserver
+    environment:
+      TZ: "Indian/Reunion"
+    ports:
+      - 11112:11112
+    privileged: true
+    links:
+      - mysql
+      - easydose
+    networks:
+      - default
+    volumes:
+            - type: bind
+              source: /home/sebastien/easydosedocker/dicomserver/error/save
+              target: /home/dicomserver/save/
+            - type: bind
+              source: /home/sebastien/easydosedocker/dicomserver/logs
+              target: /home/dicomserver/logs/
+            - type: bind
+              source: /home/sebastien/easydosedocker/dicomserver/serialisation/export
+              target: /home/sebastien/easydosev3/export
+            - type: bind
+              source: /home/sebastien/easydosedocker/dicomserver/serialisation/import
+              target: /home/sebastien/easydosev3/import/export
+            - type: bind
+              source: /home/sebastien/easydosedocker/dicomserver/serialisation/importDone
+              target: /home/sebastien/easydosev3/importDone
+            - type: bind
+              source: /home/sebastien/easydosedocker/dicomserver/ssh/import
+              target: /home/dicomserver/import/
+            - type: bind
+              source: /home/sebastien/easydosedocker/dicomserver/ssh/export
+              target: /home/dicomserver/export/
+  sshserver:
+    container_name: "sshserver"
+    image: ghcr.io/sebastiengdf/sshserver:latest
+    restart: always
+    tty: true
+    hostname: sshserver
+    environment:
+      TZ: "Indian/Reunion"
+    ports:
+      - 11142:22
+    privileged: true
+    links:
+      - mysql
+    networks:
+      - default
+    volumes:
+            - type: bind
+              source: /home/sebastien/easydosedocker/sshserver/sshserver
+              target: /home/dicomserver/.ssh
+            - type: bind
+              source: /home/sebastien/easydosedocker/sshserver/import
+              target: /home/dicomserver/import
+            - type: bind
+              source: /home/sebastien/easydosedocker/sshserver/export
+              target: /home/dicomserver/export
+
+  mysql:
+    image: ghcr.io/sebastiengdf/mysql:latest
+    container_name: "bddmysql"
+    restart: always
+    tty: true
+    hostname: bddmysql
+    environment:
+      TZ: "Indian/Reunion"
+      MYSQL_ROOT_PASSWORD: Boss132
+      MYSQL_DATABASE: 'easydose'
+      MYSQL_TCP_PORT: 3307
+    privileged: true
+    ports:
+      - '3307:3307'
+    expose:
+      - '3307'
+    networks:
+      - default
+    volumes:
+            - type: bind
+              source: /home/sebastien/easydosedocker/mysql/data
+              target: /var/lib/mysql
+            - type: bind
+              source: /home/sebastien/easydosedocker/mysql/sql
+              target: /sql

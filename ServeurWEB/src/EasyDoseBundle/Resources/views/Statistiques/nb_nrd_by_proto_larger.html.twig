@@ -1,0 +1,37 @@
+<!-- nb_nrd_by_proto.html.twig -->
+
+
+<canvas id="nbnrdbyprotolarger"  width="100%" height="70%">
+</canvas>
+
+<script>
+
+    var ctxlarger = document.getElementById('nbnrdbyprotolarger').getContext('2d');
+    var nbnrdbyprotolarger = new Chart(ctxlarger, {
+        type: 'bar',
+        data: {
+            labels: [{% for value in stat %}  {% if loop.first %} "{{value.protocole}}"{% else %},"{{value.protocole}}"{% endif %}{% endfor %}],
+            
+            datasets: [{
+                label: 'Nombre de dépassement par protocole',
+                data: [{% for value in stat %}  {% if loop.first %} "{{value.nombre}}"{% else %},"{{value.nombre}}"{% endif %}{% endfor %}],
+                borderColor:[{% for value in stat  %}{% if loop.first %}'#6200ea'{% else %}  ,'#6200ea' {% endif %}{% endfor %}],
+                backgroundColor:[{% for value in stat  %}{% if loop.first %}'#6200ea'{% else %}  ,'#6200ea' {% endif %}{% endfor %}],
+                borderWidth: 1
+            },
+                        
+            ]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+    nbnrdbyprotolarger.update();
+
+    </script>

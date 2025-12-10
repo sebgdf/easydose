@@ -1,0 +1,44 @@
+{
+    "name": "infocom/media-bundle",
+    "type": "symfony-media",
+    "description": "Infocom MediaBundle",
+    "keywords": [
+        "User management"
+    ],
+    "homepage": "http://infocomreunion.re",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sébastien GIRIER-DUFOURNIER",
+            "email": "sebastien.girier-dufournier@gmail.com"
+        },
+        {
+            "name": "Sébastien GIRIER-DUFOURNIER"
+        },
+        {
+            "name": "FriendsOfSymfony Community",
+            "homepage": "http://infocomreunion.re"
+        }
+    ],
+    "require": {
+    },
+    "conflict": {
+
+    },
+    "require-dev": {
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.9-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": { "MediaBundle\\": "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "MediaBundle\\Tests\\": "tests/" }
+    }
+}

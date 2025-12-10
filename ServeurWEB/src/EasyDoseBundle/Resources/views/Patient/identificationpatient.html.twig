@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col-md-5"> 
+        <p>
+        {% if patient.sex == "FEMME"  %}
+        	Mme 
+        {% else %}
+        	Mr.
+        {% endif %}
+        <span class="identpatientvalue" >
+        {% if patient.sex == "FEMME"  %}
+        <code>{{ patient.nom }} {{ patient.prenom }}</code>
+         {% else %}
+         <span style="color:rgb(41,55,91);">{{ patient.nom }} {{ patient.prenom }}</span>
+         
+         {% endif %}
+        </span>
+        {% if patient.sex == "FEMME"  %}
+        	née 
+        {% else %}
+        	né
+        {% endif %}
+        
+         le 
+          {% if patient.sex == "FEMME"  %}
+          <span class="identpatientvalue" ><code>{{ patient.datenaissance | date('d/m/Y') }}</code></span><br>    
+           {% else %}
+           <span class="identpatientvalue" style="color:rgb(41,55,91);" >{{ patient.datenaissance | date('d/m/Y') }}</span><br> 
+            {% endif %}  
+        </p>
+    </div>
+    
+        <div class="offset-md-2  col-md-5" style="text-align: right;"> 
+        <p>
+        {% if patient.sex == "FEMME"  %}
+        N° de dossier :  <span class="identpatientvalue" ><code>{{ patient.numipp }}</code></span><br>
+        N° régional:   <span class="identpatientvalue" ><code>{{ patient.idregional }}</code></span><br>
+        {% else %}
+        N° de dossier :  <span class="identpatientvalue" style="color:rgb(41,55,91);" >{{ patient.numipp }}</span><br>
+        N° régional:  <span class="identpatientvalue" style="color:rgb(41,55,91);" >{{ patient.idregional }}</span><br>
+        
+        {% endif %} 
+        </p>
+    </div>
+</div>

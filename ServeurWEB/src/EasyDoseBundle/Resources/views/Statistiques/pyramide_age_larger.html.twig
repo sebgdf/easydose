@@ -1,0 +1,196 @@
+<!-- pyramide_age_larger.html.twig -->
+<style>
+#chartdiv2 {
+  width: 140%;
+  height: 33rem;
+}
+</style>
+
+
+
+<script>
+am4core.ready(function() {
+
+// Themes begin
+am4core.useTheme(am4themes_animated);
+// Themes end
+
+var mainContainer2 = am4core.create("chartdiv2", am4core.Container);
+mainContainer2.width = am4core.percent(100);
+mainContainer2.height = am4core.percent(100);
+mainContainer2.layout = "horizontal";
+
+var usData2 = [
+{% set i=-1 %}
+{% set cnt=0 %}
+{% for age in  pyramideage %}
+    {% if age.ordre!=i %}
+       {% if cnt ==1 %}
+			},
+          {% set cnt=0 %}
+       {% else %}
+		   
+		   {% set cnt=0 %}  
+       {% endif %}
+        {% set i= age.ordre%}
+      {
+    	"age": "{{age.trancheAge}}",
+    	  {% if age.genre=='Homme' %}
+    			"Homme": {{age.nombre}},
+    	  {% else %}
+    	  		"Femme": {{age.nombre}},
+    	  {%endif%}
+    	  {% set cnt=cnt+1 %}	  
+    {%else%}
+            {% if age.genre=='Homme' %}
+        		"Homme": {{age.nombre}},
+            {% else %}
+        		"Femme": {{age.nombre}},
+            {%endif%}
+          	},
+          	{% set cnt=cnt+1 %}	
+    {%endif%}
+                
+{% endfor %}
+
+];
+
+var maleChart2 = mainContainer2.createChild(am4charts.XYChart);
+maleChart2.paddingRight = 0;
+maleChart2.data = JSON.parse(JSON.stringify(usData2));
+
+// Create axes
+var maleCategoryAxis2 = maleChart2.yAxes.push(new am4charts.CategoryAxis());
+maleCategoryAxis2.dataFields.category = "age";
+maleCategoryAxis2.renderer.grid.template.location = 0;
+//maleCategoryAxis.renderer.inversed = true;
+maleCategoryAxis2.renderer.minGridDistance = 15;
+
+var maleValueAxis2 = maleChart2.xAxes.push(new am4charts.ValueAxis());
+maleValueAxis2.renderer.inversed = true;
+maleValueAxis2.min = 0;
+maleValueAxis2.max = 10;
+maleValueAxis2.strictMinMax = true;
+
+maleValueAxis2.numberFormatter = new am4core.NumberFormatter();
+maleValueAxis2.numberFormatter.numberFormat = "#.#'%'";
+
+// Create series
+var maleSeries2 = maleChart2.series.push(new am4charts.ColumnSeries());
+maleSeries2.dataFields.valueX = "Homme";
+maleSeries2.dataFields.valueXShow = "percent";
+maleSeries2.calculatePercent = true;
+maleSeries2.dataFields.categoryY = "age";
+maleSeries2.interpolationDuration = 1000;
+maleSeries2.columns.template.tooltipText = "Hommes, age{categoryY}: {valueX} ({valueX.percent.formatNumber('#.0')}%)";
+//maleSeries.sequencedInterpolation = true;
+
+
+var femaleChart2 = mainContainer2.createChild(am4charts.XYChart);
+femaleChart2.paddingLeft = 0;
+femaleChart2.data = JSON.parse(JSON.stringify(usData2));
+
+// Create axes
+var femaleCategoryAxis2 = femaleChart2.yAxes.push(new am4charts.CategoryAxis());
+femaleCategoryAxis2.renderer.opposite = true;
+femaleCategoryAxis2.dataFields.category = "age";
+femaleCategoryAxis2.renderer.grid.template.location = 0;
+femaleCategoryAxis2.renderer.minGridDistance = 15;
+
+var femaleValueAxis2 = femaleChart2.xAxes.push(new am4charts.ValueAxis());
+femaleValueAxis2.min = 0;
+femaleValueAxis2.max = 10;
+femaleValueAxis2.strictMinMax = true;
+femaleValueAxis2.numberFormatter = new am4core.NumberFormatter();
+femaleValueAxis2.numberFormatter.numberFormat = "#.#'%'";
+femaleValueAxis2.renderer.minLabelPosition = 0.01;
+
+// Create series
+var femaleSeries2 = femaleChart2.series.push(new am4charts.ColumnSeries());
+femaleSeries2.dataFields.valueX = "Femme";
+femaleSeries2.dataFields.valueXShow = "percent";
+femaleSeries2.calculatePercent = true;
+femaleSeries2.fill = femaleChart2.colors.getIndex(4);
+femaleSeries2.stroke = femaleSeries2.fill;
+//femaleSeries.sequencedInterpolation = true;
+femaleSeries2.columns.template.tooltipText = "Femmes, age{categoryY}: {valueX} ({valueX.percent.formatNumber('#.0')}%)";
+femaleSeries2.dataFields.categoryY = "age";
+femaleSeries2.interpolationDuration = 1000;
+
+
+var mapChart2 = mainContainer2.createChild(am4maps.MapChart);
+mapChart2.projection = new am4maps.projections.Mercator();
+//mapChart.geodata = am4geodata_usaAlbersLow;
+mapChart2.zoomControl = new am4maps.ZoomControl();
+mapChart2.zIndex = -1;
+
+var polygonSeries2 = mapChart2.series.push(new am4maps.MapPolygonSeries())
+polygonSeries2.useGeodata = true;
+
+var selectedStateId2 = "US";
+var selectedPolygon2;
+var selectedStateName2;
+
+var polygonTemplate2 = polygonSeries2.mapPolygons.template;
+polygonTemplate2.togglable = true;
+
+var hoverState2 = polygonTemplate2.states.create("hover");
+hoverState2.properties.fill = mapChart2.colors.getIndex(2);
+
+var activeState2 = polygonTemplate2.states.create("active");
+activeState2.properties.fill = mapChart2.colors.getIndex(6);
+
+polygonTemplate2.events.on("hit", function(event) {
+  var id = event.target.dataItem.dataContext.id;
+  var stateId = id.split("-")[1];
+  showState2(stateId, event.target.dataItem.dataContext.name, event.target);
+})
+
+
+mapChart2.seriesContainer.background.events.on("over", function(event) {
+  showState(selectedStateId2, selectedStateName2, selectedPolygon2);
+});
+
+
+function showState2(id, stateName, polygon) {
+  if(selectedStateId2 != id){
+
+    var newData = stateData[id];
+
+    if (selectedPolygon2) {
+      selectedPolygon2.isActive = false;
+    }
+
+    for (var i = 0; i < femaleChart2.data.length; i++) {
+      femaleChart2.data[i].female = newData[i].female;
+      maleChart2.data[i].male = newData[i].male;
+    }
+
+    femaleChart2.invalidateRawData();
+    maleChart2.invalidateRawData();
+
+    selectedStateName2 = stateName;
+    selectedStateId2 = id;
+    selectedPolygon2 = polygon;
+
+    label2.text = stateName + " population pyramid";
+    label2.hide(0);
+    label2.show();
+   }
+}
+
+var label2 = mainContainer2.createChild(am4core.Label);
+label2.isMeasured = false;
+label2.x = am4core.percent(80);
+label2.horizontalCenter = "middle";
+label2.y = 50;
+label2.showOnInit = true;
+//label.text = "US Population pyramid";
+label2.hiddenState.properties.dy = -100;
+
+
+}); // end am4core.ready()
+</script>
+
+<!-- HTML -->
+<div id="chartdiv2"></div>

@@ -1,0 +1,9 @@
+Bonjour {{ user.firstname }},<br><br>
+Madame <strong>{{ patient.nom }} {{ patient.prenom }}-{{ patient.idregional }}</strong> présentant un état de grossesse a bénéficié ce jour
+<strong>{{ "now" |  date('d/m/Y')}}</strong> d'un <a href="{{ url('login') }}">examen</a> radiologique.<br> <br>
+Contactez votre radiophycisien pour procéder à l'estimation de la dose reçue par la foetus.<br>
+Le niveau de risque devra être évalué en fonction du stade de la grossesse.
+<br>
+<center><img src="{{ img }}" width="300" border="0" alt="image dose"></center>
+
+

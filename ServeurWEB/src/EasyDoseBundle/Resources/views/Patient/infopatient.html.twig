@@ -1,0 +1,364 @@
+  <div style=" position:absolute;top:-35px;left:28px;">
+	<a onclick="listepatients('/patient/worklistsearchFiltre');"><i class="fa fa-2x fa-angle-left"></i> <span style="text-decoration:underline;display: table-cell; vertical-align: middle; line-height: normal;font-weight:400;font-size:large;">Retour</span> </a>
+  </div>
+
+<section class="mb-5">
+
+	<div class="card card-cascade card-cascade narrower" style="margin-left:-20px;margin-right:-20px;">
+	
+	
+	<div class="col-md-6 onglet1" > Informations</div>
+	
+	
+		<div class="row">
+			<div class="col-lg-12 col-xl-6 mr-0">
+				
+				<div class="card-body card-body-cascade pb-0">
+					<div class="card-body row pt-3 titreinfopatient font-weight-bolder">
+						
+						<div class="col-md-5 ">Identité</div>
+					</div>
+					<div class="card-body row pt-3 infopatient">
+						
+						<div class="col-md-5 libellepatientidentite">Nom</div><div class="col-md-7 infopatientidentite ">{{ patient.nom }}</div>
+					</div>
+					<div class="card-body row pt-3 infopatient">
+						
+						<div class="col-md-5 libellepatientidentite">Prénom</div><div class="col-md-7 infopatientidentite">{{ patient.prenom }}</div>
+					</div>
+					
+					<div class="card-body row pt-3 infopatient">
+						
+						<div class="col-md-5 libellepatientidentite">Date de naissance</div><div class="col-md-7 infopatientidentite">{{ patient.datenaissance | date('d/m/Y') }}</div>
+					</div>
+					
+					<div class="card-body row pt-3 infopatient">
+						
+						<div class="col-md-5 libellepatientidentite">N° IPP</div><div class="col-md-7 infopatientidentite">{{ patient.numipp }}</div>
+					</div>
+					
+					<div class="card-body row pt-3 infopatient">
+						
+						<div class="col-md-5 libellepatientidentite">Id Régional</div><div class="col-md-7 infopatientidentite">{{ patient.idregional }}</div>
+					</div>
+					
+					<div class="card-body row pt-3 font-weight-bolder titreinfopatient">
+						
+						<div class="col-md-5 ">Notes</div>
+					</div>
+	
+					
+						<div class="row">
+                			<div class =" col-md-12" style="text-decoration: underline;" id="lablllastnotes">Dernières notes:</div>
+                    	</div>
+                	
+                    	<div class="row">
+                    	{% set urlpatient2=url('shownotesAll',{idpatient:"patientid"}) %}
+                    		<div class =" col-md-10"><code><span id="lastcomentuser" ></span><span id="lastcommentdate" ></span></code><span style="font-style: italic; color:rgb(132,132,132);" id="lastcoment" >{{ lastnote.content | default("	")  }} </span><span style="color:blue;"> <a data-toggle="collapse" href="#commentairespatient" aria-expanded="false" aria-controls="commentairespatient"  id="moreN" onclick="getNotes({{ patient.id }},'{{ urlpatient2 }}') ;">.....En voir plus</a></span></div>
+
+							</div>
+				</div>
+			</div>
+			
+			
+			
+			<div class="col-lg-12 col-xl-6 mb-4">
+    			
+    				<div class="view view-cascade gradient-card-header white" style="margin-left:0.1%;margin-right:0.1%;padding: 1rem 0.2rem;">
+    					<div class="chartjs-size-monitor">
+    						<div class="chartjs-size-monitor-expand">
+    							<div class=""></div>
+    						</div>
+    						<div class="chartjs-size-monitor-shrink">
+    							<div class=""></div>
+    						</div>
+    					</div>
+    					{% include ("@EasyDose/Patient/manequinhome.html.twig") %} 
+    				</div>
+    			
+
+			</div>
+			
+			
+		</div>
+
+<div class="row">
+<div class="col-md-11 ">
+
+					
+
+                    	</div>
+</div>
+
+        <div class="row"    >
+            <div class=" col-md-11  collapse commentairepatient" id="commentairespatient" >liste des commentaires
+            
+   
+                    		
+            </div>
+        </div>
+		<div class="row">
+        <div  class="col-md-12">               		
+ 		 <center> <a data-toggle="collapse" href="#commentairespatient" aria-expanded="false" aria-controls="commentairespatient"  id="moinsN" onclick="openlastnotes();" style="display:none;" >Cacher</a></center></span>
+</div>            	
+       </div>
+		<form id='forminsertnote' action="{{ path('insertNote') }}">
+		<div class="row">
+		<div class="offset-md-2 col-md-9">&nbsp;</div>
+		</div>
+	    	<div class="row">
+	    		<div class="offset-md-1 col-md-10"><textarea class="form-control" id="notepatient" rows="4"></textarea></div>
+	    	</div>
+			<input type='text' hidden value='{{patient.id}}' name='idpatient' id='idpatient'>
+	    	<div class="row">
+	    		<div class="col-md-12">
+	    		<center>
+	    		
+	    		    		
+			    	<a target="_blank" role="button" style="background-color:rgb(56,107,255);" class="btn Ripple-parent" onclick="insertNote('{{ url('shownotesAll',{idpatient:"patientid"}) }}');">Ajouter une note
+							<div class="Ripple " style="top: 0px; left: 0px; width: 0px; height: 0px;"></div>
+					</a>
+				</center>
+	    		</div>
+	    	</div>
+    	
+    	</form>
+    	<div class="row">
+    		<div class="col-md-12">&nbsp;</div>
+    	</div>
+	</div>
+	
+</section>
+
+
+
+<script>
+
+document.getElementById("tspan3619").childNodes[0].nodeValue="{{cou}}";
+document.getElementById("tspan3619-5").childNodes[0].nodeValue="{{coumGycm2}}";
+{% if cou==0 and coumGycm2==0 %}
+document.getElementById("path3603").style.visibility="hidden";
+document.getElementById("g3400-3").style.visibility="hidden";
+
+
+
+
+{% endif%}
+{% if cou==0 %}
+document.getElementById("tspan3619").style.visibility="hidden";
+{% endif%}
+{% if coumGycm2==0%}
+document.getElementById("tspan3619-5").style.visibility="hidden";
+{% endif%}
+
+
+
+
+
+
+document.getElementById("tspan3631").childNodes[0].nodeValue="{{pelvis}}";
+document.getElementById("tspan3631-2").childNodes[0].nodeValue="{{pelvisGycm2}}";
+
+{% if pelvis==0 and pelvisGycm2==0 %}
+document.getElementById("path3676").style.visibility="hidden";
+document.getElementById("g3400-7").style.visibility="hidden";
+
+
+
+{% endif%}
+
+{% if pelvis==0 %}
+document.getElementById("tspan3631").style.visibility="hidden";
+{% endif%}
+{% if pelvisGycm2==0%}
+document.getElementById("tspan3631-2").style.visibility="hidden";
+{% endif%}
+
+
+
+
+document.getElementById("tspan3635").childNodes[0].nodeValue="{{pied}}";
+document.getElementById("tspan3635-1").childNodes[0].nodeValue="{{piedGycm2}}";
+
+{% if pied==0 and piedGycm2==0 %}
+document.getElementById("path3611").style.visibility="hidden";
+document.getElementById("g3400-9").style.visibility="hidden";
+
+
+{% endif%}
+{% if pied==0 %}
+document.getElementById("tspan3635").style.visibility="hidden";
+{% endif%}
+{% if piedGycm2==0%}
+document.getElementById("tspan3635-1").style.visibility="hidden";
+{% endif%}
+
+
+
+
+document.getElementById("tspan3623").childNodes[0].nodeValue="{{poitrine}}";
+document.getElementById("tspan3623-0").childNodes[0].nodeValue="{{poitrineGycm2}}";
+{% if poitrine==0 and poitrineGycm2==0 %}
+	document.getElementById("path3656").style.visibility="hidden";
+	document.getElementById("g3400-5").style.visibility="hidden";
+{% endif%}
+{% if poitrine==0 %}
+document.getElementById("tspan3623").style.visibility="hidden";
+{% endif%}
+{% if poitrineGycm2==0%}
+document.getElementById("tspan3623-0").style.visibility="hidden";
+{% endif%}
+
+
+
+
+document.getElementById("tspan4086-6-8").childNodes[0].nodeValue="{{corpsentier}}";
+document.getElementById("tspan4086-6").childNodes[0].nodeValue="{{corpsentierGycm2}}";
+{% if corpsentier==0 and corpsentierGycm2==0 %}
+	document.getElementById("tspan4086-6-8").style.visibility="hidden";
+	document.getElementById("tspan4086-6").style.visibility="hidden";
+	document.getElementById("tspan4088").style.visibility="hidden";
+	document.getElementById("path3809").style.visibility="hidden"
+	
+{% endif%}
+
+
+{% if corpsentier==0 %}
+document.getElementById("tspan4086-6-8").style.visibility="hidden";
+{% endif%}
+{% if corpsentierGycm2==0%}
+document.getElementById("tspan4086-6").style.visibility="hidden";
+{% endif%}
+
+
+
+
+
+document.getElementById("tspan3615").childNodes[0].nodeValue="{{tete}}";
+document.getElementById("tspan3615-6").childNodes[0].nodeValue="{{teteGycm2}}";
+
+{% if tete==0 and teteGycm2==0 %}
+	document.getElementById("path3601").style.visibility="hidden";
+	document.getElementById("g3400").style.visibility="hidden";
+	
+	
+{% endif%}
+
+{% if tete==0 %}
+document.getElementById("tspan3615").style.visibility="hidden";
+{% endif%}
+{% if teteGycm2==0%}
+document.getElementById("tspan3615-6").style.visibility="hidden";
+{% endif%}
+
+
+
+
+
+
+
+document.getElementById("tspan3627").childNodes[0].nodeValue="{{main}}";
+document.getElementById("tspan3627-7").childNodes[0].nodeValue="{{mainGycm2}}";
+{% if main==0 and mainGycm2==0 %}
+document.getElementById("path3678").style.visibility="hidden";
+document.getElementById("g3400-6").style.visibility="hidden";
+
+
+{% endif%}
+{% if main==0 %}
+document.getElementById("tspan3627").style.visibility="hidden";
+{% endif%}
+{% if mainGycm2==0%}
+document.getElementById("tspan3627-7").style.visibility="hidden";
+{% endif%}
+
+
+
+
+document.getElementById("tspan3712").childNodes[0].nodeValue="{{abdomen}}";
+document.getElementById("tspan3712-5").childNodes[0].nodeValue="{{abdomenGycm2}}";
+{% if abdomen==0 and abdomenGycm2==0 %}
+document.getElementById("path3674").style.visibility="hidden";
+document.getElementById("g3400-92").style.visibility="hidden";
+{% endif%}
+
+{% if abdomen==0 %}
+document.getElementById("tspan3712").style.visibility="hidden";
+{% endif%}
+{% if abdomenGycm2==0%}
+document.getElementById("tspan3712-5").style.visibility="hidden";
+{% endif%}
+
+
+
+
+document.getElementById("tspan3708-3").childNodes[0].nodeValue="{{leg}}";
+document.getElementById("tspan3708").childNodes[0].nodeValue="{{legGycm2}}";
+{% if leg==0 and legGycm2==0 %}
+document.getElementById("path3680").style.visibility="hidden";
+document.getElementById("g3400-2").style.visibility="hidden";
+{% endif%}
+{% if legGycm2==0 %}
+document.getElementById("tspan3708").style.visibility="hidden";
+{% endif%}
+{% if leg==0%}
+document.getElementById("tspan3708-3").style.visibility="hidden";
+{% endif%}
+
+
+document.getElementById("tspan3803").childNodes[0].nodeValue="{{ seindroit }}";
+{% if seindroit ==0 %}
+document.getElementById("tspan3803").style.visibility="hidden";
+document.getElementById("path3765").style.visibility="hidden";
+document.getElementById("g3400-5-5").style.visibility="hidden";
+
+
+{% endif%}
+
+
+document.getElementById("tspan3631-2-9").childNodes[0].nodeValue="{{ genou }}";
+document.getElementById("tspan3631-6").childNodes[0].nodeValue="{{ genouGycm2 }}";
+
+{% if genou==0 and genouGycm2==0%}
+document.getElementById("path3583").style.visibility="hidden";
+document.getElementById("g3400-7-3").style.visibility="hidden";
+
+{% endif%}
+
+{% if genou==0 %}
+document.getElementById("tspan3631-2-9").style.visibility="hidden";
+
+
+{% endif%}
+{% if genouGycm2==0%}
+document.getElementById("tspan3631-6").style.visibility="hidden";
+{% endif%}
+
+
+
+
+document.getElementById("tspan3623-0-0").childNodes[0].nodeValue="{{ seingauche }}";
+{% if seingauche ==0%}
+document.getElementById("tspan3623-0-0").style.visibility="hidden";
+
+
+document.getElementById("path3763").style.visibility="hidden";
+document.getElementById("g3400-5-3").style.visibility="hidden";
+{% endif%}
+
+
+
+
+</script>
+
+
+
+<script>
+$(document).ready(function() {
+	$('#maincontent').loading('stop');
+
+
+
+	});
+
+</script>

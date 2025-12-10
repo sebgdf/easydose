@@ -1,0 +1,140 @@
+      <div  class="card-body">
+        
+        {% set nbmammo=0 %}
+        {% set nbscan=0 %}
+        {% set nbradio=0 %}
+        
+        
+       <span class="label labelmammographie">&nbsp; MAMMOGRAPHIE &nbsp;</span>
+        <ol class="products-list product-list-in-box">
+           {% for item in top5Nrd %}
+           
+           
+            {%  if item.modalite== 'MG' %}
+            {%set nbmammo=nbmammo+1%}
+             <li class="item"> {{ nbmammo }} Examen de <b>{{ item.nom }} {{ item.prenom }}</b> {{"%.2e"| format(item.valeur)}} {{item.unite}} -  NRD: <b>{{ "%.2e"| format(item.nrdvaleur) }} {{ item.uniteseuil}} </b>- Dépassement : <b>  + {{ "%.2e"| format(item.difference)}} {{item.unite}} </b> zone d'exposition: <b>{{item.body_part}} </b></li> 
+              
+             {%endif %}
+            {%endfor%}
+            
+            {% if nbmammo==0 %}
+              Aucun dépassement de seuil.            
+            {%endif %}
+        </ol>
+ 
+         <div class="card-hearder">&nbsp;</div>
+         <span class="label label-info">&nbsp; SCANNER &nbsp;</span>
+        
+           {% for item in top5Nrd %}
+           
+           {%  if item.modalite == 'SR' and 'mGy.cm' in item.unite %}
+           {%set nbscan=nbscan+1%}
+           
+           
+           
+            <div class="row">
+            <div class="col-md-1">
+                  {{ nbscan }}
+            </div>
+            <div class="col-md-11">
+            <div class="progress">
+                     
+             
+                     {% if firstelementscan is not defined %}
+                       {% set firstelementscan= item.difference  %} 
+                     {% endif %}
+           
+                      
+                      {% if nbscan==1 %}
+                     <div onclick='getinfopatient({{ item.patientid }},"{{url('infopatient',{'id':'idtoreplace'})}}","{{ url('tdpatient',{'id':'idtoreplace'}) }}");'class="boxcliquable progress-bar bg-danger" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width:{{ ((item.difference/firstelementscan)*100) | round }}%">
+                     {{ item.nom }} {{ item.prenom }}</b> {{"%.2e"| format(item.valeur)}} {{item.unite}}\{{ "%.2e"| format(item.nrdvaleur) }} {{ item.uniteseuil}}
+                      </div>
+                      
+                      {% else %}
+                      
+                      			{% if (nbscan==2) or  (nbscan==3) %}
+                                     <div onclick='getinfopatient({{ item.patientid }},"{{url('infopatient',{'id':'idtoreplace'})}}","{{ url('tdpatient',{'id':'idtoreplace'}) }}");' class="boxcliquable progress-bar bg-yellow" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width:{{ ((item.difference/firstelementscan)*100) | round }}%">
+                                     {{ item.nom }} {{ item.prenom }}</b> {{"%.2e"| format(item.valeur)}} {{item.unite}}\{{ "%.2e"| format(item.nrdvaleur) }} {{ item.uniteseuil}}
+                                      </div>
+                      
+                     			{% else %}
+                      
+                                       <div onclick='getinfopatient({{ item.patientid }},"{{url('infopatient',{'id':'idtoreplace'})}}","{{ url('tdpatient',{'id':'idtoreplace'}) }}");' class="boxcliquable progress-bar bg-warning" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width:{{ ((item.difference/firstelementscan)*100) | round }}%">
+                                     {{ item.nom }} {{ item.prenom }}</b> {{"%.2e"| format(item.valeur)}} {{item.unite}}\{{ "%.2e"| format(item.nrdvaleur) }} {{ item.uniteseuil}}
+                                      </div>
+                      
+                                {% endif %}
+                      {% endif %}
+             
+             </div>
+            </div>
+            </div>
+           
+           {%endif %}
+            {%endfor%}
+            {% if nbscan==0 %}
+              Aucun dépassement de seuil.            
+            {%endif %}
+      
+        
+        
+        
+        <div class="card-hearder">&nbsp;</div>
+           <span class="label btn-unique">&nbsp; RADIOGRAPHIE &nbsp;</span>
+          
+           {% for item in top5Nrd %}
+           
+                 {%  if item.modalite == 'SR' and '2' in item.unite %}
+           
+           
+           {%set nbradio=nbradio+1%}
+           
+           
+            <div class="row">
+            <div class="col-md-1">
+            {{ nbradio }}
+            </div>
+            <div class="col-md-11">
+            <div class="progress">
+                     
+             
+                     {% if firstelement is not defined %}
+                       {% set firstelement= item.difference  %} 
+                     {% endif %}
+           
+           
+                     {% if nbradio==1 %}
+                     <div onclick='getinfopatient({{ item.patientid }},"{{url('infopatient',{'id':'idtoreplace'})}}","{{ url('tdpatient',{'id':'idtoreplace'}) }}");' class="boxcliquable progress-bar bg-danger" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width:{{ ((item.difference/firstelement)*100) | round }}%">
+                     {{ item.nom }} {{ item.prenom }}</b> {{"%.2e"| format(item.valeur)}} {{item.unite}}\{{ "%.2e"| format(item.nrdvaleur) }} {{ item.uniteseuil}}
+                      </div>
+                      
+                      {% else %}
+                      
+                      			{% if (nbradio==2) or  (nbradio==3) %}
+                                     <div onclick='getinfopatient({{ item.patientid }},"{{url('infopatient',{'id':'idtoreplace'})}}","{{ url('tdpatient',{'id':'idtoreplace'}) }}");'  class="boxcliquable progress-bar bg-yellow" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width:{{ ((item.difference/firstelement)*100) | round }}%">
+                                     {{ item.nom }} {{ item.prenom }}</b> {{"%.2e"| format(item.valeur)}} {{item.unite}}\{{ "%.2e"| format(item.nrdvaleur) }} {{ item.uniteseuil}}
+                                      </div>
+                      
+                     			{% else %}
+                      
+                                       <div onclick='getinfopatient({{ item.patientid }},"{{url('infopatient',{'id':'idtoreplace'})}}","{{ url('tdpatient',{'id':'idtoreplace'}) }}");' class="boxcliquable progress-bar bg-warning" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width:{{ ((item.difference/firstelement)*100) | round }}%">
+                                     {{ item.nom }} {{ item.prenom }}</b> {{"%.2e"| format(item.valeur)}} {{item.unite}}\{{ "%.2e"| format(item.nrdvaleur) }} {{ item.uniteseuil}}
+                                      </div>
+                      
+                                {% endif %}
+                      {% endif %}
+                      
+                      
+             
+             </div>
+            </div>
+            </div>
+                 {%endif %}
+           
+            {%endfor%}
+            {% if nbradio==0 %}
+              Aucun dépassement de seuil.            
+            {%endif %}
+       
+ 
+        </div>

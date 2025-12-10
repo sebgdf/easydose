@@ -1,0 +1,11 @@
+{% if patient.age<=15 %}
+ 
+    <i class="far fa-comment-dots" style="color:rgb(61,113,13);position:relative;top:-0.5rem;"></i>
+{% else %}
+        {% if patient.sex=="FEMME" %}
+       	 	<i class="far fa-comment-dots" style="color:#9933CC;position:relative;top:-0.5rem;"></i>
+        {% else %}
+        	<i class="far fa-comment-dots" style="color:rgb(12,87,207);position:relative;top:-0.5rem;"></i>
+        {% endif %}
+{% endif %}
+    

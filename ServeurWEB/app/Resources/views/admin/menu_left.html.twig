@@ -1,0 +1,28 @@
+<ul class="sidebar-menu">
+    {% include ':admin/menu-left:config.html.twig' %}
+    {% include ':admin/menu-left:user.html.twig' %}
+    {% include ':admin/menu-left:parametre.html.twig' %}
+    {% include ':admin/menu-left:replay.html.twig' %}
+    {% include ':admin/menu-left:bodypart.html.twig' %}
+    
+    {#A desactiver si pas CMS
+    {% include ':admin/menu-left:cms.html.twig' %}#}
+    <li><a href="{{ path('sonata_admin_dashboard') }}"><i class="fa fa-tachometer"></i> Accueil</a></li>
+</ul>
+
+
+<script type="application/javascript">
+    $(function () { // activation du menu correspondant à l'URL actuelle
+        // 1er cas :  corresponadnce exacte
+        var item = $('.sidebar-menu a[href="' + location.pathname + '"]');
+
+        // 2ème cas : au plus proche, c'est à dire l'item de menu qui partage le prefix le plus grand
+        if (item.length === 0) {
+            var path = location.pathname.split('/').slice(0, -1).join('/');
+            while ((item = $('.sidebar-menu a[href^="' + path + '/"]')).length === 0 && path.length) {
+                path = path.split('/').slice(0, -1).join('/');
+            }
+        }
+        item.parents('li').addClass('active');
+    });
+</script>

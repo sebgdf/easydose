@@ -1,0 +1,233 @@
+{% extends "@EasyDose/portlet/easydose_card_template.html.twig" %}
+
+ {% block stylecard %}  
+ 	style="width:18.5em;height: 30em;"
+ {% endblock %}
+ 
+    {%  block content %}
+       
+      {% include ("@EasyDose/portlet/Esr/entete_ei_card.html.twig")  with {'esrid' : esr.id , 'categorie' : esr.souscategorie.categorie ,'esrtype' : esr.type, } %}  
+           
+      {% if granted('app', 'esr', 'delete') or esr.etat.libelle=='EnCours' %}
+	  <!-- ConnectedUser==esr.user or -->
+		{% if  ConnectedUser.issuperadmin() %} 
+		<button type="button"  class="close" style="width:1em;" data-id="{{ esr.id }}" data-toggle="modal" data-target="#confirmaction_view">
+			<span aria-hidden="true">&times;</span>
+			</button>
+		{% endif %}
+       {% endif %}
+      <!-- Card content -->
+      <div class="card-body pb-1">
+      
+         
+        <!-- Title -->
+      <div  class="d-flex flex-row">
+      
+       	<h4 class="card-title font-weight-bold  ">Evènement du</h4>
+      </div>
+      <!-- Text -->
+      <div class="lead " style="font-weight: 500;"><strong><div id="dateesr{{ esr.id }}">{{ esr.dateSurvenueESR }}</div></strong></div>
+
+            <div style="height:11em;" class="mt-1">
+                    <div class="row card-text">
+               			<div class="col-lg-5">
+               				<strong>Processus:</strong>
+               			</div>
+               			<div class="col-lg-7 pl-0 pr-0">               				
+               				<div id="divcategorie{{ esr.id }}" class="text-dark" style="font-size: 0.6vw;"> {{ esr.souscategorie.categorie }}</div>
+               			</div>
+                  	</div>
+
+  
+                    <div class="row card-text">
+               			<div class="col-lg-5">
+               				<strong>S-Processus:</strong>
+               			</div>
+               			<div class="col-lg-7 pl-0 pr-0">               				
+               				<div id="divsouscategorie{{ esr.id }}" class="text-dark" style="font-size: 0.6vw;"> {{ esr.souscategorie }}</div>
+               			</div>
+                  	</div>
+
+                    <div class="progress md-progress mt-2">
+                            <div class="progress-bar black" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  	<div class="row card-text">
+               			<div class="col-lg-5">
+               				<strong>Déclarant:</strong>
+               			</div>
+               			<div class="col-lg-7 pl-0 pr-0"> 
+						{% if ConnectedUser==esr.user or ConnectedUser.issuperadmin() %}              				
+               				<div id="divnomd{{ esr.id }}">{{ esr.nomDeclarant }}</div>
+               				<div id="divprenomd{{ esr.id }}"> {{ esr.prenomDeclarant }}</div>
+						{% else %}
+							<div id="divnomd{{ esr.id }}">***************</div>
+               				<div id="divprenomd{{ esr.id }}">***************</div>
+
+						{% endif %}
+               			</div>
+                  	</div>
+              		
+                   <!--   
+              		<div class="row card-text"> 
+              			<div class="col-lg-5">
+              				<strong>Critère :</strong> 
+              			</div>
+              			
+              			<div class="col-lg-7 pl-0 pr-0" style="font-size:.99rem;">
+              					<u>	
+              					<div  id="critere{{ esr.id }}">
+              					{{ esr.idCritereDeclaration.libelle }}
+              					</div>
+              					</u>
+              			</div>
+              		</div>
+              	    -->
+        
+      		  <i class="fas fa-sun-o fa-5x pt-3 amber-text"></i>
+       </div>
+       <div class="progress md-progress">
+          	<div class="progress-bar black" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+       </div>
+        
+       <div class="mb-2">
+    	  <div id="cardptid{{ esr.id }}"
+            	{% if  (esr.examen is defined and not esr.examen is null) or  (esr.patient is defined and not esr.patient is null) %}
+                class="hovered"  onclick='getinfopatient({{ esr.examen.patient.id }}{{ esr.patient.id }},"{{url('infopatient',{'id':'idtoreplace'})}}","{{ url('tdpatient',{'id':'idtoreplace'}) }}");'
+            	{% endif %}
+            >
+                <div class="row">
+                	<div class="col-lg-5">
+                		<p class="card-text"><strong>Patient : </strong> </p>
+                	</div>
+                	<div class="col-lg-7">	
+                		<p class="card-text" id="cardptnomprenom{{ esr.id }}">{{ esr.patientname }} {{ esr.patient.nom }} {{ esr.examen.patient.nom }} {{ esr.examen.patient.prenom }} {{ esr.patient.prenom }}</p>
+                	</div>
+                </div>
+                <div class="row">
+                	<div class="col-lg-5">
+                		<p class="card-text"><strong>ID Easydose : </strong> </p>
+                	</div>
+                	<div class="col-lg-7">
+                		<p class="card-text" id="cardptideasydose{{ esr.id }}">{{ esr.examen.patient.idregional }} {{ esr.patient.idregional }} </p>
+                	</div>
+               </div>
+            </div>
+     
+       </div>
+       <div class="progress md-progress">
+          <div class="progress-bar black" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+       </div>
+        
+       <div  class="row">
+	   		{% if isesr %}
+       	    	<div class="{% if granted('app', 'esr', 'edit')  or esr.etat.libelle=='EnCours' %}col-lg-6 {% else %} col-lg-12 text-center {% endif %} boxcliquable" onclick="ViewEsrPage({{ esr.id }});">
+           	{% else %}
+				<div class="{% if granted('app', 'esr', 'edit')  or esr.etat.libelle=='EnCours' %}col-lg-6 {% else %} col-lg-12 text-center {% endif %} boxcliquable" onclick="ViewEiPage({{ esr.id }});">
+			{% endif %}
+				{% include ("@EasyDose/portlet/Esr/eye.svg.twig") %} Voir
+           </div>
+           {% if granted('app', 'esr', 'edit')  or esr.etat.libelle=='EnCours' %}
+           {% if isesr %}
+		   	<div class="col-lg-6 boxcliquable" onclick="modifiEsrPage({{ esr.id }});">
+		   {% else %}
+		   {% if ConnectedUser==esr.user or ConnectedUser.issuperadmin() %}   
+		   	<div class="col-lg-6 boxcliquable" onclick="modifiEiPage({{ esr.id }});">
+		   {% endif %}
+		   {% endif %}
+		   {% if ConnectedUser==esr.user or ConnectedUser.issuperadmin() %}              				
+               			
+           		{% include ("@EasyDose/portlet/Esr/pencil.svg.twig") %} Modifier
+           {% endif %}
+		   </div>
+           {% endif %}
+       </div>
+     
+        
+
+      </div>
+       {% if esr.etat.libelle != 'Cloture' %}
+       		<hr class="mb-1"> 
+       		<div class="mb-2 text-center"> {% include ("@EasyDose/portlet/Esr/brouillon.svg.twig") %} </div>
+       {% else %}
+       		<hr class="">
+       {% endif %}
+       
+       
+       
+
+
+<div id="confirmation">
+      {% include ("@EasyDose/portlet/Esr/confirmeaction.html.twig")  with {'esrid' : esr.id ,'isesr':isesr } %}  
+</div>
+
+{% endblock %}
+
+{%  block javascript %}
+<script>
+
+
+
+$('#confirmaction_view').on('shown.bs.modal', function (e) {
+	var esrid = $(e.relatedTarget).attr('data-id');
+	$("#valueEsrHidden").val(esrid);
+	
+});
+
+/*
+function loadconfimation(esrid){
+	urltmp="{{url('confirmaction',{'esrid':'_id_esr'})}}";
+	url3=urltmp.replace('_id_esr',esrid);
+	$('#confirmation').load(url3);
+}*/
+function ViewEsrPage(esr_id){
+	//Mise à jour de l'ESR Courant
+	url="{{url('viewei',{'esrid':'_id_esr'})}}";
+	viewEsr(url,esr_id);
+	$('#buttonesrview').click();
+}
+function ViewEiPage(esr_id){
+	//Mise à jour de l'ESR Courant
+	url="{{url('viewei',{'esrid':'_id_esr'})}}";
+	viewEi(url,esr_id);
+	$('#buttonesrview').click();
+}
+function modifiEsrPage(esr_id){
+
+//Mise à jour de l'ESR Courant
+	$('#esrid').prop("value",esr_id);
+	urltmp="{{url('getopeningesrpage',{'esrid':'_id_esr'})}}";
+	url3=urltmp.replace('_id_esr',esr_id);
+  	               $.ajax({
+	        	       url: url3,
+	        	       type: 'GET',
+	        	       dataType : 'json',
+	        	       success: function(datas){
+	        	               console.log(datas);
+	        	               loadpageesr(datas.openingimagepage,datas.openingpage,'declarant');
+	        	               $('#buttonesrhidden').click();
+	        	           }
+	        	           
+	        	       });
+}
+function modifiEiPage(esr_id){
+
+//Mise à jour de l'ESR Courant
+	$('#esrid').prop("value",esr_id);
+	urltmp="{{url('getopeningeipage',{'esrid':'_id_esr'})}}";
+	url3=urltmp.replace('_id_esr',esr_id);
+  	               $.ajax({
+	        	       url: url3,
+	        	       type: 'GET',
+	        	       dataType : 'json',
+	        	       success: function(datas){
+	        	               console.log(datas);
+	        	               loadpageesr(datas.openingimagepage,datas.openingpage,'categorie');
+	        	               $('#buttoneihidden').click();
+	        	           }
+	        	           
+	        	       });
+}
+
+</script>
+
+{% endblock %}

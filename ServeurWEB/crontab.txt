@@ -1,0 +1,8 @@
+* * * * * curl http://localhost/insertPourDeptNrdMod/ALL/true > /dev/null
+* * * * * curl http://localhost/insertPourDeptNrdMod/ADULTE/false > /dev/null
+* * * * * curl http://localhost/insertPourDeptNrdMod/PEDIATRIE/false > /dev/null
+
+* * * * * curl http://localhost/insertstatMoNrdByProto/PEDIATRIE/true > /dev/null
+* * * * * curl http://localhost/insertstatMoNrdByProto/ADULTE/false > /dev/null
+* * * * * curl http://localhost/insertstatMoNrdByProto/ALL/false > /dev/null
+

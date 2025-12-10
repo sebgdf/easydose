@@ -1,0 +1,29 @@
+<div class="card waves-effect col-lg-12" style="width:150px;height: 70px;" onclick="check3('{{ dispositif.id }}_optimchecked','{{ dispositif.marque }} {{ dispositif.denomination }}');" >
+ 		<div class="row">
+	  			<div class="col-lg-4">
+	  				<img alt="" src="{{ asset( dispositif.image) }}" class="w-50">   
+       		  	</div>
+        		<div class="col-lg-6">
+            		<div class="card-body" style="padding: 0px;">
+                   			{{ dispositif.denomination }} 	
+                    </div> 
+               </div>  
+               <div class="col-lg-2">
+               		<img alt="" src="{{ asset('assets/images/checked.png') }}" id="{{ dispositif.id}}_optimchecked" class="w-50 dispositif_checkable">  	
+               </div>       		  		
+       </div> 		          
+</div>
+
+<script>
+
+
+
+function check3(idtockeck,libelle){
+	dispositifid2=idtockeck.split('_')[0];
+	dispositiflabel2=libelle;
+	$('.dispositif_checkable').css("visibility", "hidden");
+	$('#'+idtockeck).css("visibility", "visible");
+	url="{{url('show_desc_dispositif',{'dispositif_id': '_dispositif_id' })}}";
+	chargimgdispositif2(url.replace("_dispositif_id",idtockeck.split('_')[0]));
+}
+</script>

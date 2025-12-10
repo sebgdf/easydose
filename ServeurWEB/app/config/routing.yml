@@ -1,0 +1,93 @@
+get_patient:
+    resource: "@EasyDoseBundle/Resources/config/routing.yml"
+    prefix:   /patient
+
+loadAutocompleteData:
+  path: /loadAutocompleteData
+  defaults: { _controller : EasyDoseBundle:Esr:loadAutocompleteData}
+  methods:  [POST]
+
+auth:
+    resource: "@EasyDoseBundle/Resources/config/routingauth.yml"
+    prefix:   /auth
+insertstatMoNrdByProto:
+  path: /insertstatMoNrdByProto/{type}/{isfirst}
+  defaults: { _controller : EasyDoseBundle:Patient:insertstatMoNrdByProto}
+insertevolutionProto:
+  path: /insertevolutionProto
+  defaults: { _controller : EasyDoseBundle:Patient:insertevolutionProto}
+insertstatMoNrd:
+  path: /insertstatMoNrd
+  defaults: { _controller : EasyDoseBundle:Patient:insertstatMoNrd}
+setStatistiques:
+  path: /setStatistiques
+  defaults: { _controller : EasyDoseBundle:Patient:setStatistiques }
+insertNbAlertByProtocole:
+  path: /insertNbAlertByProtocole
+  defaults: { _controller : EasyDoseBundle:Patient:insertNbAlertByProtocole}
+insertPyramideAge:
+  path: /insertPyramideAge
+  defaults: { _controller : EasyDoseBundle:Patient:insertPyramideAge}
+insertPyramideAgePediatrie:
+  path: /insertPyramideAgePediatrie
+  defaults: { _controller : EasyDoseBundle:Patient:insertPyramideAgePediatrie}
+insertPourDeptNrdMod:
+  path: /insertPourDeptNrdMod/{type}/{isfirst}
+  defaults: { _controller : EasyDoseBundle:Patient:insertPourDeptNrdMod}
+insertPyramideAgeAdulte:
+  path: /insertPyramideAgeAdulte
+  defaults: { _controller : EasyDoseBundle:Patient:insertPyramideAgeAdulte}
+insertprotocoleList:
+  path: /insertprotocoleList
+  defaults: { _controller : EasyDoseBundle:Patient:insertprotocoleList}
+setonealerte:
+  path: /setonealerte/{idpatient}
+  defaults: { _controller : EasyDoseBundle:Patient:setonealerte }  
+  methods: [GET, POST]
+
+
+setalertebetween:
+  path: /setalertebetween/{min}/{max}
+  defaults: { _controller : EasyDoseBundle:Patient:setalertebetween } 
+
+easy_dose:
+    resource: "@EasyDoseBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+app:
+    resource: "@AppBundle/Resources/config/routing.yml"
+    prefix:   /
+
+app_annotation:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+
+user:
+    resource: "@UserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+user_annotation:
+    resource: "@UserBundle/Controller/"
+    type:     annotation
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+_admin:
+    resource: routing_admin.yml
+    prefix:   /%base_url_admin%
+
+_front:
+    resource: routing_front.yml
+
+fos_user:
+    resource: "config/fosuserall.xml"
+
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"
+
+cms: # a commenter si pas CMS
+    resource: "@CmsBundle/Controller/"
+    type:     annotation
+    prefix:   /

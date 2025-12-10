@@ -1,0 +1,158 @@
+<script>
+function loadepingles(){
+
+    url2="{{ path('getlstepingle') }}";
+ 
+	//patientid=infopatient[0];
+	//patientnom=infopatient[1];
+	//patientprenom=infopatient[2];	
+	//console.log(patientid);
+	//console.log(patientnom);
+	//console.log(patientprenom);
+
+ 
+ $.ajax({
+      url: url2,
+      type: 'GET',
+      dataType : 'json',
+      success: function(datas){
+              
+
+              for (var data of datas) {
+                  //console.log(data);
+                  var whithalerte="";
+                  if(data.have_alerte==true)
+                       whithalerte="<i class=\"fas fa-exclamation red-text\"></i>";
+                  if(data.typepatient=='femmeproc')
+                  	$("#divinsertion").append('<div  id="PtEpingl'+data.patientid+'" class="col-md-12 patientavecepinglewithoutbottom" style="height: 50px;display:flex;padding-left:0px;"> <div class="pink-arrow-right"></div>&nbsp;<div class="middled hovered" onclick=\'getinfopatient('+data.patientid+',"{{url('infopatient',{'id':'idtoreplace'})}}","{{ url('tdpatient',{'id':'idtoreplace'}) }}");\'>'+data.nompatient+' '+data.prenompatient+'&nbsp;'+whithalerte+'</div>  <div class="middled" style="margin-left:auto;"><button  onclick="delectepatientEpingle(\'PtEpingl'+data.patientid+'\',\'{{ path('dropepinglepatient',{'patientid':'_patientid'}) }}\');"  type="button" class="close black-text"><span aria-hidden="true">&times;</span></button></div> </div>'); 
+                  else
+                      if(data.typepatient=='pediatrie')
+                  	$("#divinsertion").append('<div  id="PtEpingl'+data.patientid+'" class="col-md-12 patientavecepinglewithoutbottom" style="height: 50px;display:flex;padding-left:0px;"> <div class="green-arrow-right"></div>&nbsp;<div class="middled hovered" onclick=\'getinfopatient('+data.patientid+',"{{url('infopatient',{'id':'idtoreplace'})}}","{{ url('tdpatient',{'id':'idtoreplace'}) }}");\'>'+data.nompatient+' '+data.prenompatient+'&nbsp;'+whithalerte+'</div>  <div class="middled" style="margin-left:auto;"><button  onclick="delectepatientEpingle(\'PtEpingl'+data.patientid+'\',\'{{ path('dropepinglepatient',{'patientid':'_patientid'}) }}\');"  type="button" class="close black-text"><span aria-hidden="true">&times;</span></button></div> </div>'); 
+                  else
+                  	$("#divinsertion").append('<div  id="PtEpingl'+data.patientid+'" class="col-md-12 patientavecepinglewithoutbottom" style="height: 50px;display:flex;padding-left:0px;"> <div class="darkblue-arrow-right"></div>&nbsp;<div class="middled hovered" onclick=\'getinfopatient('+data.patientid+',"{{url('infopatient',{'id':'idtoreplace'})}}","{{ url('tdpatient',{'id':'idtoreplace'}) }}");\'>'+data.nompatient+' '+data.prenompatient+'&nbsp;'+whithalerte+'</div>  <div class="middled" style="margin-left:auto;"><button  onclick="delectepatientEpingle(\'PtEpingl'+data.patientid+'\',\'{{ path('dropepinglepatient',{'patientid':'_patientid'}) }}\');"  type="button" class="close black-text"><span aria-hidden="true">&times;</span></button></div> </div>'); 
+                  }
+          },
+      });
+
+}
+
+
+
+        
+        
+       
+       
+       
+         //      $(".button-collapse").sideNav();
+       // $(document).ready(function() {
+       //         $('.datepicker').pickadate();
+                
+       //         $('.optiondest').click(function(e) {
+        //        	$('#libdest').text($(this).text());
+        //        	$('#libdest').attr('value',$(this).attr('value'));
+                
+       //         });
+                
+        //        $('.buttonconfirm').click(function(e) {
+       //         	$('#modsendallmail').attr('value',($(this).attr('value')));
+                
+       //         });
+                
+       
+      //          loadepingles();
+
+       // });
+
+
+
+        //////
+       
+       
+      /* 
+       $(function () {
+          $("#sortable1, #sortable2").sortable({
+            connectWith: ".connectedSortable"
+          });
+        });*/
+
+
+        function size($btnCollapse,$content,isOpen){
+
+
+    		
+        	$windowWidth = $( window ).width();
+        	if($windowWidth > 1440) {
+        	$content.css('padding-left', '250px');
+
+        	if(isOpen) {
+        	$btnCollapse.css('left', '0');
+        	isOpen = false;
+        	}
+        	} else if($windowWidth < 530 && isOpen) { $btnCollapse.css('left', '0' ); $content.css('padding-left', '0' );
+        	  $('#sidenav-overlay').css('display', 'block' ); 
+
+
+        	  $btnCollapse.trigger('click'); } else { if(!isOpen) {
+        	  $content.css('padding-left', '0' ); } } 
+      	  
+        }
+
+        $(document).ready(function() {
+        	let isOpen = false;
+        	let $windowWidth = $( window ).width();
+        	const $btnCollapse = $(".button-collapse");
+        	const $content = $('#content');
+        	
+
+        	$( window ).resize(function() {
+
+        		size($btnCollapse,$content,isOpen);
+
+
+      	  }); // SideNav Button Initialization $btnCollapse.sideNav();
+
+
+
+        	  $btnCollapse.on('click', ()=> {
+        	  isOpen = !isOpen;
+        	  if($windowWidth > 530) {
+            	  
+            	  const elPadding = isOpen ? '250px' : '0';
+            	  $btnCollapse.css('left', elPadding);
+            	  $content.css('padding-left', elPadding);
+            	  $('#sidenav-overlay').css('display', 'none');
+        	  }
+        	   
+        	  else 
+            	  {
+                	  $('#sidenav-overlay').on('click', () => {
+                	  isOpen = !isOpen;
+                	  });
+        	  }
+        	  });
+
+        	  
+        	  $('#sidenav-overlay').on('click', () => {
+        	  isOpen = !isOpen;
+        	  });
+
+
+
+              $('.datepicker').pickadate();
+              
+              $('.optiondest').click(function(e) {
+              	$('#libdest').text($(this).text());
+              	$('#libdest').attr('value',$(this).attr('value'));
+              
+              });
+              
+              $('.buttonconfirm').click(function(e) {
+              	$('#modsendallmail').attr('value',($(this).attr('value')));
+              
+              });
+              
+              accueil('{{ url('dashboard') }}');
+              loadepingles();
+              size($btnCollapse,$content,isOpen);
+        	  });   
+</script>

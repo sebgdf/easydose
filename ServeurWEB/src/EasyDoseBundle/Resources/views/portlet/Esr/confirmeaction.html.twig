@@ -1,0 +1,71 @@
+<!-- Modal -->
+<div class="modal fade" id="confirmaction_view" tabindex="-1" role="dialog" aria-labelledby="confirmaction_view"
+  aria-hidden="true">
+
+  <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+  <div class="modal-dialog modal-dialog-centered" role="document">
+
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Suppression</h5>
+        <button type="button" id="confirmactionclose" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Voulez vous supprimer cette déclaration ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn"  style="background-color: #72afd2;"  data-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-secondary" onclick="deleteesr()">Confirmer</button>
+        <input type="hidden" id="valueEsrHidden" value=""/>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+
+function rechargerpageESR(){
+	url="{{ url('mesesr',{"screenheigth": screenheigth,'offset':0} ) }}";
+	var url2=url.replace("_screenheigth", screen.height);
+  console.log(url2);
+	$('#esrmesdelarations').load(url2);
+}
+
+function rechargerpageEI(){
+	url="{{ url('mesei',{"screenheigth": screenheigth,'offset':0} ) }}";
+	var url2=url.replace("_screenheigth", screen.height);
+   console.log('test2');
+    console.log(url2);
+	$('#eimesdelarations').load(url2);
+}
+
+
+$('#confirmaction_view').on('hidden.bs.modal', function () {
+	{% if isesr %}
+    rechargerpageESR(); 
+  {% else %}
+    rechargerpageEI();
+  {% endif %}
+});
+
+function deleteesr(){
+	esrid=$("#valueEsrHidden").val();
+	urltmp="{{url('deleteesr',{'esrid':'_id_esr'})}}";
+	url3=urltmp.replace('_id_esr',esrid);
+
+      $.ajax({
+	       url: url3,
+	       type: 'GET',
+	       dataType : 'json',
+	       success: function(datas){
+	               console.log(datas);
+	               $('#confirmactionclose').click();
+	               }
+	           
+	       });
+}
+</script>

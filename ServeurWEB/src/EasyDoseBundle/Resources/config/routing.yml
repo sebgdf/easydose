@@ -1,0 +1,409 @@
+rechercheglobale:
+  path: /rechercheglobale/{words}
+  defaults: { _controller : EasyDoseBundle:Patient:rechercheglobale }
+getStatNbAlertByProtocole:
+  path: /getStatNbAlertByProtocole/{modalite}/{type}
+  defaults: { _controller : EasyDoseBundle:Patient:getStatNbAlertByProtocole}
+getStatNbAlertByProtocolelarger:
+  path: /getStatNbAlertByProtocolelarger/{modalite}/{type}
+  defaults: { _controller : EasyDoseBundle:Patient:getStatNbAlertByProtocolelarger}
+getStatMoyNrdByProtoLarger:
+  path: /getStatMoyNrdByProtoLarger/{modalite}/{type}
+  defaults: { _controller : EasyDoseBundle:Patient:getStatMoyNrdByProtoLarger}
+insertNbAlertByProtocole:
+  path: /insertNbAlertByProtocole
+  defaults: { _controller : EasyDoseBundle:Patient:insertNbAlertByProtocole}
+getPourDeptNrdMod:
+  path: /getPourDeptNrdMod/{modalite}/{type}
+  defaults: { _controller : EasyDoseBundle:Patient:getPourDeptNrdMod}
+insertPyramideAgeAdulte:
+  path: /insertPyramideAgeAdulte
+  defaults: { _controller : EasyDoseBundle:Patient:insertPyramideAgeAdulte}
+insertPyramideAgePediatrie:
+  path: /insertPyramideAgePediatrie
+  defaults: { _controller : EasyDoseBundle:Patient:insertPyramideAgePediatrie}
+insertPyramideAge:
+  path: /insertPyramideAge
+  defaults: { _controller : EasyDoseBundle:Patient:insertPyramideAge}
+insertPourDeptNrdMod:
+  path: /insertPourDeptNrdMod/{type}/{isfirst}
+  defaults: { _controller : EasyDoseBundle:Patient:insertPourDeptNrdMod}
+insertprotocoleList:
+  path: /insertprotocoleList
+  defaults: { _controller : EasyDoseBundle:Patient:insertprotocoleList}
+getPyramideAge:
+  path: /getPyramideAge
+  defaults: { _controller : EasyDoseBundle:Patient:getPyramideAge}
+getPyramideAgePediatrie:
+  path: /getPyramideAgePediatrie
+  defaults: { _controller : EasyDoseBundle:Patient:getPyramideAgePediatrie}
+getPyramideAgeAdulte:
+  path: /getPyramideAgeAdulte
+  defaults: { _controller : EasyDoseBundle:Patient:getPyramideAgeAdulte}
+getPyramideAgeLarger:
+  path: /getPyramideAgeLarger/{type}
+  defaults: { _controller : EasyDoseBundle:Patient:getPyramideAgeLarger}
+getinfopatient:
+  path: /getinfopatient/{patientid}
+  defaults: { _controller : EasyDoseBundle:Patient:getinfopatient}
+BestComment:
+  path: /BestComment/{optimid}
+  defaults: { _controller : EasyDoseBundle:Optimisation:BestComment}
+
+testStatistiques:
+  path: /testStatistiques
+  defaults: { _controller : EasyDoseBundle:Default:testStatistiques}
+deletetypepersoEsr:
+  path: /deletetypepersoEsr/{esrid}
+  defaults: { _controller : EasyDoseBundle:Esr:deletetypepersoEsr}
+deletepatientEsr:
+  path: /deletepatientEsr/{esrid}
+  defaults: { _controller : EasyDoseBundle:Esr:deletepatientEsr}
+testmail:
+  path: /testmail
+  defaults: { _controller : EasyDoseBundle:Esr:testmail}
+loadAutocompleteData:
+  path: /loadAutocompleteData
+  defaults: { _controller : EasyDoseBundle:Esr:loadAutocompleteData}
+  methods:  [POST]
+clotureesr:
+  path: /clotureesr
+  defaults: { _controller : EasyDoseBundle:Esr:clotureEsr}
+pagination:
+  path: /pagination/{nbpagesToview}/{offset}
+  defaults: { _controller : EasyDoseBundle:Esr:pagination}
+eiSearchFiltre:
+  path: /eiSearchFiltre/{screenheigth}/{offset}/{categorie}/{souscategorieslist}/{datedebut}/{datefin}
+  defaults: { _controller : EasyDoseBundle:Esr:eiSearchFiltre}
+esrsearchfiltre:
+  path: /esrsearchfiltre/{screenheigth}/{offset}
+  defaults: { _controller : EasyDoseBundle:Esr:esrSearchFiltre}
+mesesr:
+  path: /mesesr/{screenheigth}/{offset}
+  defaults: { _controller : EasyDoseBundle:Esr:mesEsr}
+mesei:
+  path: /mesei/{screenheigth}/{offset}
+  defaults: { _controller : EasyDoseBundle:Esr:mesei}
+meseisearch:
+  path: /meseisearch/{screenheigth}/{offset}/{categorie}/{souscategorieslist}/{datedebutf}/{datefinf}
+  defaults: { _controller : EasyDoseBundle:Esr:meseisearch, categorie: 0,souscategorieslist : '',datedebutf : null, datefinf : null}
+show_desc_dispositif:
+  path: /show_desc_dispositif/{dispositif_id}
+  defaults: { _controller : EasyDoseBundle:Esr:show_desc_dispositif}
+
+testexamdetail:
+  path: /testexamdetail/{ddid}
+  defaults: { _controller : EasyDoseBundle:Patient:testExamdetail}
+
+saveesrvalue:
+  path: /saveesrvalue
+  defaults: { _controller : EasyDoseBundle:Esr:saveEsrValue}
+  methods:  [POST]
+deletecurrentesrforupdate:
+  path: /deletecurrentesrforupdate
+  defaults: { _controller : EasyDoseBundle:Esr:deleteCurrentEsrForUpdate }
+
+viewesrsearchpatient:
+  path: /viewesrsearchpatient
+  defaults: { _controller : EasyDoseBundle:Esr:viewesrsearchpatient }
+  methods:  [POST]
+
+saveesrinsession:
+  path: /saveesrinsession/{id_esr}
+  defaults: { _controller : EasyDoseBundle:Esr:saveEsrInSession }
+confirmaction:
+  path: /confirmaction/{esrid}
+  defaults: { _controller : EasyDoseBundle:Esr:confirmaction }
+deleteesr:
+  path: /deleteesr/{esrid}
+  defaults: { _controller : EasyDoseBundle:Esr:deleteEsr }
+saveesrinsessionforupdate:
+  path: /saveesrinsessionforupdate/{id_esr}
+  defaults: { _controller : EasyDoseBundle:Esr:saveEsrInSessionforupdate }
+
+getopeningesrpage:
+  path: /getopeningesrpage/{esrid}
+  defaults: { _controller : EasyDoseBundle:Esr:getOpeningEsrPage, esrid: 0 }
+getAllEiSousCategorie:
+  path: /getAllEiSousCategorie/{esrid}/{categorieid}
+  defaults: { _controller : EasyDoseBundle:Esr:getAllEiSousCategorie, esrid: 0, categorieid: 0 }
+getAllEiSousCategorie2:
+  path: /getAllEiSousCategorie2/{categorieid}
+  defaults: { _controller : EasyDoseBundle:Esr:getAllEiSousCategorie2, categorieid: 0 }
+getcolorcategoriebyid:
+  path: /getcolorcategoriebyid/{categorieid}
+  defaults: { _controller : EasyDoseBundle:Esr:getcolorcategoriebyid, categorieid: 0 }
+saveEtablissementEi:
+  path: /saveEtablissementEi/{esrid}/{etablissementeiid}
+  defaults: { _controller : EasyDoseBundle:Esr:saveEtablissementEi, esrid: 0, etablissementeiid: 0 }
+
+savesouscategorie:
+  path: /savesouscategorie/{esrid}/{souscategorieid}
+  defaults: { _controller : EasyDoseBundle:Esr:savesouscategorie, esrid: 0, souscategorieid: 0 }
+
+getopeningeipage:
+  path: /getopeningeipage/{esrid}
+  defaults: { _controller : EasyDoseBundle:Esr:getOpeningEiPage, esrid: 0 }
+
+getpageesr:
+  path: /getpageesr/{idesr}/{typepage}
+  defaults: { _controller : EasyDoseBundle:Esr:getpageEsr}
+getpageei:
+  path: /getpageei/{idesr}/{typepage}
+  defaults: { _controller : EasyDoseBundle:Esr:getpageEi}
+
+havewaitingesr:
+  path: /havewaitingesr
+  defaults: { _controller : EasyDoseBundle:Esr:haveWaitingEsr}
+
+havewaitingei:
+  path: /havewaitingei
+  defaults: { _controller : EasyDoseBundle:Esr:haveWaitingEi}
+
+getwaitingesr:
+  path: /getwaitingesr
+  defaults: { _controller : EasyDoseBundle:Esr:getWaitingEsr}
+
+
+createesr:
+  path: /createesr
+  defaults: { _controller : EasyDoseBundle:Esr:createEsr}
+createei:
+  path: /createei
+  defaults: { _controller : EasyDoseBundle:Esr:createEi}
+
+getlstepingle:
+  path: /getlstepingle
+  defaults: { _controller : EasyDoseBundle:Patient:getlstepingle}
+
+
+dropepinglepatient:
+  path: /dropepinglepatient/{patientid}
+  defaults: { _controller : EasyDoseBundle:Patient:dropepinglepatient}
+
+top5:
+  path: /top5
+  defaults: { _controller : EasyDoseBundle:Patient:top5 }
+
+getCourbeExams:
+  path: /getCourbeExams
+  defaults: { _controller : EasyDoseBundle:Patient:getCourbeExams }
+
+
+getCourbeExamsNRD:
+  path: /getCourbeExamsNRD
+  defaults: { _controller : EasyDoseBundle:Patient:getCourbeExamsNRD }
+  
+getOnlyTopStats:
+  path: /getOnlyTopStats
+  defaults: { _controller : EasyDoseBundle:Patient:getOnlyTopStats }
+  
+
+  
+dashboard:
+  path: /dashboard
+  defaults: { _controller : EasyDoseBundle:Patient:dashboard}
+addeval:
+  path: /addeval/{numdetail}/{note}/{commentaire}
+  defaults: { _controller : EasyDoseBundle:Patient:addeval}
+
+niveaustatdose:
+  path: /niveaustatdose/{protocolename}/{type}
+  defaults: { _controller : EasyDoseBundle:Patient:niveaustatdose }
+niveaustatdoselarger:
+  path: /niveaustatdoselarger/{protocolename}/{type}
+  defaults: { _controller : EasyDoseBundle:Patient:niveaustatdoselarger }
+getStatevolutionProto:
+  path: /getStatevolutionProto
+  defaults: { _controller : EasyDoseBundle:Patient:getStatevolutionProto}
+  methods:  [POST]
+insertoptimdose:
+  path: /insertoptimdose
+  defaults: { _controller : EasyDoseBundle:Patient:insertoptimdose}
+  methods:  [POST]
+
+getStatMoyNrdMod:
+  path: /getStatMoyNrdMod
+  defaults: { _controller : EasyDoseBundle:Patient:getStatMoyNrdMod}
+  
+getStatMoyNrdByProto:
+  path: /getStatMoyNrdByProto/{modalite}/{type}
+  defaults: { _controller : EasyDoseBundle:Patient:getStatMoyNrdByProto}
+  
+insertstatMoNrdByProto:
+  path: /insertstatMoNrdByProto/{type}/{isfirst}
+  defaults: { _controller : EasyDoseBundle:Patient:insertstatMoNrdByProto}
+insertstatMoNrd:
+  path: /insertstatMoNrd
+  defaults: { _controller : EasyDoseBundle:Patient:insertstatMoNrd}
+  
+saveOptimValue:
+  path: /saveOptimValue
+  defaults: { _controller : EasyDoseBundle:Optimisation:saveOptimValue}
+  methods:  [POST]
+
+deleteOptim:
+  path: /deleteOptim/{optimid}
+  defaults: { _controller : EasyDoseBundle:Optimisation:deleteOptim}
+
+insertoptimdosedetail:
+  path: /insertoptimdosedetail/{numdetail}/{protocole}/{kvp}/{xray}/{modalite}/{machine}/{nbnote}/{dose}/{commentaire}
+  defaults: { _controller : EasyDoseBundle:Patient:insertoptimdosedetail}
+  
+      
+optimdose:
+  path: /optimdose
+  defaults: { _controller : EasyDoseBundle:Patient:optimdose}
+
+optimdosedetail:
+  path: /optimdosedetail/{numdetail}
+  defaults: { _controller : EasyDoseBundle:Patient:optimdosedetail}
+
+showListTypeExams:
+  path: /showListTypeExams/{type}
+  defaults: { _controller : EasyDoseBundle:Optimisation:showListTypeExams}    
+statdose:
+  path: /statdose/{protocolename}
+  defaults: { _controller : EasyDoseBundle:Patient:statdose }
+  
+statistiques:
+  path: /statistiques
+  defaults: { _controller : EasyDoseBundle:Patient:statistiques }
+
+getprotocolemg:
+  path: /getprotocolemg
+  defaults: { _controller : EasyDoseBundle:Patient:getprotocolemg }
+
+getprotocolescan:
+  path: /getprotocolescan
+  defaults: { _controller : EasyDoseBundle:Patient:getprotocolescan }
+  
+getprotocolerad:
+  path: /getprotocolerad
+  defaults: { _controller : EasyDoseBundle:Patient:getprotocolerad }
+  
+patient:
+  path: /accueil
+  defaults: { _controller : EasyDoseBundle:Patient:index }
+
+testtemplate:
+  path: /testtemplate
+  defaults: { _controller : EasyDoseBundle:Patient:testtemplate }
+
+havecomments:
+  path: /havecomments/{idpatient}
+  defaults: { _controller : EasyDoseBundle:Patient:havecomments }
+  
+workinprogress:
+  path: /workinprogress/{pagetitle}
+  defaults: { _controller : EasyDoseBundle:Patient:workinprogress }
+  
+recherche:
+  path: /recherche/{words}
+  defaults: { _controller : EasyDoseBundle:Patient:recherche }  
+  
+setalerte:
+  path: /setalerte
+  defaults: { _controller : EasyDoseBundle:Patient:setalerte }  
+
+setonealerte:
+  path: /setonealerte/{idpatient}
+  defaults: { _controller : EasyDoseBundle:Patient:setonealerte }   
+all:
+  path: /all
+  defaults: { _controller : EasyDoseBundle:Patient:getPatients }
+  
+  
+infopatient:
+  path: /infopatient/{id}
+  defaults: { _controller : EasyDoseBundle:Patient:infopatient }
+  
+  
+worklistbody:
+  path: /worklistbody/{id}
+  defaults: { _controller : EasyDoseBundle:Patient:worklistbody }  
+
+tdpatient:
+  path: /tdpatient/{id}
+  defaults: { _controller : EasyDoseBundle:Patient:tdpatient } 
+
+worklist:
+  path: /worklist/{screenheigth}
+  defaults: { _controller : EasyDoseBundle:Patient:worklist }
+
+viewesr:
+  path: /viewesr/{esrid}
+  defaults: { _controller : EasyDoseBundle:Esr:viewEsr } 
+viewei:
+  path: /viewei/{esrid}
+  defaults: { _controller : EasyDoseBundle:Esr:viewEi } 
+esr:
+  path: /esr/{screenheigth}
+  defaults: { _controller : EasyDoseBundle:Esr:esr }  
+ei:
+  path: /ei/{screenheigth}
+  defaults: { _controller : EasyDoseBundle:Esr:ei }   
+eisearch:
+  path: /eisearch/{screenheigth}/{categorie}/{souscategorieslist}/{datedebut}/{datefin}
+  defaults: { _controller : EasyDoseBundle:Esr:eisearch , souscategorieslist: null, categorie: 0, datedebut: null, datefin:null  }  
+worklistoffset:
+  path: /worklistoffset/{offset}/{screenheigth}
+  defaults: { _controller : EasyDoseBundle:Patient:worklistoffset }  
+  
+worklistsearchFiltre:
+  path: /worklistsearchFiltre/{withradio}/{withscan}/{withmammo}/{withnrd}/{withpediatrie}/{withpatientproc}/{screenheigth}/{offset}
+  defaults: { _controller : EasyDoseBundle:Patient:worklistsearchFiltre }  
+
+worklistsearch:
+  path: /worklistsearch/{nom}/{prenom}/{IPP}/{IDR}/{BD}/{HDRV}/{GENRE}/{screenheigth}
+  defaults: { _controller : EasyDoseBundle:Patient:worklistsearch }  
+    
+uploaddicom:
+  path: /uploaddicom
+  defaults: { _controller : EasyDoseBundle:Patient:uploaddicom }  
+
+  
+sendmail:
+  path: /sendmail
+  defaults: { _controller : EasyDoseBundle:Patient:sendmail }  
+  
+sendmailtoone:
+  path: /sendmailtoone
+  defaults: { _controller : EasyDoseBundle:Patient:sendmailtoone} 
+  
+sendmailtomany:
+  path: /sendmailtomany
+  defaults: { _controller : EasyDoseBundle:Patient:sendmailtomany}  
+
+
+getjsonIDRegional:
+  path: /getjsonIDRegional
+  defaults: { _controller : EasyDoseBundle:Patient:getjsonIDRegional}  
+
+insertNote:
+  path: /insertNote
+  defaults: { _controller : EasyDoseBundle:Patient:insertNote} 
+  
+getnotesAll:
+  path: /getnotesAll/{idpatient}
+  defaults: { _controller : EasyDoseBundle:Patient:getnotesAll} 
+
+shownotesAll:
+  path: /shownotesAll/{idpatient}
+  defaults: { _controller : EasyDoseBundle:Patient:shownotesAll}
+      
+getjsonNumIppAllprenom:
+  path: /getjsonNumIppAllprenom
+  defaults: { _controller : EasyDoseBundle:Patient:getjsonNumIppAllprenom}  
+
+getjsonPatientAllprenom:
+  path: /getjsonPatientAllprenom
+  defaults: { _controller : EasyDoseBundle:Patient:getjsonPatientAllprenom}  
+    
+getjsonPatientAllname:
+  path: /getjsonPatientAllname
+  defaults: { _controller : EasyDoseBundle:Patient:getjsonPatientAllname}  
+   
+alaragrs:
+  path: /alaragrs
+  defaults: { _controller : EasyDoseBundle:Patient:alaragrs}  

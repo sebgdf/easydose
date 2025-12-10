@@ -1,0 +1,49 @@
+services:
+    app.admin.patient:
+        class: AppBundle\Admin\PatientAdmin
+        arguments: [~, AppBundle\Entity\Patient, AppBundle:PatientAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Patient }
+        public: true
+
+    app.admin.esr:
+        class: AppBundle\Admin\EsrAdmin
+        arguments: [~, AppBundle\Entity\Esr, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Esr }
+        public: true
+
+    app.admin.parametre:
+        class: AppBundle\Admin\ParametreAdmin
+        arguments: [~, AppBundle\Entity\Parametre, AppBundle:ParametreAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Parametre }
+        public: true
+
+    app.admin.nrd_v2:
+        class: AppBundle\Admin\NrdV2Admin
+        arguments: [~, AppBundle\Entity\NrdV2, AppBundle:NrdV2Admin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Nrd }
+        public: true
+
+    app.admin.tranche_age:
+        class: AppBundle\Admin\TrancheAgeAdmin
+        arguments: [~, AppBundle\Entity\TrancheAge, AppBundle:TrancheAgeAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: TrancheAge }
+        public: true
+
+    app.admin.fichierdcm:
+        class: AppBundle\Admin\FichierdcmAdmin
+        arguments: [~, AppBundle\Entity\Fichierdcm, AppBundle:FichierdcmAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Fichierdcm }
+        public: true
+
+    app.admin.bodyparts:
+        class: AppBundle\Admin\BodypartsAdmin
+        arguments: [~, AppBundle\Entity\Bodyparts, AppBundle:BodypartsAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Bodyparts }
+        public: true

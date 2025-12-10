@@ -1,0 +1,121 @@
+
+<div class="pr-4 pl-4 pb-4">
+
+<div class="row">
+<div class="col-md-12 text-center">
+<img class="center-block" src="{{ asset('assets/images/logoEasyWorke_v2.jpg') }}">
+</div>
+</div>
+
+<div class="text-center font-weight-bold" style="color: #00695c;">
+{% block entete %}
+
+
+
+{% endblock %}
+</div>
+
+<div class="font-weight-bold mdb-color lighten-2 mt-4">
+{% block apparte%}
+
+
+
+{% endblock %}
+</div>
+
+
+<div class="font-weight-bold  mt-2" style="color: #00695c;">
+{% block entetedeclarant %}
+
+{% endblock %}
+</div>
+
+
+<div>
+	<div class="font-weight-bold deep-purple lighten-4 deep-purple-text mt-4">{% block titledeclarant %}{% endblock %}</div>
+    <div><p class="d-inline">Nom : </p> <p  class="d-inline font-weight-bold ">{% block nomdeclarant %} {% endblock %}</p>  </div>
+    <div><p class="d-inline">Prenom : </p> <p  class="d-inline font-weight-bold ">{% block prenomnomdeclarant %} {% endblock %}</p>  </div>
+    <div><p class="d-inline">Fonction : </p>  <p  class="d-inline font-weight-bold ">{% block fonctiondeclarant %} {% endblock %}</p> </div>
+	<div><p class="d-inline">Adresse email : </p>  <p  class="d-inline font-weight-bold ">{% block emaildeclarant %} {% endblock %}</p> </div>
+	<div><p class="d-inline">Numéro de téléphone: </p>  <p  class="d-inline font-weight-bold ">{% block phonedeclarant %} {% endblock %}</p> </div>
+	<div class="font-weight-bold deep-purple lighten-4 deep-purple-text  mt-4">{% block titleetablissement %}{% endblock %}</div>
+	<div><p class="d-inline">Raison sociale de l'établissement: </p>  <p  class="d-inline font-weight-bold ">{% block raisonsocialetablissement %} {% endblock %}</p> </div>
+	<div><p class="d-inline">Adresse de l'établissement: </p>  <p  class="d-inline font-weight-bold ">{% block adresseetablissement %} {% endblock %}</p> </div>
+	<div><p class="d-inline">Dénomination, localisation précise de l'unité concernée: </p>  <p  class="d-inline font-weight-bold ">{% block unite %} {% endblock %}</p> </div>
+	<div><p class="d-inline">Nom, prénom et adresse professionnelle du responsable de l'activité: </p>  <p  class="d-inline font-weight-bold ">{% block resp_activite %} {% endblock %}</p> </div>
+
+</div>
+
+
+<div  class="font-weight-bold mt-2" style="color: #00695c;">
+{% block enteteevent1 %}
+
+
+
+{% endblock %}
+</div>
+
+
+<div>
+	<div class="font-weight-bold deep-purple lighten-4 deep-purple-text  mt-4 ">{% block circonstancesdetection %}{% endblock %}</div>
+	<div><p class="d-inline">Desription : </p>  <p  class="d-inline font-weight-bold "> {% block descriptioncirconstances %}  {% endblock %} </p>  </div>
+	
+	<div><p class="d-inline">Date de survenue : </p> Le<p  class="d-inline font-weight-bold "> {% block datesurvenue %}  {% endblock %} </p> à <p  class="d-inline font-weight-bold "> {% block heuresurvenue %}  {% endblock %} </p>  </div>
+	<div><p class="d-inline">Date de détection : </p> Le<p  class="d-inline font-weight-bold "> {% block datedetection %}  {% endblock %} </p> à <p  class="d-inline font-weight-bold "> {% block heuredetection %}  {% endblock %} </p>  </div>
+	
+	<div class="font-weight-bold deep-purple lighten-4 deep-purple-text  mt-4">{% block dispositif %}{% endblock %}</div>
+
+	<div><p class="d-inline">Critère de déclaration : </p> <p  class="d-inline font-weight-bold ">{% block criteredeclarationevent %} {% endblock %}</p>  </div>
+    <div><p class="d-inline">Origine de l'évènement : </p>  <p  class="d-inline font-weight-bold ">{% block origineevent %} {% endblock %}</p> </div>
+
+</div>
+
+<div  class="font-weight-bold mt-2" style="color: #00695c;">
+{% block enteteconsequences %}
+{% endblock %}
+</div>
+
+
+
+<div>
+    <div><p class="d-inline">Age de la personne concernée: </p>  <p  class="d-inline font-weight-bold ">{% block agepersoevent %} {% endblock %}</p> </div>
+	<div><p class="d-inline">Genre de la personne concernée: </p>  <p  class="d-inline font-weight-bold ">{% block genrepersoevent %} {% endblock %}</p> </div>
+
+	<div>{% block consequencesreelles %} {% endblock %}</div>
+	<div class="font-weight-bold "> {% block contenuconsequencesreelles %} {% endblock %}</div>
+    <div>{% block consequencespotentielles %} {% endblock %}</div>
+    <div class="font-weight-bold "> {% block contenuconsequencespotentielles %} {% endblock %}</div>
+</div>
+
+
+
+<div  class="font-weight-bold mt-2" style="color: #00695c;">
+{% block entetemesures %}
+
+
+
+{% endblock %}
+</div>
+
+
+<div class="mb-4" >
+ <div>Action conservatoires immédiates mises en oeuvre: </div>
+ <div class="font-weight-bold "> {% block mesuresconcervatoires%} {% endblock %}</div>
+
+ <div>Action correctives immédiates mises en oeuvre: </div>
+ <div class="font-weight-bold "> {% block mesuresorrective%} {% endblock %}</div>
+
+</div>
+
+
+
+<div  class="font-weight-bold mt-4" style="color: #00695c;">
+{% block pieddepage %}
+
+	<div style="border-color: #00695c;border-bottom-style:solid;border-bottom-width: 2px;">COMPTE-RENDU D'EVENEMENT SIGNIFICATIF DANS LE DOMAINE DE LA RADIO PROTECTION</div>
+	<div>(hors évènement interessant un patient soumis à une radiothérapie)</div>
+{% endblock %}
+</div>
+
+
+</div>

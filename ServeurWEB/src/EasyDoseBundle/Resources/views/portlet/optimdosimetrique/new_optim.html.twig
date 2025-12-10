@@ -1,0 +1,44 @@
+<div id="newoptimisation" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="newoptimisation">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="newoptimisationLabel">Nouvelle Optimisation Dosimétrique</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form class="text-center border border-light p-5" action="#!">
+        <h5>Protocole</h5>
+        
+     
+          <input type="text" id="protocole"   data-toggle="modal" data-target="#listeprotooptim" class="form-control m-2" placeholder="Choisissez le procole" value="">
+
+                    
+          <input type="text" id="dose" class="form-control m-2" placeholder="Valeur de la dose" value=""> mGy.cm          
+        
+        <input type="text" id="kvp" class="form-control m-2" placeholder="kvp" value="">
+        
+        <input type="text" id="xray" class="form-control m-2" placeholder="Charge en mA" value="">
+        
+        <input type="text" id="modalite" class="form-control m-2" placeholder="Modalité" value="">
+        
+        <input type="text" id="dispositif_visible" class="form-control m-2" placeholder="Machine" value="Dispositifs"  data-toggle="modal" data-target="#listedispositifsoptim">
+        <input type="hidden" id="dispositif" >
+        <div class="form-group">
+            <textarea placeholder="Annotations" class="form-control rounded-0 m-2" id="commentaire" rows="3"></textarea>
+      	</div>
+        <hr>
+
+      </form>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" style="background-color: #72afd2;"  class="btn" data-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-secondary" onclick="insertnewoptim();" data-dismiss="modal">Valider</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

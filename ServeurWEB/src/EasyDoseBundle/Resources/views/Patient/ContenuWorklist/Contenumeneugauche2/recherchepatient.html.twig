@@ -1,0 +1,58 @@
+
+                    
+                      <form>
+                      
+                      <div class="row">
+                            <div class="col-md-1 ">&nbsp;</div>
+                       </div>
+                       
+                       <div class="row titrecolonne2">
+                            <div class="col-md-12 ">Recherche Patient</div>
+                    	
+                    	</div> 
+                    	
+                    	
+                            <div class="col-md-1 trianglebas"></div>
+                      
+                    	
+                    
+                    
+                      <div class="form-group">                        
+                        <input type="text" class="form-control" id="Searchnom" placeholder="Nom">
+                      </div>
+                      
+                      
+                      <div class="form-group">                        
+                        <input type="text" class="form-control" id="Searchprenom" placeholder="Prénom">
+                      </div>
+                      
+                      
+                      
+                       <div class="form-check form-check-inline">                        
+                        <input type="checkbox" class="form-check-input" id="checkF" value="1">
+                        <label class="form-check-label" for="formcheck1">F</label>
+                        
+                       </div>
+                      <div class="form-check form-check-inline"> 
+                      <input type="checkbox" class="form-check-input" id="checkH" value="2">
+                        <label class="form-check-label" for="formcheck2">H</label>
+                      </div>
+                      
+                      
+                      <div class="form-group">                        
+                        <input type="text" class="form-control" id="SearchIPP" placeholder="IPP">
+                      </div>
+                      <div class="form-group">                        
+                        <input type="text" class="form-control" id="SearchIDR" placeholder="ID Régional">
+                      </div>
+                      <div class="form-group">                        
+                        <input type="text" class="form-control" id="SearchBD" placeholder="Naissance">
+                      </div>
+
+   
+  						<div class="form-group">                        
+                        <input type="text" class="form-control" id="SearchHRDV" placeholder="Heure RDV">
+                      </div>
+                      
+						<button class="btn btn-primary" type="button" onclick="rechercherpatient(this,'{{  url('worklistsearch',{'nom':'Searchnom','prenom':'Searchprenom','IPP':'SearchpIPP' ,'IDR':'SearchIDR','BD':'SearchBD','HDRV':'SearchHRDV','GENRE':'_GENRE',screenheigth:"_screenheigth"} ) }}');" > Valider </button>	
+						</form>

@@ -1,0 +1,17 @@
+.divimg{
+	text-align:right;
+	
+	}
+
+.welcomtitle{
+text-align:center;
+vertical-align: middle;
+
+}
+
+.logo{
+margin: 35px 55px 55px 55px;
+box-shadow: 3px 5px 10px 4px rgba(119, 119, 119, 0.75);
+-moz-box-shadow: 3px 5px 10px 4px rgba(119, 119, 119, 0.75);
+-webkit-box-shadow: 3px 5px 10px 4px rgba(119, 119, 119, 0.75);
+}

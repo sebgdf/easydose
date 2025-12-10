@@ -1,0 +1,20 @@
+<!-- stat_card.html.twig -->
+<div class="box box-success">
+    <div class="mb3 card">
+        <div class="row">  
+           <div class="{{ colonetype }}">
+                <div  class="card-hearder">
+                    <h3 class="card-title  text-center"> {{ titre }}</h3>
+                </div>        
+                <div id="{{ id_diagramme }}">
+                
+                </div>
+           </div>
+        </div>
+    </div>
+</div>
+ 
+<script>
+ 	urltmp="{{ urlstat }}";
+ 	$('#{{ id_diagramme }}').load(urltmp);
+</script>

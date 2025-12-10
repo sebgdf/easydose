@@ -1,0 +1,57 @@
+<!-- Modal: modalQuickView -->
+<div class="modal fade" id="listedispositifsoptim2" tabindex="-1" role="dialog" aria-labelledby="listedispositifsoptim2"
+  aria-hidden="true">
+  <div class="modal-dialog cascading-modal modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-5" id="descriptiondispositif">
+          </div>
+          
+          <div class="col-lg-7">
+                <h2 class="h2-responsive product-name">
+                  <strong>Sélectionner un dispositif</strong>
+                </h2>            
+                <div class="row" style="height: 13em; overflow-y: auto; overflow-x: hidden;"> 
+                {% for dispositif in dispositifs %}
+                	 {% include ("@EasyDose/portlet/optimdosimetrique/helper/show_dispositif2.html.twig") with {'dispositif' : dispositif} %}
+               
+                {% endfor %}
+                </div>                  
+               <div class="row">
+                     <div class="col-lg-12">
+                         <button class="btn btn-info my-4 btn-block" type="button" onclick="chooseDispositifAndClose3();" >
+              					Sélectionner
+            			</button>
+        			</div>
+               </div> 
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+
+<script>
+
+
+
+function chooseDispositifAndClose3(){
+
+	//$('#dispositif').attr('value',dispositifid2);
+	$('#optimwritable2').attr('value',dispositiflabel2);
+	currentvalue=dispositiflabel2;
+	//changeValueEsr(url,id_esr_courant,'dispositif',dispositifid);
+	$('#listedispositifsoptim2').modal('hide');
+	$(currentelement).html(currentvalue);
+	
+	
+}
+var dispositifid2=1;
+var dispositiflabel2="";
+url="{{url('show_desc_dispositif',{'dispositif_id': '_dispositif_id' })}}";
+chargimgdispositif(url.replace("_dispositif_id",1));
+</script>

@@ -1,0 +1,483 @@
+<div style=" position:absolute;top:-35px;left:28px;">
+	<a onclick="optimdose('{{ url('optimdose') }}');"><i class="fa fa-2x fa-angle-left"></i> <span style="text-decoration:underline;display: table-cell; vertical-align: middle; line-height: normal;font-weight:400;font-size:large;">Retour</span> </a>
+  </div>
+  
+
+<div class="card card-cascade narrower">
+
+	<div class="col-md-12 onglet2"> 
+    	<!-- div class="row">
+    		<div class="col-md-12" ><i class="fas fa-1x fa-tools"></i> Optimisation Dosimétrique :</div>
+    	</div-->
+    	</div class="row" >
+    		<div class="col-md-12" style="top:-10px;"><span style="margin-left:22px; " class="text-white">Evaluation du protocole: </span><span class="white-text"><u>{{ optimisationdose.protocole }}</u></span></div>
+        
+    <div  class="card-body">  
+    
+    
+   
+ 		 <a onclick="ajouterlignedetail({{ numdetail }});"><i class="fas fa-plus-circle"></i> Ajouter un nouvelle évaluation.</a>
+   
+    <table id="tableoptimpatientdet" class="table display table-bordered table-striped" style="">
+                
+                
+                
+                        <!--Table head-->
+                        <thead class="white-text" style="background-color:#243a51;">
+                          <tr>
+                
+                            <th scope="col" class="fixedthwidth">
+                              <a>Protocole Optimisé                               
+                              </a>
+                            </th>
+
+							<th scope="col" class="fixedthwidth">
+                              <a>Dose
+                                
+                              </a>
+                            </th>
+                            
+                            <th scope="col" class="fixedthwidth">
+                              <a>Kvp
+                                
+                              </a>
+                            </th>
+                
+                             <th scope="col" class="fixedthwidth">
+                              <a>Xray
+                                
+                              </a>
+                            </th>
+                                        
+                             <th scope="col" class="fixedthwidth">
+                              <a>Modalité
+                                
+                              </a>
+                            </th>
+                            <th scope="col" class="">
+                              <a>Machine
+                                
+                              </a>
+                            </th>
+ 							<th scope="col" class="fixedthwidth">
+                              <a>Nb notes
+                                
+                              </a>
+                            </th>
+                            <th scope="col" class="fixedthwidth">
+                              <a>Commentaire
+                                
+                              </a>
+                            </th>
+                            
+                            <th scope="col" class="fixedthwidth">
+                              <a>Evaluation
+                                
+                              </a>
+                            </th>
+                            
+                            
+                            
+                          </tr>
+                        </thead>
+                        <!--Table head-->
+                
+                
+                
+                
+                        
+                        <tbody style="overflow:hidden;" >
+                       <!--Table body-->
+                       {% for optim in  optimisationdosedetail %}
+                          <tr>
+  							<td class="fixedtdwidth font-weight-bolder">{{ optimisationdose.protocole }}</td>
+  							<td class="fixedtdwidth font-weight-bolder">{{ optim.valeur }}</td>
+                            <td class="fixedtdwidth font-weight-bolder">{{ optim.kvp }}</td>
+                            <td class="fixedtdwidth font-weight-bolder">{{ optim.xraytubecurrent }}</td>
+                            <td class="fixedtdwidth font-weight-bolder">{{ optim.modalite }}</td>
+                            <td class="fixedtdwidth font-weight-bolder">{{ optim.machine }}</td>
+                            <td class="fixedtdwidth font-weight-bolder">{{ optim.nbnotesmax }}</td>
+                            <td class="fixedtdwidth font-weight-bolder">{{ optim.commentaire }}</td>
+                            <td class="fixedtdwidth font-weight-bolder">
+                            <div  width="100px" >
+                            
+                            
+                                {% set somme=0 %}
+                            	{% set nb=0 %}
+                            	{% for evaluation in  evaluations[optim.id] %}
+                                	{% set somme= somme + evaluation.valeur %}
+                                	{% set nb=nb+1 %}
+                            	{% endfor %} 
+                            	{% set note= somme/nb %}
+                            
+                             {% if nb > 0 %}
+                            
+                                            {% if note>=1 %}
+                                    			<a href="#" title="Très mauvaise évaluation"><span class="fa fa-star" style="color:orange;"></span></a>
+                                     		{% else %}
+                                    			<a href="#" title="Très mauvaise évaluation"><span class="fa fa-star"></span></a>
+                                    		{% endif %}
+                                    		
+                                    	
+                                    	
+                                    		{% if note>=2 %}
+                                    			<a href="#"  title="Mauvaise évaluation"><span class="fa fa-star" style="color:orange;"></span></a>
+                                     		{% else %}
+                                    			<a href="#"  title="Mauvaise évaluation"><span class="fa fa-star"></span></a>
+                                    		{% endif %}
+                                    		
+                                    	
+                                    	
+                                    		{% if note>=3 %}
+                                    			<a href="#"  title="Evaluation moyenne"><span class="fa fa-star" style="color:orange;"></span></a>
+                                     		{% else %}
+                                    			<a href="#"  title="Evaluation moyenne"><span class="fa fa-star"></span></a>
+                                    		{% endif %}
+                                    		
+                                    	
+                                    	
+                                    	    {% if note>=4 %}
+                                    			<a href="#"  title="Bonne Evaluation"><span class="fa fa-star" style="color:orange;"></span></a>
+                                     		{% else %}
+                                    			<a href="#"  title="Bonne Evaluation"><span class="fa fa-star"></span></a>
+                                    		{% endif %}
+                                    		
+                                    		
+                                    		
+                                    		{% if note==5 %}
+                                    			<a href="#"  title="Très bonne évaluation"><span class="fa fa-star" style="color:orange;"></span></a>
+                                     		{% else %}
+                                    			<a href="#"  title="Très bonne évaluation"><span class="fa fa-star"></span></a>
+                                    		{% endif %}
+                                    		<span> {{ ((note /5) *100) | round }}%</span> &nbsp; <span>( {{ nb }}  notes /  {{ optim.nbnotesmax }} )</span>
+                                    		
+                         {% endif %}            		
+                         {% if nb <=  optim.nbnotesmax %}
+                          <span >
+                            <a onclick="crereval({{ optim.id }});"   data-toggle="modal" data-target="#modalLoginForm" ><i class="fas fa-plus-circle"></i></a>
+                            </span>
+                         {% endif %}   
+                            </div>
+                            <br>
+                           
+                           {% if nb>0 %}
+                           
+                            <div>
+                            <a data-toggle="collapse" href="#detailevaluation_{{ optim.id }}" aria-expanded="false" aria-controls="detailevaluation_{{ optim.id }}"><i class="sv-slim-icon fas fa-chevron-right"></i> <span class="font-weight-light"> Consulter le détail de l'évaluation</span></a>
+                            </div>
+                            {% endif  %}
+                            <div id="detailevaluation_{{ optim.id }}"  class="collapse">
+                            	
+                            	{% for evaluation in  evaluations[optim.id] %}
+                                    	<span style="color:initial !important;">
+                                    	
+                                    	
+                                    	
+                                    		{% if evaluation.valeur>=1 %}
+                                    			<a href="#{{ optim.id }}_1" title="Très mauvaise évaluation"><span class="fa fa-star" style="color:orange;"></span></a>
+                                     		{% else %}
+                                    			<a href="#{{ optim.id }}_1" title="Très mauvaise évaluation"><span class="fa fa-star"></span></a>
+                                    		{% endif %}
+                                    		
+                                    	
+                                    	
+                                    		{% if evaluation.valeur>=2 %}
+                                    			<a href="#{{ optim.id }}_2" title="Mauvaise évaluation"><span class="fa fa-star" style="color:orange;"></span></a>
+                                     		{% else %}
+                                    			<a href="#{{ optim.id }}_2" title="Mauvaise évaluation"><span class="fa fa-star"></span></a>
+                                    		{% endif %}
+                                    		
+                                    	
+                                    	
+                                    		{% if evaluation.valeur>=3 %}
+                                    			<a href="#{{ optim.id }}_3" title="Evaluation moyenne"><span class="fa fa-star" style="color:orange;"></span></a>
+                                     		{% else %}
+                                    			<a href="#{{ optim.id }}_3" title="Evaluation moyenne"><span class="fa fa-star"></span></a>
+                                    		{% endif %}
+                                    		
+                                    	
+                                    	
+                                    	{% if evaluation.valeur>=4 %}
+                                    			<a href="#{{ optim.id }}_4" title="Bonne Evaluation"><span class="fa fa-star" style="color:orange;"></span></a>
+                                     		{% else %}
+                                    			<a href="#{{ optim.id }}_4" title="Bonne Evaluation"><span class="fa fa-star"></span></a>
+                                    		{% endif %}
+                                    		
+                                    		
+                                    		
+                                    		{% if evaluation.valeur==5 %}
+                                    			<a href="#{{ optim.id }}_5" title="Très bonne évaluation"><span class="fa fa-star" style="color:orange;"></span></a>
+                                     		{% else %}
+                                    			<a href="#{{ optim.id }}_5" title="Très bonne évaluation"><span class="fa fa-star"></span></a>
+                                    		{% endif %}
+                                    		
+                                    	
+                                    		
+                                    		
+                                    		<span> {{ ((evaluation.valeur /5) *100) | round }}%</span> &nbsp; <span class="grey-text"><em> {{ evaluation.commentaire  }}</em> </span> 
+                                    	
+                                    		
+                                    		
+                                    		
+                                    
+                                    		
+                                    		
+                                    	</span>
+                            	
+                            	<br>
+                            	{% endfor %} 
+                            	
+                            	
+                            </div>
+                            
+                            </td>
+                            
+                          </tr>
+                       {% endfor %}      
+                        </tbody>
+                        
+                        
+                        
+                      </table>
+                      
+    </div>
+    
+    
+</div>
+
+
+
+
+<script>
+
+$(document).ready(function() {
+	$('#maincontent').loading('stop');
+});
+
+function crereval(id){
+	$('#iddetail').val(id);
+}
+
+function savstar(id){
+
+	//alert("test");
+
+	star=id;
+    for(var i = 1; i<=id;i++)
+    {
+    
+    	$('#star_'+i).css("color","orange");
+    }
+    for(var i = id+1; i<=5;i++)
+    {
+    
+    	$('#star_'+i).css("color","#aaa");
+    }
+   // alert(id);
+    var pourcent=(id/5)*100;
+   
+    $('#notation').html(pourcent+'%');
+}
+
+
+
+function escapeRegExp(string){
+
+    return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+}
+
+ 
+
+/* Define functin to find and replace specified term with replacement string */
+
+function replaceAll(str, term, replacement) {
+
+  return str.replace(new RegExp(escapeRegExp(term), 'g'), replacement);
+
+}
+
+
+
+
+
+function ajouterlignedetail(id){
+
+
+	 newrow=" <tr><td class=\"fixedtdwidth font-weight-bolder\">{{ optimisationdose.protocole }}</td>";
+	newrow+=" <td class=\"fixedtdwidth font-weight-bolder\"><div class=\"md-form\"><input type=\"text\" id=\"dosedetail_"+id+"\" class=\"form-control\" ><label  id=\"label_dose_"+id+"\" for=\"form-Subject\"> </label></div></td>";
+	newrow+=" <td class=\"fixedtdwidth font-weight-bolder\"><div class=\"md-form\"><input type=\"text\" id=\"kvpdetail_"+id+"\" class=\"form-control\" ><label  id=\"label_kvp_"+id+"\" for=\"form-Subject\"> </label></div></td>";
+	newrow+=" <td class=\"fixedtdwidth font-weight-bolder\"><div class=\"md-form\"><input type=\"text\" id=\"xraydetail_"+id+"\" class=\"form-control\" ><label id=\"label_xray_"+id+"\"  for=\"form-Subject\"> </label></div></td>";
+	newrow+=" <td class=\"fixedtdwidth font-weight-bolder\"><div class=\"md-form\"><input type=\"text\" id=\"modalitedetail_"+id+"\" class=\"form-control\" ><label id=\"label_modalite_"+id+"\" for=\"form-Subject\"> </label></div></td>";
+	newrow+=" <td class=\"fixedtdwidth font-weight-bolder\"><div class=\"md-form\"><input type=\"text\"   data-toggle=\"modal\" data-target=\"#listedispositifsoptim_update\" id=\"machinedetail_"+id+"\" class=\"form-control\" ><label id=\"label_machine_"+id+"\"  for=\"form-Subject\"> </label></div></td>";
+	newrow+=" <td class=\"fixedtdwidth font-weight-bolder\"><div class=\"md-form\"><input type=\"text\" id=\"nbnotedetail_"+id+"\" class=\"form-control\" ><label id=\"label_nbnote_"+id+"\" for=\"form-Subject\"> </label></div></td>";
+	newrow+=" <td class=\"fixedtdwidth font-weight-bolder\"><div class=\"md-form\"><input type=\"text\" id=\"commentairedetail_"+id+"\" class=\"form-control\" ><label id=\"label_commentairedetail_"+id+"\" for=\"form-Subject\"> </label></div></td>";
+	
+	//newrow+=" <td class=\"fixedtdwidth font-weight-bolder\">test</td>";
+	newrow+=" <td class=\"fixedtdwidth font-weight-bolder\"><div width=\"100px;\"><input type=\"button\" value='Enregistrer' onclick='enregistrerdetail("+id+");'></div></td></tr>";
+
+	$('#tableoptimpatientdet >tbody:last').append(newrow);
+
+
+	
+	
+}  
+
+
+
+
+
+function insertdetail(id){
+ 
+	commentaire=replaceAll($('#commentairedetail_'+id).val(),' ','+');
+	dose=replaceAll($('#dosedetail_'+id).val(),' ','+');
+
+	protocole=replaceAll(replaceAll("{{ optimisationdose.protocole }}",' ','+'),'/','*');
+	
+	kvp=replaceAll($('#kvpdetail_'+id).val(),' ','+');
+	xray=replaceAll($('#xraydetail_'+id).val(),' ','+');
+	modalite=replaceAll($('#modalitedetail_'+id).val(),' ','+');
+	machine=replaceAll($('#machinedetail_'+id).val(),' ','+');
+	nbnote=replaceAll($('#nbnotedetail_'+id).val(),' ','+');
+
+	
+    url="{{ url('insertoptimdosedetail' ,{numdetail:"_numdetail",protocole:"_protocole",kvp:"_kvp",xray:"_xray",modalite:"_modalite",machine:"_machine",nbnote:"_nbnote", dose:"_dose",commentaire:"_commentaire" }) }}";
+    url2=url.replace("_numdetail" ,id).replace("_protocole" ,protocole).replace("_kvp" ,kvp).replace("_xray" ,xray).replace("_modalite" ,modalite).replace("_machine" ,machine).replace("_nbnote" ,nbnote).replace("_dose" ,dose).replace("_commentaire" ,commentaire);
+
+
+    
+  $.ajax({
+	       
+  	contentType: "application/json; charset=utf-8",
+  	url: url2,
+    	dataType: "json",
+      data: "{}",
+
+      success: function( _data ) {
+    	  /* 	var id=_data.id;
+      	var protocole=_data.protocole;
+      	var kvp=_data.kvp;
+      	var xraytubecurrent=_data.xraytubecurrent;
+      	var modalite=_data.modalite;
+      	var machine=_data.machine;
+      	var note=_data.nbnotesmax;*/
+
+
+    	url3="{{ url('optimdosedetail',{numdetail:"_numdetail"}) }}";
+        url4=url3.replace("_numdetail", _data.id);
+       // $('#modalLoginForm').modal("hide");
+
+        
+      	$('#contentoptimdetail').load(url4);
+
+
+  		
+      }
+  });
+	
+}
+
+function enregistrerdetail(id){
+
+	var test=false;
+	commentaire=replaceAll(replaceAll($('#commentairedetail_'+id).val(),' ','+'),'/','*');
+
+	if(commentaire==""){
+    	$('#commentairedetail_'+id).css("border-color","red");
+    	$('#commentairedetail_'+id).css("color","red");
+    	
+    	test=true;
+
+    	
+    }else{
+    	$('#commentairedetail_'+id).css("border-color","#ced4da");
+    	$('#commentairedetail_'+id).css("color","#495057");
+    	
+        }
+	dose=replaceAll($('#dosedetail_'+id).val(),' ','+');
+
+	if(dose==""){
+    	$('#dosedetail_'+id).css("border-color","red");
+    	$('#dosedetail_'+id).css("color","red");
+    	//$('#label_procole_'+id).css("color","red");
+    	test=true;
+
+    	
+    }else{
+    	$('#dosedetail_'+id).css("border-color","#ced4da");
+    	$('#dosedetail_'+id).css("color","#495057");
+    	//$('#label_procole_'+id).css("color","#495057");
+        }
+    
+
+	kvp=$('#kvpdetail_'+id).val();
+	if(kvp==""){
+    	$('#kvpdetail_'+id).css("border-color","red");
+    	$('#kvpdetail_'+id).css("color","red");
+    	$('#label_kvp_'+id).css("color","red");
+    	test=true;
+    	
+    }else{
+    	$('#kvpdetail_'+id).css("border-color","#ced4da");
+    	$('#kvpdetail_'+id).css("color","#495057");
+    	$('#label_kvp_'+id).css("color","#495057");
+        }
+
+	xray=$('#xraydetail_'+id).val();
+	if(xray==""){
+    	$('#xraydetail_'+id).css("border-color","red");
+    	$('#xraydetail_'+id).css("color","red");
+    	$('#label_xray_'+id).css("color","red");
+    	test=true;
+    	
+    }else{
+    	$('#xraydetail_'+id).css("border-color","#ced4da");
+    	$('#xraydetail_'+id).css("color","#495057");
+    	$('#label_xray_'+id).css("color","#495057");
+        }
+    
+	modalite=$('#modalitedetail_'+id).val();
+	if(modalite==""){
+    	$('#modalitedetail_'+id).css("border-color","red");
+    	$('#modalitedetail_'+id).css("color","red");
+    	$('#label_modalite_'+id).css("color","red");
+    	test=true;
+    	
+    }else{
+    	$('#modalitedetail_'+id).css("border-color","#ced4da");
+    	$('#modalitedetail_'+id).css("color","#495057");
+    	$('#label_modalite_'+id).css("color","#495057");
+        }
+    
+	machine=$('#machinedetail_'+id).val();
+	
+	if(machine==""){
+    	$('#machinedetail_'+id).css("border-color","red");
+    	$('#machinedetail_'+id).css("color","red");
+    	$('#label_machine_'+id).css("color","red");
+    	test=true;
+    	
+    }else{
+    	$('#machinedetail_'+id).css("border-color","#ced4da");
+    	$('#machinedetail_'+id).css("color","#495057");
+    	$('#label_machine_'+id).css("color","#495057");
+        }
+    
+	nbnotes=$('#nbnotedetail_'+id).val();
+	if(nbnotes==""){
+    	$('#nbnotedetail_'+id).css("border-color","red");
+    	$('#nbnotedetail_'+id).css("color","red");
+    	$('#label_nbnote_'+id).css("color","red");
+    	test=true;
+    	
+    }else{
+    	$('#nbnotedetail_'+id).css("border-color","#ced4da");
+    	$('#nbnotedetail_'+id).css("color","#495057");
+    	$('#label_nbnote_'+id).css("color","#495057");
+        }
+
+
+	if(!test)
+		insertdetail(id);
+}
+</script>	

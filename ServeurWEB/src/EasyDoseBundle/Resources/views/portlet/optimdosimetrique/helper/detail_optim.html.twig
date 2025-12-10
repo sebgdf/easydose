@@ -1,0 +1,195 @@
+<!-- detail_optim.html.twig -->
+
+<div id="newoptimisation" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="newoptimisation">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="newoptimisationLabel">Nouvelle Optimisation Dosimétrique</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+     		<a onclick="ajouterlignedetail({{ numdetail }});"><i class="fas fa-plus-circle"></i> Ajouter un nouvelle évaluation.</a>
+       		<table id="tableoptimpatientdet" class="table display table-bordered table-striped" style="">
+                   <!--Table head-->
+                        <thead class="white-text" style="background-color:#243a51;">
+                          <tr>                
+                            <th scope="col" class="fixedthwidth">
+                              <a>Protocole Optimisé                               
+                              </a>
+                            </th>
+
+							<th scope="col" class="fixedthwidth">
+                              <a>Dose
+                                
+                              </a>
+                            </th>
+                            
+                            <th scope="col" class="fixedthwidth">
+                              <a>Kvp
+                                
+                              </a>
+                            </th>
+                
+                             <th scope="col" class="fixedthwidth">
+                              <a>Xray
+                                
+                              </a>
+                            </th>
+                                        
+                             <th scope="col" class="fixedthwidth">
+                              <a>Modalité
+                                
+                              </a>
+                            </th>
+                            
+ 							<th scope="col" class="fixedthwidth">
+                              <a>Nb notes
+                                
+                              </a>
+                            </th>
+                            <th scope="col" class="fixedthwidth">
+                              <a>Commentaire
+                                
+                              </a>
+                            </th>
+                            
+                            <th scope="col" class="fixedthwidth">
+                              <a>Evaluation
+                                
+                              </a>
+                            </th>
+                          </tr>
+                        </thead>
+                        <!--Table head-->
+                
+                        
+                        <tbody style="overflow:hidden;" >
+                       <!--Table body-->
+                       {% for optim in  optimisationdosedetail %}
+                          <tr>
+  							<td class="fixedtdwidth font-weight-bolder">{{ optim.valeur }}</td>
+                            <td class="fixedtdwidth font-weight-bolder">{{ optim.kvp }}</td>
+                            <td class="fixedtdwidth font-weight-bolder">{{ optim.xraytubecurrent }}</td>
+                            <td class="fixedtdwidth font-weight-bolder">{{ optim.modalite }}</td>
+                            <td class="fixedtdwidth font-weight-bolder">{{ optim.nbnotesmax }}</td>
+                            <td class="fixedtdwidth font-weight-bolder">{{ optim.commentaire }}</td>
+                            <td class="fixedtdwidth font-weight-bolder">
+                            <div  width="100px" >
+                            
+                            
+                                {% set somme=0 %}
+                            	{% set nb=0 %}
+                            	{% for evaluation in  evaluations[optim.id] %}
+                                	{% set somme= somme + evaluation.valeur %}
+                                	{% set nb=nb+1 %}
+                            	{% endfor %} 
+                            	{% set note= somme/nb %}
+                            
+                             	{% if nb > 0 %}
+                            
+                                            {% if note>=1 %}
+                                    			<a href="#" title="Très mauvaise évaluation"><span class="fa fa-star" style="color:orange;"></span></a>
+                                     		{% else %}
+                                    			<a href="#" title="Très mauvaise évaluation"><span class="fa fa-star"></span></a>
+                                    		{% endif %}
+                                    		
+                                    	
+                                    	
+                                    		{% if note>=2 %}
+                                    			<a href="#"  title="Mauvaise évaluation"><span class="fa fa-star" style="color:orange;"></span></a>
+                                     		{% else %}
+                                    			<a href="#"  title="Mauvaise évaluation"><span class="fa fa-star"></span></a>
+                                    		{% endif %}
+                                    		
+                                    	
+                                    	
+                                    		{% if note>=3 %}
+                                    			<a href="#"  title="Evaluation moyenne"><span class="fa fa-star" style="color:orange;"></span></a>
+                                     		{% else %}
+                                    			<a href="#"  title="Evaluation moyenne"><span class="fa fa-star"></span></a>
+                                    		{% endif %}
+                                    		
+                                    	
+                                    	
+                                    	    {% if note>=4 %}
+                                    			<a href="#"  title="Bonne Evaluation"><span class="fa fa-star" style="color:orange;"></span></a>
+                                     		{% else %}
+                                    			<a href="#"  title="Bonne Evaluation"><span class="fa fa-star"></span></a>
+                                    		{% endif %}
+                                    		
+                                    		
+                                    		
+                                    		{% if note==5 %}
+                                    			<a href="#"  title="Très bonne évaluation"><span class="fa fa-star" style="color:orange;"></span></a>
+                                     		{% else %}
+                                    			<a href="#"  title="Très bonne évaluation"><span class="fa fa-star"></span></a>
+                                    		{% endif %}
+                                    		<span> {{ ((note /5) *100) | round }}%</span> &nbsp; <span>( {{ nb }}  notes /  {{ optim.nbnotesmax }} )</span>
+                                    		
+                                 {% endif %}
+                                             		
+                                 {% if nb <=  optim.nbnotesmax %}
+                                  <span >
+                                    <a onclick="crereval({{ optim.id }});"   data-toggle="modal" data-target="#modalLoginForm" ><i class="fas fa-plus-circle"></i></a>
+                                 </span>
+                                 {% endif %}   
+                           </div>
+                   <br>
+                       {% if nb>0 %}                          
+                            <div>
+                            <a data-toggle="collapse" href="#detailevaluation_{{ optim.id }}" aria-expanded="false" aria-controls="detailevaluation_{{ optim.id }}"><i class="sv-slim-icon fas fa-chevron-right"></i> <span class="font-weight-light"> Consulter le détail de l'évaluation</span></a>
+                            </div>
+                       {% endif  %}
+                            <div id="detailevaluation_{{ optim.id }}"  class="collapse">
+                            	
+                       {% for evaluation in  evaluations[optim.id] %}
+                                    	<span style="color:initial !important;">           	
+                                    		{% if evaluation.valeur>=1 %}
+                                    			<a href="#{{ optim.id }}_1" title="Très mauvaise évaluation"><span class="fa fa-star" style="color:orange;"></span></a>
+                                     		{% else %}
+                                    			<a href="#{{ optim.id }}_1" title="Très mauvaise évaluation"><span class="fa fa-star"></span></a>
+                                    		{% endif %}
+                                    		{% if evaluation.valeur>=2 %}
+                                    			<a href="#{{ optim.id }}_2" title="Mauvaise évaluation"><span class="fa fa-star" style="color:orange;"></span></a>
+                                     		{% else %}
+                                    			<a href="#{{ optim.id }}_2" title="Mauvaise évaluation"><span class="fa fa-star"></span></a>
+                                    		{% endif %}
+                                    		
+                                    	
+                                    	
+                                    		{% if evaluation.valeur>=3 %}
+                                    			<a href="#{{ optim.id }}_3" title="Evaluation moyenne"><span class="fa fa-star" style="color:orange;"></span></a>
+                                     		{% else %}
+                                    			<a href="#{{ optim.id }}_3" title="Evaluation moyenne"><span class="fa fa-star"></span></a>
+                                    		{% endif %}
+                                    		
+                                    	
+                                    	
+                                    	    {% if evaluation.valeur>=4 %}
+                                    			<a href="#{{ optim.id }}_4" title="Bonne Evaluation"><span class="fa fa-star" style="color:orange;"></span></a>
+                                     		{% else %}
+                                    			<a href="#{{ optim.id }}_4" title="Bonne Evaluation"><span class="fa fa-star"></span></a>
+                                    		{% endif %}
+                                    		
+                                    		{% if evaluation.valeur==5 %}
+                                    			<a href="#{{ optim.id }}_5" title="Très bonne évaluation"><span class="fa fa-star" style="color:orange;"></span></a>
+                                     		{% else %}
+                                    			<a href="#{{ optim.id }}_5" title="Très bonne évaluation"><span class="fa fa-star"></span></a>
+                                    		{% endif %}
+                                    	
+                                    		<span> {{ ((evaluation.valeur /5) *100) | round }}%</span> &nbsp; <span class="grey-text"><em> {{ evaluation.commentaire  }}</em> </span> 
+                                    	    </span>
+                            				<br>
+                            	{% endfor %}                           	
+                            </div>
+                            </td>
+                          </tr>
+                       {% endfor %}      
+                        </tbody>
+                  </table>
+                  
+      
+      </div>
+   </div>
+</div>

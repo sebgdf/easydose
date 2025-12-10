@@ -1,0 +1,7 @@
+{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
+
+{% block field %}
+    {% if object.id %}
+        <a href="{{  path('media3' , {'id': object.id | url_encode(true) }) }}" class="btn btn-primary"><span class="fa fa-download"></span></a>
+    {% endif %}
+{% endblock %}

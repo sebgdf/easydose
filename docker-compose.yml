@@ -1,0 +1,155 @@
+version: "3.7"
+services:
+  easydosev3:
+    build: .
+    container_name: "easydosev3"
+    image: easydosev3:latest
+    restart: unless-stopped
+    tty: true
+    hostname: easydosev3
+    environment:
+      TZ: "Indian/Reunion"
+      http_proxy: ""
+      https_proxy: ""
+      HTTP_PROXY: ""
+      HTTPS_PROXY: ""
+    ports:
+      - 8000:80
+    privileged: true
+    links:
+      - mysql
+      - easydosev2
+    networks:
+      - default
+    volumes:
+            - type: bind
+              source: /home/easydose/work/infocomreunion/easydose/easydose/ServeurWEB
+              target: /home/easydose
+#    command:
+#      bash -c "
+#      ln -sf /home/easydose/ /home/easydose2/easydoseln/"    
+  easydosev2:
+    build:
+      context: .
+      dockerfile: easydosev2DockerFile
+    container_name: "easydosev2"
+    image: easydosev2:latest
+    restart: unless-stopped
+    tty: true
+    hostname: easydosev2
+    environment:
+      TZ: "Indian/Reunion"
+    ports:
+      - 8081:81
+    privileged: true
+    links:
+      - mysql
+    networks:
+      - default
+    volumes:
+            - type: bind
+              source: /home/easydose/work/infocomreunion/easydose/easydose/easydosev3
+              target: /home/easydose
+#    command:
+#      bash -c "
+#      ln -sf /home/easydose/ /home/easydose2/easydoseln/"     
+  dicomserver:
+    build:
+      context: .
+      dockerfile: dicomserverDockerFile
+    container_name: "dicomserver"
+    image: dicomserver:0.2
+    restart: unless-stopped
+    tty: true
+    hostname: dicomserver
+    environment:
+      TZ: "Indian/Reunion"
+      http_proxy: ""
+      https_proxy: ""
+      HTTP_PROXY: ""
+      HTTPS_PROXY: ""
+    ports:
+      - 11112:11112
+    privileged: true
+    links:
+      - mysql
+      - easydosev3
+      - eventinfocomreunion
+    networks:
+      - default
+
+#  sshserver:
+#    build:
+#      context: .
+#      dockerfile: sshserverDockerfile
+#    container_name: "sshserver"
+#    image: sshserver:0.2
+#    restart: unless-stopped
+#    tty: true
+#    hostname: sshserver
+#    environment:
+#      TZ: "Indian/Reunion"
+#    ports:
+#      - 11142:22
+#    privileged: true
+#    links:
+#      - mysql
+#    networks:
+#      - default
+#    volumes:
+#            - type: bind
+#              source: C:/Users/sebastien.girier/Projets/easydose/sshserver
+#              target: /home/dicomserver/.ssh
+#            - type: bind
+#              source: C:/Users/sebastien.girier/Projets/easydose/import
+#              target: /home/dicomserver/import
+#            - type: bind
+#              source: C:/Users/sebastien.girier/Projets/easydose/export
+#              target: /home/dicomserver/export
+  eventinfocomreunion:
+    image: ghcr.io/sebastiengdf/eventinfocomreunion:latest
+    container_name: "eventinfocomreunion"
+    image: eventinfocomreunion:latest
+    restart: unless-stopped
+    tty: true
+    hostname: eventinfocomreunion
+    environment:
+      TZ: "Indian/Reunion"
+      http_proxy: ""
+      https_proxy: ""
+      HTTP_PROXY: ""
+      HTTPS_PROXY: ""
+    ports:
+      - 8001:80
+    privileged: true
+    user: "33:33"
+    links:
+      - mysql
+    networks:
+      - default
+
+  mysql:
+    image: mysql:5.7.41-debian
+    container_name: "bddmysql"
+    restart: unless-stopped
+    tty: true
+    hostname: bddmysql
+    environment:
+      TZ: "Indian/Reunion"
+      MYSQL_ROOT_PASSWORD: Boss132
+      MYSQL_DATABASE: 'easydose'
+      MYSQL_TCP_PORT: 3307
+    privileged: true
+    ports:
+      - '3307:3307'
+    expose:
+      - '3307'
+    networks:
+      - default
+    volumes:
+            - type: bind
+              source: /home/sebastien/easydosedocker/mysql/data
+              target: /var/lib/mysql
+            - type: bind
+              source: /home/sebastien/easydosedocker/mysql/sql
+              target: /sql

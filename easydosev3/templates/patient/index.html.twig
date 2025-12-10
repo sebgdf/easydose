@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PatientController!{% endblock %}
+
+{% block body %}
+<div class='box card'>
+	<div class="row">
+                <div class="col-md-12 ml-2" style="left:1px; padding-right:1.9rem!important;">
+                <div class="row">
+                        <div class="col-md-10 onglet1adown pr-0 mr-0 pt-1">Liste des Patients </div> <div class="pl-0 ml-0 col-md-2 onglet1bdown"> </div>
+                
+                </div>
+                </div>
+	</div>
+        <div>
+                <div class='col-md-12' id='filter'></div><div class='col-md-12' id='nav'></div>
+                <div class='col-md-12' id='patients'></div>
+        </div>
+</div>
+{% endblock %}
+ {% block javascripts %}
+        <script>
+        var parameters='{{parameters | raw }}';
+        var jsonpatientspathname='{{jsonpatientspathname}}';
+        var jsonprotocolespathname='{{jsonprotocolespathname}}';
+        var jsonlocationhost='{{jsonlocationhost}}';
+        var _istousChecked=true; 
+        var _ismammoChecked=false;
+        var _isscannerChecked=false;
+        var _isradioChecked=false;
+        var _isnrdChecked=false;
+        var _isenfantsChecked=false;
+
+        </script>
+        {{ parent() }}
+        {{ encore_entry_script_tags('patients') }}
+{% endblock %}

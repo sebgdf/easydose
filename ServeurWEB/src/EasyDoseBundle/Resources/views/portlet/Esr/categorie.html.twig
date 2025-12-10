@@ -1,0 +1,72 @@
+          <div id="divcategorie">
+                        			<!-- Default form register -->
+                    <form class="text-center border border-light p-5" action="#!">
+                    
+                        <p class="h4 mb-4">Sélection des processus</p>                    
+                     
+                        <small id="defaultRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
+                            Sélectionner un processus. 
+                        </small>
+                    
+                        <select id="selectcategorie" class="browser-default custom-select mb-4">                        
+                            <option value="" disabled>Choisir Catégorie</option>
+                            
+                            {% for categorie in categories %}
+                                {% if categorie.id == currentcategorie.id %}
+                                	<option value="{{ categorie.id }}" selected> {{ categorie }}</option>
+                                {% else %}
+                                	<option value="{{ categorie.id }}"> {{ categorie }}</option>
+                                {% endif %}
+                            {% endfor %}
+                                                       
+                        </select>
+                        <small id="defaultRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
+                            Sélectionner un sous processus. 
+                        </small>
+                        <div id="souscategorie"> </div>
+
+
+                        <!--  Passage à la page suivante -->
+                      	<button  type="cancel" class="btn btn-secondary my-4 btn-block" onclick="loadpageesr('{{ urlimg }}','{{ urlnext }}','{{ idtemplatenext }}');return false;">Suivant</button>                   
+                       
+
+                        <hr>
+                    
+                        
+                    </form>
+                    <!-- Default form register -->
+            
+          </div>
+          
+          
+<script>
+
+//changeesrValueGlobal('{{urlsaveesrvalue}}',{{id_esr_courant}},'input','nomDeclarant');
+//changeesrValueGlobal('{{urlsaveesrvalue}}',{{id_esr_courant}},'input','prenomDeclarant');
+//changeesrValueGlobal('{{urlsaveesrvalue}}',{{id_esr_courant}},'input','emailDeclarant');
+//changeesrValueGlobal('{{urlsaveesrvalue}}',{{id_esr_courant}},'input','telephoneDeclarant');
+//changeesrValueGlobal('{{urlsaveesrvalue}}',{{id_esr_courant}},'select','fonctiondeclarantesr');
+
+//lierInput('divnomd{{esr.id}}','input','nomDeclarant');
+//lierInput('divcategorie{{esr.id}}','selecttext','selectcategorie');
+
+
+function rechargerpageEI2(esrid,categorieid){
+		url="{{ url('getAllEiSousCategorie',{'esrid':'_esrid','categorieid':'_categorieid'} ) }}";
+		url2=url.replace('_esrid',esrid).replace('_categorieid',categorieid);
+        console.log(url2);
+        $('#souscategorie').load(url2);
+        
+}
+
+$('#selectcategorie').change(function() {   
+        
+        var categorieid = $(this).children("option:selected").val();
+        console.log('test');
+        console.log(categorieid);
+        rechargerpageEI2({{id_esr_courant}},categorieid);
+        
+});
+
+rechargerpageEI2({{id_esr_courant}},{{currentcategorie.id}})
+</script>

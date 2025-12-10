@@ -1,0 +1,110 @@
+        <div style="height:600px;overflow-y:scroll;">
+          <div id="identitiedeclarant">
+                        			<!-- Default form register -->
+                    <form class="border border-light p-3" action="#!">
+                    <p class="h4 mb-4 text-center">Description de l'évènement</p>  
+                        
+                       <div class="form-row mb-4">
+                            <div class="col">
+                                <!-- First name -->
+                                <input type="text" id="dateSurvenueESR" class="form-control" placeholder="Choisissez la date" value="{{ esr.dateSurvenueESR }}">
+                            </div>
+                             
+                        
+                            <div class="col">
+                                <!-- Last name -->
+                                <input type="text" id="heureSurvenueESR" class="form-control" placeholder="Choisissez l'heure" value="{{ esr.heureSurvenueESR }}">
+                            </div>
+                        </div>
+                        <div class="text-center">
+                        <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
+                              Date de survenue.
+                        </small>
+                        </div>
+                        <!-- Date de détection --> 
+                        
+                        
+                        <div class="form-row mb-4">
+                            <div class="col">
+                                <!-- First name -->
+                                <input type="text" id="dateDetectionESR" class="form-control" placeholder="Choisissez la date" value="{{ esr.dateDetectionESR }}">
+                            </div>
+                            <div class="col">
+                                <!-- Last name -->
+                                <input type="text" id="heureDetectionESR" class="form-control" placeholder="Choisissez l'heure" value="{{ esr.heureDetectionESR }}">
+                            </div>
+                        </div>
+    
+						<div class="text-center">    
+                         <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
+                              Date de détection.
+                         </small>              	
+                     	</div>
+                     	
+                     	
+                     	<!-- Critères de déclaration -->
+                     	                  
+                        <select class="browser-default custom-select mb-4" id="idCritereDeclaration">
+                            <option value="" disabled>Choisir critère</option>
+                            
+                            {% for critere in criteres %}
+                                {% if critere.id == esr.idCritereDeclaration.id %}
+                                	<option value="{{ critere.id }}" selected> {{ critere.libelle }}</option>
+                                {% else %}
+                                	<option value="{{ critere.id }}"> {{ critere.libelle  }}</option>
+                                {% endif %}
+                            {% endfor %}
+                            
+                        </select>
+                    <div class="text-center">    
+                         <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
+                              Critère de déclaration retenu.
+                         </small>              	
+                     	</div>
+                      {% include ("@EasyDose/portlet/Esr/precedent_next_esr.html.twig") %} 
+                        <hr>
+                    
+                       
+                     	
+                    
+                    </form>
+          </div>
+        </div> 
+          
+          
+ <script>
+ 		changeesrValueGlobal('{{urlsaveesrvalue}}',{{id_esr_courant}},'select','idCritereDeclaration');
+ 		changeesrValueGlobal('{{urlsaveesrvalue}}',{{id_esr_courant}},'input','heureSurvenueESR');
+ 		changeesrValueGlobal('{{urlsaveesrvalue}}',{{id_esr_courant}},'input','heureDetectionESR');
+ 		lierInput('critere{{ esr.id }}','selecttext','idCritereDeclaration');
+       
+        	// Data Picker Initialization
+		$('#dateSurvenueESR').pickadate({
+			 monthsFull: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre',
+					'Novembre', 'Decembre'],
+					// Light or Dark theme
+		        	darktheme: true,
+		        	onSet: function(context) {		        			
+							date=new Date(context.select)
+							var strdate=date.getDate() +' '+convertMonthToFranch(date.getMonth())+', '+date.getFullYear();
+							changeValueEsr('{{urlsaveesrvalue}}',{{id_esr_courant}},'dateSurvenueESR',strdate);
+							changetextindiv('dateesr{{ esr.id }}',strdate);
+		        			}
+			}	);
+
+
+        	// Data Picker Initialization
+		$('#dateDetectionESR').pickadate({
+			 monthsFull: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre',
+					'Novembre', 'Decembre'],
+					// Light or Dark theme
+		        	darktheme: true,
+		        	onSet: function(context) {		        			
+						date=new Date(context.select)
+						var strdate=date.getDate() +' '+convertMonthToFranch(date.getMonth())+', '+date.getFullYear();
+						changeValueEsr('{{urlsaveesrvalue}}',{{id_esr_courant}},'dateDetectionESR',strdate);
+	        		
+	        			}
+			}	);
+		
+        </script>

@@ -1,0 +1,101 @@
+<!-- Modal: modalPoll -->
+<div class="modal fade left" id="modalPoll-1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" data-backdrop="false">
+  <div  class="modal-dialog modal-full-height modal-left modal-notify modal-info"  style="background-color:#243a51!important;" role="document">
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header" style="background-color:#243a51!important;">
+        <p class="heading lead">Rechercher un Patient
+        </p>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+          <span aria-hidden="true" class="white-text">×</span>
+        </button>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body" style="background-color:white!important;">
+        <div class="text-center">
+          <i  style="color:#243a51;" class="far fa-user fa-4x mb-3 animated rotateIn"></i>
+          <p>
+            <strong>Recherche de patient</strong>
+          </p>
+         <!--  <p>Have some ideas how to improve our product?
+            <strong>Give us your feedback.</strong>
+          </p>--> 
+        </div>
+
+        <hr>
+
+        <!-- Radio 
+        <p class="text-center">
+          <strong>Your rating</strong>
+        </p>-->
+        <div class="md-form">
+              <input type="search" id="search-firstname" class="form-control mdb-autocomplete">
+              <button class="mdb-autocomplete-clear">
+                <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" ></path>
+                  <path d="M0 0h24v24H0z" fill="none" ></path>
+                </svg>
+              </button>
+              <label for="search-firstname" class="active">Nom</label>
+            </div>
+
+         <div class="md-form">
+              <input type="search" id="search-lastname" class="form-control mdb-autocomplete">
+              <button class="mdb-autocomplete-clear">
+                <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" ></path>
+                  <path d="M0 0h24v24H0z" fill="none" ></path>
+                </svg>
+              </button>
+              <label for="search-lastname" class="active">Prenom</label>
+            </div>
+
+        <div class="form-check mb-4">
+          <input class="form-check-input" name="group1" type="radio" id="radio-379" value="FEMME">
+          <label class="form-check-label" for="radio-379">FEMME</label>
+        </div>
+        <div class="form-check mb-4">
+          <input class="form-check-input" name="group1" type="radio" id="radio-479" value="HOMME">
+          <label class="form-check-label" for="radio-479">HOMME</label>
+        </div>
+         <div class="md-form">
+              <input type="search" id="search-ipp" class="form-control mdb-autocomplete">
+              <button class="mdb-autocomplete-clear">
+                <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" ></path>
+                  <path d="M0 0h24v24H0z" fill="none" ></path>
+                </svg>
+              </button>
+              <label for="search-ipp" class="active">N°IPP</label>
+            </div>
+              <div class="md-form">
+              <input type="search" id="search-id-regional" class="form-control mdb-autocomplete">
+              <button class="mdb-autocomplete-clear">
+                <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" ></path>
+                  <path d="M0 0h24v24H0z" fill="none" ></path>
+                </svg>
+              </button>
+              <label for="search-id-regional" class="active">ID REGIONAL</label>
+            </div>
+            <!--  
+            <div class="md-form">
+              <input placeholder="Date de rendez-vous" type="text" id="date-picker-example" class="form-control datepicker">
+             
+            </div> -->
+            
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer justify-content-center" style="background-color:#243a51!important;">
+        <a type="button" onclick="rechercherpatient(this,'{{  url('worklistsearch',{'nom':'Searchnom','prenom':'Searchprenom','IPP':'SearchpIPP' ,'IDR':'SearchIDR','BD':'SearchBD','HDRV':'SearchHRDV','GENRE':'_GENRE',screenheigth:"_screenheigth"} ) }}');" class="btn btn-primary waves-effect waves-light">Rechercher
+          <i class="fa fa-paper-plane ml-1"></i>
+        </a>
+        <a type="button" onclick="annulerrechercherpatient(this,'{{  url('worklistsearch',{'nom':'null','prenom':'null','IPP':'null' ,'IDR':'null','BD':'null','HDRV':'null','GENRE':'null',screenheigth:"_screenheigth"} ) }}')" class="btn btn-outline-primary waves-effect" data-dismiss="modal">Annuler</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+
+{% for esr in esrs %}      
+      {% if isesr %}
+            {% include ("@EasyDose/portlet/Esr/esr_card.html.twig") with {'esr':esr,'nbpagesToview':nbpagesToview,'isesr':isesr}%} 
+      {% else %}
+            {% include ("@EasyDose/portlet/Esr/ei_card.html.twig") with {'esr':esr,'nbpagesToview':nbpagesToview,'isesr':isesr,'ConnectedUser':ConnectedUser}%} 
+      {% endif %}
+{% endfor %}

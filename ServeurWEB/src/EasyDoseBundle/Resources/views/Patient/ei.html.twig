@@ -1,0 +1,133 @@
+{% extends "@EasyDose/portlet/onglet.html.twig" %}
+	
+
+{% block content %}
+	<!-- iv class="col-md-12 onglet1" > </div -->
+<div class="flatcard">	
+	  <div class="row">
+        <div class="col-md-12 ml-3" style="left:-2px; padding-right:2.65rem!important;">
+            <div class="row">
+            	<div class="col-md-10 onglet1a pr-0 mr-0 pt-1" >Liste des déclarations </div> <div class="pl-0 ml-0 col-md-2 onglet1b" > </div>
+            
+            </div>
+        </div>
+	</div>
+	
+
+	<div class="row">
+		
+		
+		<div class="col-sm-12 col-md-2" onclick="loadeipage();" data-toggle="modal" data-target="#md_delarationei" id="buttonei"> 
+		<p class="d-inline rounded ml-3 boxcliquable" style="font-size: 2em">{% if granted('app', 'esr', 'create') %} {% include ("@EasyDose/portlet/Esr/viewer/add.svg.twig") %} </p> 
+		<p class="d-inline boxcliquable"><strong>Nouvel E.I.</strong> </p>
+		{% else %} <p>&nbsp;</p> {% endif %}
+		</div> 
+		
+		<div class="col-sm-12 col-md-3 d-none" data-toggle="modal" data-target="#md_delarationei" id="buttoneihidden"></div> 
+		<div class="col-sm-12 col-md-4" >{% include ("@EasyDose/portlet/classifier/rechercheei.html.twig")  with{'nbpagesToview':nbpagesToview,'offset':offset,'categories':categories}%} </div>
+		<div class="col-sm-12 col-md-4" id="pagination" >{% include ("@EasyDose/portlet/classifier/pagination_esr_ei.html.twig")  with{'nbpagesToview':nbpagesToview,'offset':offset}%} </div>
+	</div>
+	<div class="col-md-12"> &nbsp;</div>
+    <div class="row  mx-1 overflow-auto h-50" id="eimesdelarations" >
+            
+            
+    </div>
+        
+    <hr>
+
+    <div class="row" id="eitoutesdelarations">
+        &nbsp;
+        
+    </div>
+        
+    <!-- button id="buttonesr" type="button" class="btn btn-primary" data-toggle="modal" data-target="#md_delarationesr">Déclarer un nouvel évènement significatif</button-->
+
+
+
+
+  <button class="d-none" id="buttonesrview" data-toggle="modal" data-target="#eivewer">Launch Modal LogIn/Register</button>
+
+
+</div>
+{% include ("@EasyDose/portlet/Esr/personne_declare.html.twig") with {'isesr':false} %} 
+
+{% include ("@EasyDose/portlet/Esr/ei_viewer.html.twig") %} 
+
+{% include ("@EasyDose/portlet/Esr/choix_patient.html.twig") %} 
+
+
+
+  <script>
+  var action="";
+
+  function autoload(){
+      //Vérification si page courante
+      url4="{{url('havewaitingei')}}";
+      $.ajax({
+	       url: url4,
+	       type: 'GET',
+	       dataType : 'json',
+	       success: function(datas){
+	               console.log(datas);
+	               if(datas.haveWaitingEsr){
+
+   	               $('#buttonei').click();
+   	           }
+	              
+	       }
+
+      });
+}
+
+  function rechargerpageEI(){
+		{% if issearch is defined and issearch %}
+  			$('#eimesdelarations').load("{{ url('meseisearch',{"screenheigth": screenheigth,'offset':offset,'datedebutf':datedebutf,'datefinf':datefinf,'categorie':categorie,'souscategorieslist':souscategorieslist} ) }}");
+		{% else %}
+			url="{{ url('mesei',{"screenheigth": screenheigth,'offset':0} ) }}";
+		{% endif %}
+		var url2=url.replace("_screenheigth", screen.height);
+		$('#eimesdelarations').load(url2);
+	}
+	  
+  function loadeipage(){ 
+	                
+	               url3="{{url('getopeningeipage')}}";
+	               $.ajax({
+	        	       url: url3,
+	        	       type: 'GET',
+	        	       dataType : 'json',
+	        	       success: function(datas){
+		        	   
+	        	               console.log(datas);
+	        	               loadesr('image_esr',datas.openingimagepage);
+	        	               loadesr('contenu_esr',datas.openingpage);
+							   if(datas.type='new')
+	        	               		rechargerpageEI();
+		        	              
+	        	           }
+	        	           
+	        	       });
+  }
+  
+//Material Select Initialization
+  $(document).ready(function() {
+
+  $('.mdb-select').materialSelect();
+  $('#maincontent').loading('stop');
+
+{% if issearch is defined and issearch %}
+  $('#eimesdelarations').load("{{ url('meseisearch',{"screenheigth": screenheigth,'offset':offset,'datedebutf':datedebutf,'datefinf':datefinf,'categorie':categorie,'souscategorieslist':souscategorieslist} ) }}");
+{% else %}
+  $('#eimesdelarations').load("{{ url('mesei',{"screenheigth": screenheigth,'offset':offset} ) }}");
+{% endif %}
+  loadesr('image_esr','{{  url('getpageesr',{idesr:"0",typepage:"getimgdeclarant"}) }}');
+  });
+
+ // autoload();
+
+  
+  
+  </script>
+
+
+{% endblock %}

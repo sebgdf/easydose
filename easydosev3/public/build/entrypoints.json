@@ -1,0 +1,20 @@
+{
+  "entrypoints": {
+    "app": {
+      "js": [
+        "/build/runtime.js",
+        "/build/app.js"
+      ],
+      "css": [
+        "/build/app.css"
+      ]
+    },
+    "patients": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors-node_modules_jquery-loading_dist_jquery_loading_js-node_modules_multiselect-react-dro-51560c.js",
+        "/build/patients.js"
+      ]
+    }
+  }
+}

@@ -1,0 +1,627 @@
+@CHARSET "UTF-8";
+
+  .double-nav .breadcrumb-dn {
+  color: #fff;
+	}
+.side-nav.wide.slim .sn-ad-avatar-wrapper a span {
+  display: none;
+}
+
+.rightcornermanuel{
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 0 100px 100px 0;
+	border-color: transparent #007E33 transparent transparent;
+}
+
+.rightcornerauto{
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 0 100px 100px 0;
+	border-color: transparent #CC0000 transparent transparent;
+}
+
+.righteicornerauto{
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 0 100px 100px 0;
+}
+
+.content2{
+
+
+    position: relative;
+    
+}
+
+.backgroundtextmanuel{
+	color:white;
+    position: absolute;
+    top: 0;
+    left: 15.3em;
+    z-index: 2;
+}
+.background{
+	
+    position: absolute;
+    top: 0;
+    left: 12.4em;
+    z-index: 1;
+}
+
+
+.personnel_checkable{
+	visibility:hidden;
+}
+.dispositif_checkable{
+	visibility:hidden;
+}
+.bgfemme{
+	background-image: url("../images/TestFemmeEnceinte.JPG");
+	background-size: cover;
+	margin:2px;
+}
+
+.bgpediatrie{
+	background-image: url("../images/testpediatrie1.JPG");
+	background-size: cover;
+	margin:2px;
+}
+.bgradio{
+	background-image: url("../images/TestRadio.JPG");
+	background-size: cover;
+	margin:2px;
+}
+.bgscanner{
+	background-image: url("../images/TestScanner.JPG");
+	background-size: cover;
+	margin:2px;
+}
+
+.bgnrd{
+	background-image: url("../images/TestNRD.JPG");
+	background-size: cover;
+	margin:2px;
+}
+
+
+.bgepingle{
+	background-image: url("../images/epingle.jpg");
+	background-size: cover;
+}
+
+.bgmammo{
+	background-image: url("../images/TestsMammographie.JPG");
+	background-size: cover;
+}
+
+.withoutpoint{
+	margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+
+#breadcrumbs-two{
+    overflow: hidden;
+    width: 100%;
+  }
+
+  #breadcrumbs-two li{
+    float: left;
+    margin: 0 .5em 0 1em;
+  }
+
+  #breadcrumbs-two a{
+    background: #ddd;
+    padding: .7em 1em;
+    float: left;
+    text-decoration: none;
+    color: #444;
+    text-shadow: 0 1px 0 rgba(255,255,255,.5);
+    position: relative;
+  }
+
+  #breadcrumbs-two a:hover{
+    background: #204a87;
+    color: white;
+  }
+
+  #breadcrumbs-two a::before{
+    content: "";
+    position: absolute;
+    top: 50%;
+    margin-top: -1.5em;
+    border-width: 1.5em 0 1.5em 1em;
+    border-style: solid;
+    border-color: #ddd #ddd #ddd transparent;
+    left: -1em;
+  }
+
+  #breadcrumbs-two a:hover::before{
+    border-color: #204a87 #204a87 #204a87 transparent;
+  }
+
+  #breadcrumbs-two a::after{
+    content: "";
+    position: absolute;
+    top: 50%;
+    margin-top: -1.5em;
+    border-top: 1.5em solid transparent;
+    border-bottom: 1.5em solid transparent;
+    border-left: 1em solid #ddd;
+    right: -1em;
+  }
+
+  #breadcrumbs-two a:hover::after{
+    border-left-color: #204a87;
+    color: white;
+  }
+
+  #breadcrumbs-two .current,
+  #breadcrumbs-two .current:hover{
+	border-color: #204a87 #204a87 #204a87 transparent;
+
+  }
+
+
+
+#breadcrumbs-two .current{	 
+	background: #204a87;
+    color: white;
+}
+
+
+
+  #breadcrumbs-two .current::before{
+	    content: "";
+    position: absolute;
+    top: 50%;
+    margin-top: -1.5em;
+    border-width: 1.5em 0 1.5em 1em;
+    border-style: solid;
+    border-color: #204a87 #204a87 #204a87 transparent;
+    left: -1em;
+  }
+
+  #breadcrumbs-two .current::after{
+    content: "";
+    position: absolute;
+    top: 50%;
+    margin-top: -1.5em;
+    border-top: 1.5em solid transparent;
+    border-bottom: 1.5em solid transparent;
+    border-left: 1em solid #ddd;
+    right: -1em;
+    border-left-color: #204a87;
+  }
+
+
+
+  
+    
+.boxcliquable:hover{
+	cursor: pointer;
+}
+
+
+.patientavecepinglewithoutbottom{
+	border-bottom-style: solid;
+	border-bottom-width: thin;
+	border-bottom-color: #d2d6de;
+	
+	background-color: #fbfffe;
+	
+
+}
+
+.hovered:hover{
+  cursor: pointer;	
+  text-decoration: underline;
+}
+
+
+.textgras{
+	font-family:Shutterstock-DINNextW1G,Shutterstock-NotoSans,Shutterstock-NotoSansThai,Shutterstock-NotoSansJp,Shutterstock-NotoSansKo,Shutterstock-NotoSansSc,Shutterstock-NotoSansTc,arial,sans-serif;
+	
+	font-weight: 700;
+	line-height: 1.1;
+	font-size: 17px;
+}
+
+
+.textNongras{
+	font-family:Shutterstock-DINNextW1G,Shutterstock-NotoSans,Shutterstock-NotoSansThai,Shutterstock-NotoSansJp,Shutterstock-NotoSansKo,Shutterstock-NotoSansSc,Shutterstock-NotoSansTc,arial,sans-serif;
+	
+	
+	line-height: 1.1;
+	font-size: 17px;
+}
+
+.patientavecepingle{
+	border-top-style: solid;
+	border-top-width: thin;
+	border-top-color: #d2d6de;
+	
+	
+	border-bottom-style: solid;
+	border-bottom-width: thin;
+	border-bottom-color: #d2d6de;
+	
+	
+	background-color: #fbfffe;
+}
+
+
+.green-arrow-right {
+  width: 0; 
+  height: 0; 
+  border-top: 25px solid transparent;
+  border-bottom: 25px solid transparent;  
+  border-left: 15px solid green;
+  float:left;
+  left:-100px;
+}
+
+
+.pink-arrow-right {
+  width: 0; 
+  height: 0; 
+  border-top: 25px solid transparent;
+  border-bottom: 25px solid transparent;  
+  border-left: 15px solid #9933CC;
+  float:left;
+  left:-100px;
+}
+
+.darkblue-arrow-right {
+  width: 0; 
+  height: 0; 
+  border-top: 25px solid transparent;
+  border-bottom: 25px solid transparent;  
+  border-left: 15px solid #1C2331;
+  float:left;
+  left:-100px;
+}
+
+.middled{
+	margin-top :auto;
+	margin-bottom :auto;
+	
+}
+
+.listepatientdragable:hover{
+	cursor: move;
+	font-family: monospace;
+}
+
+.bgfemme:hover{
+	box-shadow: 0 27px 24px 0 rgba(0,0,0,.2),0 40px 77px 0 rgba(0,0,0,.22)!important;
+
+}
+
+.btnaddfilter:hover{
+	box-shadow: 0 4px 7px 0 rgba(0,0,0,.16),0 4px 12px 0 rgba(0,0,0,.12)!important;
+
+}
+
+.bgpediatrie:hover{
+	box-shadow: 0 27px 24px 0 rgba(0,0,0,.2),0 40px 77px 0 rgba(0,0,0,.22)!important;
+
+}.bgradio:hover{
+	box-shadow: 0 27px 24px 0 rgba(0,0,0,.2),0 40px 77px 0 rgba(0,0,0,.22)!important;
+
+}.bgscanner:hover{
+	box-shadow: 0 27px 24px 0 rgba(0,0,0,.2),0 40px 77px 0 rgba(0,0,0,.22)!important;
+
+}.bgnrd:hover{
+	box-shadow: 0 27px 24px 0 rgba(0,0,0,.2),0 40px 77px 0 rgba(0,0,0,.22)!important;
+
+}.bgmammo:hover{
+	box-shadow: 0 27px 24px 0 rgba(0,0,0,.2),0 40px 77px 0 rgba(0,0,0,.22)!important;
+
+}
+
+
+  .map-container-section {
+  overflow:hidden;
+  padding-bottom:56.25%;
+  position:relative;
+  height:0;
+}
+.map-container-section iframe {
+  left:0;
+  top:0;
+  height:100%;
+  width:100%;
+  position:absolute;
+}
+
+
+.logoeasy{
+margin-left:10%;
+color:white;	
+font-size: 22px;;
+font-family: cursive;
+}
+
+.logodose{
+color:white;
+font-weight: bolder;
+font-size: 22px;	
+}
+
+.infopatient{
+	border-bottom: 1px solid #ced4da;
+	padding-bottom: 2px;
+}
+
+
+	
+	
+/*  
+		 * Rating styles
+		 */
+		.rating {
+			width: 226px;
+			margin: 0 auto 1em;
+			font-size: 15px;
+			overflow:hidden;
+		}
+		.rating a {
+			float:left;
+			color: #aaa;
+			text-decoration: none;
+			-webkit-transition: color .4s;
+			-moz-transition: color .4s;
+			-o-transition: color .4s;
+			transition: color .4s;
+		}
+		.rating a:hover,
+		.rating a:hover ~ a,
+		.rating a:focus,
+		.rating a:focus ~ a		{
+			color: orange;
+			cursor: pointer;
+		}
+		
+		
+		
+		/*  
+		 * Rating styles
+		 */
+		.rating3 {
+			width: 226px;
+			margin: 0 auto 1em;
+			font-size: 35px;
+			overflow:hidden;
+		}
+		.rating3 a {
+			float:left;
+			color: #aaa;
+			text-decoration: none;
+			-webkit-transition: color .4s;
+			-moz-transition: color .4s;
+			-o-transition: color .4s;
+			transition: color .4s;
+		}
+		
+		
+		
+		
+		.rating2 {
+			direction: rtl;
+		}
+		.rating2 a {
+			float:none
+		}
+		
+		.rating5 {
+			direction: rtl;
+		}
+		.rating5 a {
+			float:none
+		}	
+		
+.titreinfopatient{
+	border-bottom: 2px solid #2e3436;
+	margin-bottom: 20px;
+	margin-top: 5px;
+	font-weight: 300px
+}
+
+.titreinfopatientworklist{
+	border-bottom: 2px solid #2e3436;
+	margin-bottom: 10px;
+	font-weight: 300px
+}
+.titreinfonote{
+	border-bottom: 2px solid #2e3436;
+	margin-bottom: 20px;
+	margin-top: -55px;
+	margin-left: 5px;
+	font-weight: 300px
+}
+.infopatientidentite{
+	text-align: right;
+	
+}
+
+.libellepatientidentite{
+	
+	color:#4f4f4f;
+	
+}
+
+.titleimport{
+	font-weight: 300px;
+}
+
+.identpatientvalue{
+	font-family: Arial;
+	font-size: medium;
+	color:rgb(0,0,0);
+	font-weight: 400;
+	
+}
+
+.commentairepatient{
+	height:300px;
+	background-color: rgb(250,250,250);
+	border:1px solid rgb(230,230,230);
+	overflow :auto;
+	border-top:1px solid blue;
+	margin-left:30px;
+}
+
+table.dataTable thead .sorting:after,
+table.dataTable thead .sorting:before,
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_asc:before,
+table.dataTable thead .sorting_asc_disabled:after,
+table.dataTable thead .sorting_asc_disabled:before,
+table.dataTable thead .sorting_desc:after,
+table.dataTable thead .sorting_desc:before,
+table.dataTable thead .sorting_desc_disabled:after,
+table.dataTable thead .sorting_desc_disabled:before {
+bottom: .5em;
+}
+.mdb-skin .side-nav .collapsible li .collapsible-header.active, .mdb-skin .side-nav .collapsible li .collapsible-header:hover{
+	background-color: rgba(56,107,255,0.8);
+}
+
+.sn-bg-1local{
+	background-image:url("../images/sidenav1.jpg");
+}
+.onglet1{
+	position:absolute;
+	border: 1px solid #243a51;
+	top: -40px;
+	
+	height:40px;
+	background-color: #243a51;
+	color:white;
+	
+}
+
+.onglet1a{
+	/*position:absolute;*/
+	border: thin solid #d2d6de;
+	top: -40px;
+	font-size:larger;
+	height:40px;
+	background-color: #243a51;
+	color:white;
+	border-right:none;
+}
+
+.onglet1adown{
+	/*position:absolute;*/
+	border: thin solid #d2d6de;
+	font-size:larger;
+	height:40px;
+	background-color: #243a51;
+	color:white;
+	border-right:none;
+}
+
+
+.labelmammographie{
+	background-color:#6200ea;
+	color:white;
+}
+
+.flatcard{
+	border-style: solid;
+	border-width: thin;
+	border-color: #d2d6de;
+	position: relative;
+	flex-direction: column;
+	display: flex;
+	background-color:rgb(235,235,235);
+}
+.onglet1b{
+	/*position:absolute;*/
+	border: thin solid #d2d6de;
+	border-left:none;
+	top: -40px;
+	height:40px;
+	color:white;
+	/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#243a51+0,2c539e+100&1+0,0.8+100 */
+	background: -moz-linear-gradient(left, rgba(36,58,81,1) 0%, rgba(44,83,158,0.8) 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left, rgba(36,58,81,1) 0%,rgba(44,83,158,0.8) 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right, rgba(36,58,81,1) 0%,rgba(44,83,158,0.8) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#243a51', endColorstr='#cc2c539e',GradientType=1 ); /* IE6-9 */
+}
+
+.onglet1bdown{
+	/*position:absolute;*/
+	border: thin solid #d2d6de;
+	border-left:none;
+	height:40px;
+	color:white;
+	/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#243a51+0,2c539e+100&1+0,0.8+100 */
+	background: -moz-linear-gradient(left, rgba(36,58,81,1) 0%, rgba(44,83,158,0.8) 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left, rgba(36,58,81,1) 0%,rgba(44,83,158,0.8) 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right, rgba(36,58,81,1) 0%,rgba(44,83,158,0.8) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#243a51', endColorstr='#cc2c539e',GradientType=1 ); /* IE6-9 */
+}
+.onglet2{
+	position:absolute;
+	border: 1px solid #243a51;
+	top: -40px;
+	
+	height:60px;
+	background-color: #243a51;
+	color:white;
+	border-radius: 10px 10px 0 0;
+}
+
+
+.commentairepatientworklist{
+	height:300px;
+	background-color: rgb(250,250,250);
+	border:1px solid rgb(230,230,230);
+	overflow :auto;
+	border-top:1px solid blue;
+	margin-left:30px;
+}
+
+
+.panierfiltre{
+	border-left: 1px solid #ced4da;
+}
+
+
+.progress-bar{
+
+	text-align:left;
+}
+
+
+/*
+*
+*Pour la NavBArV2
+*/
+
+.content {
+min-height: 100vh;
+height: auto;
+transition: all 0.2s ease-in-out;
+}
+
+.button-collapse {
+position: fixed;
+left: 10px;
+top: 10px;
+z-index: 10;
+}
+
+@media(min-width: 1440px) {
+.content {
+padding-left: 250px;
+}
+}

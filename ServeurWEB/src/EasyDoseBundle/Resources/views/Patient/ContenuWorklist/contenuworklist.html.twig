@@ -1,0 +1,45 @@
+{% include ("@EasyDose/Patient/identificationpatient.html.twig") %} 
+
+<div class="font-weight-bolder titreinfopatientworklist">
+	<span>Conseils</span>
+</div>
+{% if patient.age<=15  %}
+
+     {% include ("@EasyDose/Patient/ContenuWorklist/contenumoinsde15.html.twig") %} 
+
+{% else %}
+
+    {% if patient.sex=="FEMME" and  patient.age>15 and patient.age<50 %}
+         {% include ("@EasyDose/Patient/ContenuWorklist/contenufemmegrossesse.html.twig") %} 
+    {% else %}
+    
+         {% include ("@EasyDose/Patient/ContenuWorklist/contenupatientst.html.twig") %} 
+    {% endif %}
+
+
+
+{% endif %}
+<!--  
+
+<div class="text-center">
+    <input type="button" class="btn btn-light-blue" onclick="getcontenualaGRS('#alaragrossesse{{ patient.id }}','{{ url('alaragrs') }}');"value="ALARA" >
+</div>
+
+<div class="row" >
+    <div class="col-md-12" class="alaragrossesse" id="alaragrossesse{{ patient.id }}">
+    
+    </div>
+</div>
+-->
+{% if patient.sex=="FEMME" and  patient.age>15 and patient.age<50 %}
+    {% include ("@EasyDose/Patient/ContenuWorklist/contenualara.html.twig") %} 
+{% endif %}
+{% include ("@EasyDose/Patient/ContenuWorklist/contenunotes.html.twig") %} 
+
+
+<script>
+$(document).ready(function() {
+	$(document).parent().loading('stop');
+	});
+	
+</script>

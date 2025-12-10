@@ -1,0 +1,72 @@
+<div class="list-group list-group-light">
+    <div class="large-height">
+        <div class="row">
+            {% for souscategorie in souscategories %}
+                <div class="form-check form-check-inline">
+                    {% if souscategorie.id == esr.souscategorie.id %}
+                        <li class="list-group-item">
+                            <input class="form-check-input checkable" type="checkbox" value="" id="checkbox_{{souscategorie.id}}" checked />
+                            <label class="form-check-label" for="checkbox_{{souscategorie.id}}">{{souscategorie}}</label>
+                        </li>
+                    {% else %}
+                        <li class="list-group-item">
+                            <input class="form-check-input checkable" type="checkbox" value="" id="checkbox_{{souscategorie.id}}" />
+                            <label class="form-check-label" for="checkbox_{{souscategorie.id}}">{{souscategorie}}</label>
+                        </li>
+                    {% endif %}
+                </div>
+            {% endfor %} 
+        </div>
+    </div>
+</div>
+
+<script>
+lierInput('divsouscategorie{{esr.id}}','checkbox','checkable');
+
+   function updatesouscategorie(esrid,souscategorieid,url){       	 
+      	 url2=url.replace('_esrid',esrid).replace('_souscategorieid',souscategorieid);
+      	 $.ajax({
+             url: url2,
+             type: 'GET',
+             dataType : 'json',
+             success: function(datas){
+                 console.log(datas);
+                 },
+             });
+
+      }
+
+
+      $('.checkable').on( "click", function() {
+        var isChecked = $(this).is(':checked');
+        if(isChecked)
+        {
+                //decheck les autres
+                $('.checkable').not(this).prop('checked', false);
+                var souscategorieid = $(this).attr('id').split("_")[1];
+                console.log(souscategorieid);
+                var url="{{ url('savesouscategorie',{'esrid':'_esrid','souscategorieid':'_souscategorieid'} ) }}";
+                updatesouscategorie({{esr.id}},souscategorieid,url);
+                var textcategorie=$('#selectcategorie').children("option:selected").text();
+                var idcategorie=$('#selectcategorie').children("option:selected").val();
+                console.log(idcategorie);
+                changetextindiv('divcategorie{{esr.id}}',textcategorie);
+                changerrightcorner('righteicorner{{esr.id}}',idcategorie);
+        }
+        } );
+
+
+        function changerrightcorner(id,categrorieid){
+            var url="{{ url('getcolorcategoriebyid')  }}";
+            url2=url+"/"+categrorieid; 
+            $.ajax({
+                        url: url2,
+                        type: 'GET',
+                        dataType : 'json',
+                        success: function(datas){
+                            console.log(datas);
+                            $("#"+id).css("border-color","transparent "+datas.color+" transparent transparent");
+                            },
+                        });
+        } 
+</script>

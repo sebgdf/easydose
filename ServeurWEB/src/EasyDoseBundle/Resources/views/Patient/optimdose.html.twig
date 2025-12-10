@@ -1,0 +1,121 @@
+<div style=" position:absolute;top:-35px;left:28px;">
+	<a onclick="getreturn('{{url('worklist',{screenheigth:"_screenheigth"})}}','{{ url('getjsonPatientAllname') }}');";><i class="fa fa-2x fa-angle-left"></i> <span style="text-decoration:underline;display: table-cell; vertical-align: middle; line-height: normal;font-weight:400;font-size:large;">Retour</span> </a>
+  </div>
+  
+
+<div class="flatcard card-cascade narrower">
+
+	<!-- div class="col-md-12 onglet1"> <i class="fas fa-1x fa-tools"></i> Optimisation Dosimétrique</div-->
+	  <div class="row">
+        <div class="col-md-12 ml-3" style="left:-2px; padding-right:2.65rem!important;">
+            <div class="row">
+            	<div class="col-md-10 onglet1a pr-0 mr-0 pt-1" >Optimisation Dosimétrique </div> <div class="pl-0 ml-0 col-md-2 onglet1b" > </div>
+            
+            </div>
+        </div>
+	</div>
+	
+    <div  class="card-body">
+    
+ 		<a  data-toggle="modal" data-target="#newoptimisation">
+ 		<p class="d-inline rounded ml-3 boxcliquable" style="font-size: 2em">
+ 		{% include ("@EasyDose/portlet/Esr/viewer/add.svg.twig") %} 
+ 		</p>
+ 		</i> Créer une nouvelle optimisation.</a>
+	    <div class="row">
+        {% for optim in  optimisationdose %}
+            {% include ("@EasyDose/portlet/optimdosimetrique/optim_card.html.twig") with {'optim':optim} %} 
+        {% endfor %} 
+        </div> 
+    </div>
+   
+</div>
+
+{% include ("@EasyDose/portlet/optimdosimetrique/helper/dispositif_update2.html.twig") %} 
+{% include ("@EasyDose/portlet/optimdosimetrique/new_optim.html.twig") %} 
+
+{% include ("@EasyDose/portlet/optimdosimetrique/select_protocole.html.twig") %} 
+{% include ("@EasyDose/portlet/optimdosimetrique/optim_detail.html.twig") %} 
+{% include ("@EasyDose/portlet/optimdosimetrique/helper/notation_optim.html.twig") %} 
+{% include ("@EasyDose/portlet/optimdosimetrique/confirmeaction.html.twig") with {'dispositifs' : dispositifs} %}
+{% include ("@EasyDose/portlet/optimdosimetrique/helper/dispositif.html.twig") with {'dispositifs' : dispositifs} %}
+{% include ("@EasyDose/portlet/optimdosimetrique/helper/dispositif_update.html.twig") with {'dispositifs' : dispositifs} %}
+
+
+
+
+
+
+<script>
+
+
+var dispositifid=0;
+var dispositiflabel="";
+
+
+$(document).ready(function() {
+	$('#maincontent').loading('stop');
+	
+});
+
+$('#confirmaction_view').on('shown.bs.modal', function (e) {
+	var optimid = $(e.relatedTarget).attr('data-id');
+	$("#valueOptimHidden").val(optimid);
+	
+});
+
+
+
+
+function OptimData(commentaire,dose,protocole,kvp,xray,modalite,machine) {
+    this.commentaire=commentaire;
+    this.dose=dose;
+    this.protocole=protocole;
+    this.kvp=kvp;
+    this.xray=xray;
+    this.modalite=modalite;
+    this.machine=machine;
+}
+
+
+
+function changeValueAsynck(url,esr_id,_valuename,_value){
+	var data
+	$.ajax({
+     	url: url,
+        type: 'POST',
+        data : new EsrData(esr_id,_valuename,_value),
+        dataType : 'json',
+            success: function(datas){
+            console.log(datas); 
+            }
+    });
+}
+
+
+function insertnewoptim(){
+
+    commentaire=$('#commentaire').val();
+    dose=$('#dose').val();
+    protocole=$('#protocole').val();
+    kvp=$('#kvp').val();
+    xray=$('#xray').val();
+    modalite=$('#modalite').val();
+    machine=$('#dispositif_visible').val();
+    url2="{{ url('insertoptimdose')}}";
+    optimdata=new OptimData(commentaire,dose,protocole,kvp,xray,modalite,machine);
+
+    $.ajax({
+        url: url2,
+        type: 'POST',
+        data: optimdata,
+    
+    	 success: function( _data ) {
+            console.log(_data);
+            var url="{{ url('optimdose') }}";	
+            $('#maincontent').load(url);
+      	}
+      });
+}
+	
+</script>

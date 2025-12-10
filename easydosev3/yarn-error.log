@@ -1,0 +1,39 @@
+Arguments: 
+  /opt/node-v20.11.1-linux-x64/bin/node /usr/share/yarn/bin/yarn.js install
+
+PATH: 
+  /home/sebastien/.local/bin:/home/sebastien/.symfony5/bin:/home/sebastien/anaconda3/bin:/home/sebastien/anaconda3/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Users/SEBAST~1.GIR/AppData/Roaming/MobaXterm/slash/bin:/mnt/c/WINDOWS:/mnt/c/WINDOWS/system32:/mnt/c/Program Files (x86)/VMware/VMware Player/bin:/mnt/c/Program Files (x86)/Common Files/Oracle/Java/javapath:/mnt/c/Program Files/Microsoft/jdk-11.0.16.101-hotspot/bin:/mnt/c/Program Files (x86)/ibm/gsk8/lib:/mnt/c/Program Files (x86)/ibm/gsk8/bin:/mnt/c/Program Files (x86)/Informix Client-SDK/bin:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/Microsoft SQL Server/150/Tools/Binn:/mnt/c/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn:/mnt/c/Program Files/dotnet:/mnt/c/Program Files/PuTTY:/Docker/host/bin:/mnt/c/Users/sebastien.girier/AppData/Local/Programs/Trae/bin:/mnt/c/Users/sebastien.girier/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/sebastien.girier/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/WINDOWS/sysnative:/snap/bin:/opt/IBM/ids14FC8/bin/bin/
+
+Yarn version: 
+  1.22.18
+
+Node version: 
+  20.11.1
+
+Platform: 
+  linux x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/@babel/helper-validator-option/-/helper-validator-option-7.27.1.tgz: tunneling socket could not be established, statusCode=407
+      at ClientRequest.onConnect (/usr/share/yarn/lib/cli.js:152358:19)
+      at Object.onceWrapper (node:events:633:26)
+      at ClientRequest.emit (node:events:518:28)
+      at Socket.socketOnData (node:_http_client:575:11)
+      at Socket.emit (node:events:518:28)
+      at addChunk (node:internal/streams/readable:559:12)
+      at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+      at Readable.push (node:internal/streams/readable:390:5)
+      at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+
+npm manifest: 
+  {
+    "devDependencies": {
+      "@babel/preset-react": "^7.27.1"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

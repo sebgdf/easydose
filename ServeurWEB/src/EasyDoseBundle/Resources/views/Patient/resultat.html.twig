@@ -1,0 +1,38 @@
+
+ 
+  <div style=" position:absolute;top:-35px;left:28px;">
+	<a onclick="getreturn('{{url('worklist',{screenheigth:"_screenheigth"})}}','{{ url('getjsonPatientAllname') }}');";><i class="fa fa-2x fa-angle-left"></i> <span style="text-decoration:underline;display: table-cell; vertical-align: middle; line-height: normal;font-weight:400;font-size:large;">Retour</span> </a>
+  </div>
+  
+
+<div class="card card-cascade narrower">
+<div class="col-md-12 onglet1"> Résultats de la recherche</div>
+<div class="row">
+  {% for resultat in resultatrecherche %}
+      {% if resultat.nom is defined %}
+ 		<div class="col-md-12"><h6 class="mb-0 ml-3 mt-3 mdb-card-title"><span style="text-decoration: underline;">Patient</span>: <strong>{{resultat.nom}} {{resultat.prenom}}</strong>, age: <strong>{{resultat.age}}</strong>, IPP: <strong>{{ resultat.numipp }}</strong>, Id régional : <strong>{{ resultat.idregional }}</strong>, {{ resultat.sex }} <a class="blue-text" onclick="morePatient({{ resultat.id }},'{{url('infopatient',{'id':'idtoreplace'})}}','{{ url('tdpatient',{'id':'idtoreplace'}) }}');"> En savoir plus..</a></h6></div>
+ 	  {% endif %}
+      {% if resultat.protocole is defined %}
+ 	     <div class="col-md-12"><h6 class="mb-0 ml-3 mt-3 mdb-card-title">
+ 	     <span style="text-decoration: underline;">Dose</span>: <strong>{{resultat.valeur}}</strong>, protocole: <strong>{{resultat.protocole | convert_encoding('latin1','UTF-8')| raw }}</strong>, Body parts: <strong>{{resultat.bodyPartEasydose }}</strong> <a class="blue-text" onclick="moreDose({{ resultat.id }},'{{url('infopatient',{'id':'idtoreplace'})}}','{{ url('tdpatient',{'id':'idtoreplace'}) }}');"> En savoir plus..</a></h6></div>
+ 	  {% endif %}
+ {% endfor %}  
+ 
+ <div class="col-md-12"><h6 class="mb-0 ml-3 mt-3 mdb-card-title">&nbsp;</h6></div>
+</div>
+
+</div>
+ <script>
+$(document).ready(function() {
+	$('#maincontent').loading('stop');
+	});
+
+function morePatient(id,url1,url2){
+	getinfopatient(id,url1,url2);
+}
+
+function moreDose(id,url1,url2){
+	getinfopatient(id,url1,url2);
+}
+
+</script>

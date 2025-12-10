@@ -1,0 +1,110 @@
+<!-- notation_optim.html.twig -->
+
+
+<div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Evaluer</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+       
+
+        <div class="md-form mb-4">
+       <!--  <i class="far fa-edit prefix grey-text"></i> -->  
+          
+        </div>
+       
+        
+		<span class="rating3 rating2">
+		
+		
+			<a id="star_1" onclick="savstar(1);"  href="#1" title="Très mauvaise évaluation"><span class="fa fa-star"></span></a>
+			<a id="star_2" onclick="savstar(2);"  href="#2" title="Mauvaise évaluation"><span class="fa fa-star"></span></a>
+			<a id="star_3" onclick="savstar(3);"  href="#3" title="Evaluation moyenne"><span class="fa fa-star"></span></a>
+			<a id="star_4" onclick="savstar(4);"  href="#4" title="Bonne Evaluation"><span class="fa fa-star"></span></a>
+        	<a id="star_5" onclick="savstar(5);" href="#5" title="Très bonne évaluations"><span class="fa fa-star"></span></a>
+        		
+        		
+        	
+        		
+        		
+        		<span id="notation"></span>
+         </span>
+         
+         
+         
+        <div class="md-form mb-4">
+          <i class="far fa-edit prefix grey-text"></i>
+          <input type="text" id="commentaireeval" class="form-control validate">
+          <label data-error="wrong"  for="commentaireeval">Commentaire</label>
+        </div>
+        <input type="hidden" id="iddetail">
+      </div>
+      
+      
+         
+         
+      <div class="modal-footer d-flex justify-content-center">
+      <button onclick="savcomment();" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">Valider</span>
+        </button>
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+
+
+
+function savcomment(){
+	comment=$('#commentaireeval').val();
+
+	if(comment=="")
+		comment=" ";
+	commentaire=replaceAll(comment,' ','+');
+	numdetail=$('#iddetail').val();
+  url="{{ url('addeval' ,{numdetail:"_numdetail", note:"_note", commentaire:"_commentaire" }) }}";
+  url2=url.replace("_numdetail" ,numdetail).replace("_note" ,star).replace("_commentaire" ,commentaire);
+	
+
+
+    
+  
+   
+  $.ajax({
+	       
+  	contentType: "application/json; charset=utf-8",
+  	url: url2,
+    dataType: "json",
+    data: "{}",
+
+    success: function( _data ) {
+    var id=_data.id;
+
+
+    	url3="{{ url('optimdosedetail',{numdetail:"_numdetail"}) }}";
+        url4=url3.replace("_numdetail", _data.id);
+        $('#modalLoginForm').modal("hide");
+        
+      	$('#contentoptimdetail').load(url4);
+
+
+
+		console.log(_data.id);
+      	url="{{ url('BestComment',{optimid:"_optimid"}) }}";
+      	loadbestEval(url,_data.id);
+      }
+  });
+}
+
+
+</script>

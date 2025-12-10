@@ -1,0 +1,133 @@
+<!-- moynrdbyproto_larger.html.twig -->
+
+<canvas id="Moynrdmodbyprotolarger{{ modalite }}" width="100%" height="70%" >
+</canvas>
+
+<script>
+
+    var ctxlarger{{ modalite }} = document.getElementById('Moynrdmodbyprotolarger{{ modalite }}').getContext('2d');
+    var Moynrdmodbyprotolarger{{ modalite }} = new Chart(ctxlarger{{ modalite }}, {
+        type: 'bar',
+        data: {
+        	{% set posradio=0 %}
+        	{% set posscanner=0 %}
+        	{% set possmammo=0 %}
+            labels: [{% for proto in protocoles %}  {% if loop.first %} "{{proto}}"{% else %},"{{proto}}"{% endif %}{% endfor %}],
+            
+            datasets: [
+
+
+                 {% if modalite == 'RADIOGRAPHIE' %}
+                     {
+                     label: 'Nrd Radiographie en Gy.m2',
+                     data: [{% for proto in protocoles %}{% set detected=0 %}{% for value in moynrdbyproto %} {% set posradio=posradio+1 %} {% if value.protocole == proto %}  {% if value.modalite == 'RADIOGRAPHIE'   and ( value.modalite==modalite or  modalite=='ALL') %} {% if posradio==1 %}{{value.nrd}}{% else %},{{value.nrd}}{% endif %}{% set detected=1 %}{% endif %}{% endif %}{% endfor %}{% if detected==0 %}{% if posradio==1 %}0.0{%else%} ,0.0 {% endif %} {% endif %} {% endfor %}],
+                     backgroundColor:[
+                     	'#6200ea',
+                     ],
+                     type: 'line',
+                     showLine: false,
+                     pointStyle: 'triangle',
+                     borderColor:[
+                     	'#6200ea',
+                     ],
+                         borderWidth: 1
+                     },
+     		    {% endif %}
+
+
+
+                {% if modalite == 'SCANNER' %}
+                     {
+                         label: 'Nrd Scanner en mGy.cm',
+                         data: [{% for proto in protocoles %}{% set detected=0 %}{% for value in moynrdbyproto %} {% set posscanner=posscanner+1 %} {% if value.protocole == proto %}  {% if value.modalite == 'SCANNER'   and ( value.modalite==modalite or  modalite=='ALL') %} {% if posscanner==1 %}{{value.nrd}}{% else %},{{value.nrd}}{% endif %}{% set detected=1 %}{% endif %}{% endif %}{% endfor %}{% if detected==0 %}{% if posscanner==1 %}0.0{%else%} ,0.0 {% endif %} {% endif %} {% endfor %}],
+                         
+                      backgroundColor:[
+                          	'#6200ea',
+                          ],
+                     type: 'line',
+                     showLine: false,
+                     pointStyle: 'triangle',
+                     borderColor:[
+                    		'#6200ea',
+                     ],
+                         borderWidth: 1
+                     },
+                     {% endif %}
+
+
+
+                	 {% set posradio=0 %}
+                  	{% set posscanner=0 %}
+                  	{% set possmammo=0 %}
+                          
+
+           
+            {% if modalite == 'RADIOGRAPHIE' %}
+                {
+                label: 'Moyeanne Dépassements Radiographie en Gy.m2',
+                data: [{% for proto in protocoles %}{% set detected=0 %}{% set posradio=posradio+1 %}{% for value in moynrdbyproto %} {% if value.protocole == proto %}  {% if value.modalite == 'RADIOGRAPHIE'   and ( value.modalite==modalite or  modalite=='ALL') %} {% if posradio==1 %}{{value.valeur}}{% else %},{{value.valeur}}{% endif %}{% set detected=1 %}{% endif %}{% endif %}{% endfor %}{% if detected==0 %}{% if posradio==1 %}0.0{%else%} ,0.0 {% endif %} {% endif %} {% endfor %}],
+                
+            borderColor:[
+            	{% for proto in protocoles %} {% if loop.first %}  'rgba(103,183,220,1)' {% else %}  ,'rgba(103,183,220,1)' {% endif %}{% endfor %}
+            ],
+            backgroundColor:[
+            	{% for proto in protocoles %} {% if loop.first %}  'rgba(103,183,220,1)' {% else %}  ,'rgba(103,183,220,1)' {% endif %}{% endfor %}
+            ],
+                borderWidth: 1
+            },
+			{% endif %}
+            {% if modalite == 'SCANNER' %}
+            {
+                label: 'Moyenne Dépassements Scanner en mGy.cm',
+                data: [{% for proto in protocoles %}{% set detected=0 %}{% for value in moynrdbyproto %} {% set posscanner=posscanner+1 %} {% if value.protocole == proto %}  {% if value.modalite == 'SCANNER'   and ( value.modalite==modalite or  modalite=='ALL') %} {% if posscanner==1 %}{{value.valeur}}{% else %},{{value.valeur}}{% endif %}{% set detected=1 %}{% endif %}{% endif %}{% endfor %}{% if detected==0 %}{% if posscanner==1 %}0.0{%else%} ,0.0 {% endif %} {% endif %} {% endfor %}],
+                backgroundColor:[
+                	{% for proto in protocoles %} {% if loop.first %}  'rgba(103,183,220,1)' {% else %}  ,'rgba(103,183,220,1)' {% endif %}{% endfor %}
+                ],
+            borderColor:[
+            	{% for proto in protocoles %} {% if loop.first %}  'rgba(103,183,220,1)' {% else %}  ,'rgba(103,183,220,1)' {% endif %}{% endfor %}
+            ],
+                borderWidth: 1
+            },
+            {% endif %}
+            {% if modalite == 'MAMMOGRAPHIE' %}
+            {
+                label: 'Moyenne Dépassements Mammographie',
+                data: [{% for proto in protocoles %}{% set detected=0 %}{% for value in moynrdbyproto %} {% set possmammo=possmammo+1 %}{% if value.protocole == proto %}  {% if value.modalite == 'MAMMOGRAPHIE'  and ( value.modalite==modalite or  modalite=='ALL') %} {% if possmammo==1 %}{{value.valeur}}{% else %},{{value.valeur}}{% endif %}{% set detected=1 %}{% endif %}{% endif %}{% endfor %}{% if detected==0 %}{% if possmammo==1 %}0.0{%else%} ,0.0 {% endif %} {% endif %} {% endfor %}],
+                backgroundColor:[
+                	'rgba(50,137,132,.2)',
+                ],
+            borderColor:[
+            	'rgba(50,10,130,.7)',
+            ],Radiographie
+                borderWidth: 1
+            }
+            {% endif %}
+
+
+           
+            
+            ]
+        },
+        options: {
+        	'onClick' : function (evt, item) {
+                console.log(item[1]['_model']['label']);
+                $('#statistique2_modal').modal('toggle');
+                var urlStatlarger3="{{ url('getStatevolutionProto') }}";    			
+    			$('#proportiondeptlarger2').load(urlStatlarger3, { 
+    		         'protocole': item[1]['_model']['label'], 
+    		         'type': typestat
+    		        });	
+    			
+              },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+    Moynrdmodbyprotolarger{{ modalite }}.update();
+
+    </script>

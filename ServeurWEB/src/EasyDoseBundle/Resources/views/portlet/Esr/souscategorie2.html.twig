@@ -1,0 +1,172 @@
+<div class="list-group list-group-light">
+    <div class="large-height">
+        <div class="row">
+            {% for souscategorie in souscategories %}
+                <div class="form-check form-check-inline">
+                    {% if souscategorie.id == esr.souscategorie.id %}
+                        <li class="list-group-item">
+                            <input class="form-check-input checkable2" type="checkbox" value="" id="checkbox_{{souscategorie.id}}" checked />
+                            <label class="form-check-label" for="checkbox_{{souscategorie.id}}">{{souscategorie}}</label>
+                        </li>
+                    {% else %}
+                        <li class="list-group-item">
+                            <input class="form-check-input checkable2" type="checkbox" value="" id="checkbox_{{souscategorie.id}}" />
+                            <label class="form-check-label" for="checkbox_{{souscategorie.id}}">{{souscategorie}}</label>
+                        </li>
+                    {% endif %}
+                </div>
+            {% endfor %} 
+        </div>
+    </div>
+</div>
+
+<script>
+
+//lierInput('divsouscategorie{{esr.id}}','checkbox','checkable');
+
+
+      $('.checkable2').on( "click", function() {
+        var isChecked = $(this).is(':checked');
+        var id=$(this).attr('id');
+        console.log(id);
+        souscat=id.split('_')[1];
+        if(isChecked)
+        {
+                if(souscat!== undefined){
+                    if(souscategorieslist=='-')
+                        souscategorieslist=''
+                    //recupérations dates
+                    console.log('test');
+                    console.log(souscat);
+                    if(souscategorieslist !== '')
+                        souscategorieslist=souscategorieslist+','+souscat;
+                    else
+                        souscategorieslist=souscategorieslist+souscat;
+                    console.log(souscategorieslist);
+                    datefin=$("#rechercherchedatefin").val()
+                    if(datefin != '')
+                    {
+                        var date2=new Date(datefin);
+                        day2=date2.getDate() 
+                        month2=date2.getMonth()
+                        month2=((month2+1)+'').padStart(2,'0')
+                        day2=((day2)+'').padStart(2,'0')
+                        var strdate2=day2 +'-'+month2+'-'+date2.getFullYear();  
+                    }else
+                        var strdate2='-'
+                    
+                    datedebut=$("#rechercherchedatedebut").val()
+                    if(datedebut != '')
+                    {
+                        var date=new Date(datedebut);
+                        day=date.getDate() 
+                        month=date.getMonth()
+                        month=((month+1)+'').padStart(2,'0')
+                        day=((day)+'').padStart(2,'0')
+                        var strdate=day +'-'+month+'-'+date.getFullYear();  
+                    }else
+                        var strdate='-'
+                    //decheck les autres
+                    var souscategorieid = $(this).attr('id').split("_")[1];
+                
+                    if(souscategorieslist=='')
+                        souscategorieslist='-'
+                    var url='{{ url('meseisearch',{screenheigth:"_screenheigth",offset : 0, categorie:"_categorie",souscategorieslist:"_souscategorieslist",datedebutf:"_datedebutf",datefinf:"_datefinf"}) }}';
+                    url2=url.replace("_datedebutf",strdate).replace("_datefinf",strdate2).replace("_souscategorieslist",souscategorieslist);
+                    url2=url2.replace("_screenheigth", screen.height);
+                    $('#eimesdelarations').load(url2);
+
+                }   
+              
+        }else{
+                if(souscategorieslist=='-')
+                    souscategorieslist=''
+                var id=$(this).attr('id');
+                souscat=id.split('_')[1];
+                lsts=souscategorieslist.split(',');
+                var souscategorieslist2='';
+                var i=0;
+                lsts.forEach(function (element) {
+                    if(souscat!==element){
+                            if(i==0)
+                                souscategorieslist2=souscategorieslist2+element
+                            else
+                                souscategorieslist2=souscategorieslist2+','+element                    
+                    }
+                    i=i+1
+                });
+                souscategorieslist=souscategorieslist2;
+
+                datefin=$("#rechercherchedatefin").val()
+                if(datefin != '')
+                {
+                    var date2=new Date(datefin);
+                    day2=date2.getDate() 
+                    month2=date2.getMonth()
+                    month2=((month2+1)+'').padStart(2,'0')
+                    day2=((day2)+'').padStart(2,'0')
+                    var strdate2=day2 +'-'+month2+'-'+date2.getFullYear();  
+                }else
+                    var strdate2='-'
+                
+                datedebut=$("#rechercherchedatedebut").val()
+                if(datedebut != '')
+                {
+                    var date=new Date(datedebut);
+                    day=date.getDate() 
+                    month=date.getMonth()
+                    month=((month+1)+'').padStart(2,'0')
+                    day=((day)+'').padStart(2,'0')
+                    var strdate=day +'-'+month+'-'+date.getFullYear();  
+                }else
+                    var strdate='-'
+                //decheck les autres
+                var souscategorieid = $(this).attr('id').split("_")[1];
+                if(souscategorieslist=='')
+                    souscategorieslist='-'
+                var url='{{ url('meseisearch',{screenheigth:"_screenheigth",offset : 0, categorie:"_categorie",souscategorieslist:"_souscategorieslist",datedebutf:"_datedebutf",datefinf:"_datefinf"}) }}';
+                url2=url.replace("_datedebutf",strdate).replace("_datefinf",strdate2).replace("_souscategorieslist",souscategorieslist);
+                url2=url2.replace("_screenheigth", screen.height);
+                $('#eimesdelarations').load(url2);
+        }
+        } );
+
+
+
+      $(document).ready(function() {
+
+
+            datedebut=$("#rechercherchedatedebut").val()
+                    if(datedebut != '')
+                    {
+                        var date=new Date(datedebut);
+                        day=date.getDate() 
+                        month=date.getMonth()
+                        month=((month+1)+'').padStart(2,'0')
+                        day=((day)+'').padStart(2,'0')
+                        var strdate=day +'-'+month+'-'+date.getFullYear();  
+                    }else
+                        var strdate='-'
+
+
+            datefin=$("#rechercherchedatefin").val()
+                if(datefin != '')
+                {
+                    var date2=new Date(datefin);
+                    day2=date2.getDate() 
+                    month2=date2.getMonth()
+                    month2=((month2+1)+'').padStart(2,'0')
+                    day2=((day2)+'').padStart(2,'0')
+                    var strdate2=day2 +'-'+month2+'-'+date2.getFullYear();  
+                }else
+                    var strdate2='-'
+
+
+                souscategorieslist='-';
+                var url='{{ url('meseisearch',{screenheigth:"_screenheigth",offset : 0, categorie:"_categorie",souscategorieslist:"_souscategorieslist",datedebutf:"_datedebutf",datefinf:"_datefinf"}) }}';
+                url2=url.replace("_datedebutf",strdate).replace("_datefinf",strdate2).replace("_souscategorieslist",souscategorieslist);
+                url2=url2.replace("_screenheigth", screen.height);
+                $('#eimesdelarations').load(url2);
+            $('.checkable2').click();
+  });
+</script>

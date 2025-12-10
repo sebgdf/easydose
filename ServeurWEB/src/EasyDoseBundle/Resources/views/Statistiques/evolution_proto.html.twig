@@ -1,0 +1,35 @@
+<!-- evolution_proto.html.twig -->
+
+
+<canvas id="evolutionproto" height="300" style="height: 300px; display: block; width: 901px;" width="901" class="chartjs-render-monitor">
+</canvas>
+
+<script>
+
+    var ctx = document.getElementById('evolutionproto').getContext('2d');
+    var nbnrdbyproto = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [{% for value in evoproto %}  {% if loop.first %} "{{value.date}}"{% else %},"{{value.date}}"{% endif %}{% endfor %}],
+            
+            datasets: [{
+                label: 'Evolution de dépassement du protocole : {{protocole}}',
+                data: [{% for value in evoproto %}  {% if loop.first %} "{{value.cnt}}"{% else %},"{{value.cnt}}"{% endif %}{% endfor %}],
+                borderWidth: 1
+            },
+                        
+            ]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+    nbnrdbyproto.update();
+
+    </script>

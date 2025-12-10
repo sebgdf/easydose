@@ -1,0 +1,37 @@
+<canvas id="patients-canvas" height="300" style="height: 300px; display: block; width: 901px;" width="901" class="chartjs-render-monitor">
+</canvas>
+
+<script>
+
+    var ctx = document.getElementById('patients-canvas').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+        	
+            labels: [{% for value in courbeexam %}{% if loop.first %} "{{value.mois}}"{% else %},"{{value.mois}}"{% endif %}{% endfor %}],
+            
+            datasets: [{
+                label: 'Nombre d examens par mois',
+                data: [{% for value in courbeexam %}{% if loop.first %}{{value.cnt}}{% else %},{{value.cnt}}{% endif %}{% endfor %}],
+                backgroudColor:[
+                	'rgba(0,137,132,.2)',
+                ],
+            borderColor:[
+            	'rgba(0,10,130,.7)',
+            ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+    myChart.update();
+
+    </script>

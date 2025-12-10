@@ -1,0 +1,44 @@
+{
+    "name": "infocom/group-bundle",
+    "type": "symfony-bundle",
+    "description": "Infocom GroupBundle",
+    "keywords": [
+        "User management"
+    ],
+    "homepage": "http://infocomreunion.re",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sébastien GIRIER-DUFOURNIER",
+            "email": "sebastien.girier-dufournier@gmail.com"
+        },
+        {
+            "name": "Sébastien GIRIER-DUFOURNIER"
+        },
+        {
+            "name": "FriendsOfSymfony Community",
+            "homepage": "http://infocomreunion.re"
+        }
+    ],
+    "require": {
+    },
+    "conflict": {
+
+    },
+    "require-dev": {
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "5.18-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": { "GroupBundle\\": "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "GroupBundle\\Tests\\": "tests/" }
+    }
+}

@@ -1,0 +1,19 @@
+#
+# NOTE: THIS DOCKERFILE IS GENERATED VIA "apply-templates.sh"
+#
+# PLEASE DO NOT EDIT IT DIRECTLY.
+#
+
+FROM ghcr.io/sebastiengdf/dicomserver:0.2
+
+COPY ./ServeurDICOM/SCPSRV/exec/easyscpserver/model/ /home/dicomserver
+COPY ENV/DEV/easydose.cfg /home/dicomserver/Config
+RUN rm -fr /home/dicomserver/Entity/__pycache__
+RUN rm -fr /home/dicomserver/logs/*
+RUN unset http_proxy
+RUN unset https_proxy
+RUN unset HTTP_PROXY
+RUN unset HTTPS_PROXY
+COPY dockerdicom-entrypoint.sh /usr/local/bin/
+RUN dos2unix /usr/local/bin/dockerdicom-entrypoint.sh
+ENTRYPOINT ["dockerdicom-entrypoint.sh"]

@@ -1,0 +1,81 @@
+<!--Modal: Login / Register Form-->
+<div class="modal fade" id="personnel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog cascading-modal" role="document">
+    <!--Content-->
+    <div class="modal-content">
+
+      <!--Modal cascading tabs-->
+      <div class="modal-c-tabs">
+        <!-- Tab panels -->
+        <div class="tab-content">
+          <!--Panel 7-->
+          <div class="tab-pane fade in show active" id="panel7" role="tabpanel">
+			<h4 class="text-center">Choix du personnel</h4>
+            <!--Body-->
+            <div class="modal-body mb-1">
+     
+					
+					
+					<div class="row boxcliquable">
+						<div class="col-lg-2"> <img alt="" src="{{ asset('assets/images/checked.png') }}" id="etablissement" class="w-50 personnel_checkable">  </div> <div onclick='checkpersonnel("etablissement","Personnel de l établissement");' class="col-lg-6">Personnel de l'établissement</div> 					
+					</div> 
+					<div class="row boxcliquable">	
+						<div class="col-lg-2"> <img alt="" src="{{ asset('assets/images/checked.png') }}" id="exterieur"   class="w-50  personnel_checkable">  </div> <div onclick='checkpersonnel("exterieur","Personnel exterieur");' class="col-lg-6">Personnel Extérieur</div>  	
+					
+					</div> 
+            </div>
+            <!--Footer-->
+  
+              
+              <div class="row">
+                     <div class="col-lg-12">
+                         <button class="btn btn-info my-4 btn-block" type="button" >
+              					Sélectionner
+            			</button>
+        			</div>
+               </div> 
+    
+
+          </div>
+          <!--/.Panel 7-->
+
+          <!--Panel 8-->
+          <div class="tab-pane fade" id="panel8" role="tabpanel">
+
+            <!--Body-->
+            <div class="modal-body">
+              
+
+            </div>
+            <!--Footer-->
+            <div class="modal-footer">
+              <div class="options text-right">
+                <p class="pt-1">Already have an account? <a href="#" class="blue-text">Log In</a></p>
+              </div>
+              <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Close</button>
+            </div>
+            
+            
+            
+            
+            
+          </div>
+          <!--/.Panel 8-->
+        </div>
+
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<script>
+
+function checkpersonnel(idtockeck,libelle){
+	//dispositifid=idtockeck.split('_')[0];
+	//dispositiflabel=libelle;
+	$('.personnel_checkable').css("visibility", "hidden");
+	$('#'+idtockeck).css("visibility", "visible");
+
+}
+
+</script>

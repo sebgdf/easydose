@@ -1,0 +1,123 @@
+        <div style="height:600px;overflow-y:scroll;">
+          <div id="identitiedeclarant">
+                        			<!-- Default form register -->
+                    <form class="text-center border border-light p-5" action="#!">
+                    
+                        <p class="h4 mb-4">Personne Déclarante</p>
+                    
+
+                        <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
+                            Identification du déclarant.
+                        </small>
+
+                        <div class="form-row mb-4">
+                            <div class="col">
+                                <!-- First name -->
+                                <input type="text" id="nomDeclarant" class="form-control" placeholder="Saisissez votre Nom" value="{{ esr.nomDeclarant }}">
+                            </div>
+                            <div class="col">
+                                <!-- Last name -->
+                                <input type="text" id="prenomDeclarant" class="form-control" placeholder="Saisissez votre Prenom" value="{{ esr.prenomDeclarant }}">
+                            </div>
+                        </div>
+                    
+                     
+                     <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
+  
+                            Adresse email du déclarant.
+                        </small>
+
+                        <!-- E-mail -->
+                        <input type="email" id="emailDeclarant" class="form-control mb-4" placeholder="Saisissez votre E-mail" value="{{ esr.emailDeclarant }}">
+                    
+                        
+                        
+                    
+                        {% if isei is defined %}
+                        <!-- Phone number -->
+                        <input type="text" id="telephoneDeclarant" class="form-control" placeholder="Saisissez votre Numéro de téléphone" aria-describedby="defaultRegisterFormPhoneHelpBlock"  value="{{ esr.telephoneDeclarant }}">
+                        <small id="defaultRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
+                            Numéro de téléphone du déclarant
+                        </small>
+                        {% endif %}
+                        {% if isei is defined %}
+                            <!--A REFAIRE AU PROPRE -->
+                            <select id="groupei" class="browser-default custom-select mb-4">                        
+                                <option value="" disabled>Choisir Fonction</option>
+                                
+                            
+                                    {% if "MEDECIN" == esr.groupei %}
+                                        <option value="MEDECIN" selected> MEDECIN</option>
+                                    {% else %}
+                                        <option value="MEDECIN"> MEDECIN</option>
+                                    {% endif %}
+
+
+                                    {% if "RADIOPHYSICIEN" == esr.groupei %}
+                                        <option value="RADIOPHYSICIEN" selected> RADIOPHYSICIEN</option>
+                                    {% else %}
+                                        <option value="RADIOPHYSICIEN"> RADIOPHYSICIEN</option>
+                                    {% endif %}
+
+                                    {% if "SECRETAIRE" == esr.groupei %}
+                                        <option value="SECRETAIRE" selected> SECRETAIRE</option>
+                                    {% else %}
+                                        <option value="SECRETAIRE"> SECRETAIRE</option>
+                                    {% endif %}
+
+
+                                    {% if "ADMNISTRATION" == esr.groupei %}
+                                        <option value="ADMNISTRATION" selected> ADMNISTRATION</option>
+                                    {% else %}
+                                        <option value="ADMNISTRATION"> ADMNISTRATION</option>
+                                    {% endif %}
+                                
+                                    {% if "MANIPULATEUR" == esr.groupei %}
+                                        <option value="MANIPULATEUR" selected> MANIPULATEUR</option>
+                                    {% else %}
+                                        <option value="MANIPULATEUR"> MANIPULATEUR</option>
+                                    {% endif %}
+                            </select>
+
+                        {% else %}
+                            <select id="fonctiondeclarantesr" class="browser-default custom-select mb-4">                        
+                                <option value="" disabled>Choisir Fonction</option>
+                                
+                                {% for groupe in groupes %}
+                                    {% if groupe.id == esr.fonctionDeclarant %}
+                                        <option value="{{ groupe.id }}" selected> {{ groupe }}</option>
+                                    {% else %}
+                                        <option value="{{ groupe.id }}"> {{ groupe }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                                                        
+                            </select>
+                        {% endif %}
+                        
+                        <!--  Passage à la page suivante -->
+                      	{% include ("@EasyDose/portlet/Esr/precedent_next_esr.html.twig") %}                  
+                       
+
+                        <hr>
+                    
+                        
+                    </form>
+                    <!-- Default form register -->
+            
+          </div>
+        </div>  
+          
+<script>
+
+changeesrValueGlobal('{{urlsaveesrvalue}}',{{id_esr_courant}},'input','nomDeclarant');
+changeesrValueGlobal('{{urlsaveesrvalue}}',{{id_esr_courant}},'input','prenomDeclarant');
+changeesrValueGlobal('{{urlsaveesrvalue}}',{{id_esr_courant}},'input','emailDeclarant');
+changeesrValueGlobal('{{urlsaveesrvalue}}',{{id_esr_courant}},'input','telephoneDeclarant');
+{% if isei is defined %}
+    changeesrValueGlobal('{{urlsaveesrvalue}}',{{id_esr_courant}},'select','groupei');
+{% else %}
+    changeesrValueGlobal('{{urlsaveesrvalue}}',{{id_esr_courant}},'select','fonctiondeclarantesr');
+{% endif %}
+lierInput('divnomd{{esr.id}}','input','nomDeclarant');
+lierInput('divprenomd{{esr.id}}','input','prenomDeclarant');
+</script>

@@ -1,0 +1,368 @@
+
+<!-- Modal -->
+<div class="modal fade" id="filtrePatient" tabindex="-1" role="dialog" aria-labelledby="filtrePatient"  aria-hidden="true">
+
+  <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+
+
+    <div class="modal-content w300">
+      <div class="modal-header navbar">
+        <h5 class="modal-title" id="filtrePatientTitle">Filtrer les patients</h5>
+        <button type="button" class="close white-text" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" >
+      
+       
+        <div class="row" id="filtreparent">  
+        			<div class="col-md-5">
+        			    <div class="row">
+        			    	<div class="col-md-12 primary-color-dark white-text">Filtres disponibles</div>
+        			    </div>
+        			    <div class="row">
+        			   		<div class="col-md-12"> &nbsp;</div>
+        			    </div>
+        			    <div class="row" id="panierinit">
+        			    		<div class="card bgfemme waves-effect" style="width:150px;height: 170px;"  id="Femmesdraggable" >                    
+                                 	
+                        			<div class="card-body" style="padding: 0px;">
+                          				<p class="card-text elegant-color-dark text-white">Patiente</p>
+                        			</div>            
+                                </div>
+                                
+                    			<div class="card bgpediatrie waves-effect" style="width:150px;height: 170px;" id="pediatriedraggable" >
+                    			
+                    			   
+                        			<div class="card-body" style="padding: 0px;">
+                          				<p class="card-text elegant-color-dark text-white">Pédiatries</p>
+                        			</div> 
+                    			</div>
+                    			
+                    			<div id="draggablenrd" class="card bgnrd waves-effect" style="width:150px;x;height: 170px;" >
+                    			
+                    				<div class="card-body" style="padding: 0px;">
+                          				<p class="card-text elegant-color-dark text-white">Dépassement de NRD</p>
+                        			</div> 
+                    			</div>
+                    			
+            
+            
+                    			<div id="draggablescanner" class="card bgscanner waves-effect" style="width:150px;height: 170px;" >
+                    			
+                    				
+                        			<div class="card-body" style="padding: 0px;">
+                          				<p class="card-text elegant-color-dark text-white">Scanners</p>
+                        			</div> 
+                    			</div>
+                    			
+                    			
+                    			<div id="draggableradio" class="card bgradio waves-effect" style="width:150px;height: 170px;" >        			
+                    				
+                        			<div class="card-body" style="padding: 0px;">
+                          				<p class="card-text elegant-color-dark text-white">Radiographies</p>
+                        			</div> 
+                    			</div>
+                    			
+                    			<div id="draggablemammo" class="card bgmammo waves-effect" style="width:150px;x;height: 170px;" >
+                    			
+                    				<div class="card-body " style="padding: 0px;">
+                          				<p class="card-text elegant-color-dark text-white">Mammographies</p>
+                        			</div> 
+                    			</div>
+        			    </div>
+        			</div> 
+                    <div class="col-md-7 panierfiltre" style="height:555px;" id="panier_filtre"  >
+                    	<div class="row">
+        			    	<div class="col-md-12 primary-color-dark white-text">Filtres appliqués</div>
+        			    </div>
+        			    <div class="row">
+        			   		<div class="col-md-12"> &nbsp;</div>
+        			    </div>
+                          <div  class="row"  id="divreception">
+                          
+                          </div>
+                    </div>
+	
+
+        </div>
+        
+        
+      </div>
+      
+
+       
+      
+      <div class="modal-footer navbar" style="height: 100px; align-content: unset;">
+      <div style="float:left;">
+      {% include ("@EasyDose/Default/logoeasydose.html.twig") %}
+      </div>
+      <div style="float: right;"> 
+       <button type="button" class="btn btn-dark waves-effect text-white" onclick="reinitfilter('{{ url('worklistsearchFiltre',{'withradio':'_withradio','withscan':'_withscan','withmammo':'_withmammo',
+	        'withnrd':'_withnrd','withpediatrie':'_withpediatrie','withpatientproc':'_withpatientproc',screenheigth:"_screenheigth",'offset':"0"}) }}')" >Réinitialiser</button>
+        
+    
+      
+        <button type="button" class="btn btn-dark waves-effect text-white" data-dismiss="modal">Fermer</button>
+        
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<script>
+
+
+
+        var patienteposition='L';
+        var pediatrieposition='L';
+        var nrdposition='L';
+        var scannerposition='L';
+        var radioposition='L';
+        var mammoposition='L';
+
+        
+
+        
+        function doElsCollide (el1, el2,position) {
+            if(position=='L'){
+                if(el1.offsetLeft>el2.offsetLeft)
+                    return true;
+            }
+            else if(position=='R'){
+            	if(el1.offsetLeft<el2.offsetLeft)
+                    return true;
+            }else
+                return false;
+        }
+
+
+        function manageeventmouseup(event){ 
+           var currentid=(this.id);     	  
+     	   var divrecep = document.getElementById('panier_filtre');
+     	   var divinit = document.getElementById('panierinit');
+
+     	  
+       	  /*
+       	  *Gestion des femmes
+       	  *
+       	  */
+       	  var femmedrg = document.getElementById('Femmesdraggable');
+     	  if(currentid=="Femmesdraggable" && doElsCollide(femmedrg,divrecep,patienteposition)==true && patienteposition=='L' )            	  
+     		   {
+         		   clone=$("#Femmesdraggable");
+         		   clone.detach();
+         		   $("#divreception").append(clone);
+         		   clone.css('top', 'auto').css('left', 'auto');
+         		   clone.css('z-index', 1000);
+         		   patienteposition="R";
+         		  
+     		}else if(currentid=="Femmesdraggable" && doElsCollide(femmedrg,divinit,patienteposition)==true && patienteposition=='R')            	  
+     		{
+         		   clone=$("#Femmesdraggable");
+         		   clone.detach();
+         		   $("#panierinit").append(clone);
+         		   clone.css('top', 'auto').css('left', 'auto');
+         		   clone.css('z-index', 1000);
+         		   patienteposition="L";
+         		 
+     		}
+
+       	     /*
+        	  *Gestion des pédiatries
+        	  *
+        	  */
+          var pediatriedrg = document.getElementById('pediatriedraggable');
+      	  if(currentid=="pediatriedraggable" && doElsCollide(pediatriedrg,divrecep,pediatrieposition)==true && pediatrieposition=='L')            	  
+      		   {
+          		   clone=$("#pediatriedraggable");
+          		   clone.detach();
+          		   $("#divreception").append(clone);
+          		   clone.css('top', 'auto').css('left', 'auto');
+          		   clone.css('z-index', 1000);
+          		 pediatrieposition="R";
+          		
+      		}else if(currentid=="pediatriedraggable" && doElsCollide(pediatriedrg,divinit,pediatrieposition)==true && pediatrieposition=='R')            	  
+      		{
+          		   clone=$("#pediatriedraggable");
+          		   clone.detach();
+          		   $("#panierinit").append(clone);
+          		   clone.css('top', 'auto').css('left', 'auto');
+          		   clone.css('z-index', 1000);
+          		 pediatrieposition="L";
+          		
+      		}
+    		
+      	 /*
+     	  *Gestion des nrd
+     	  *
+     	  */
+       	var nrddrg = document.getElementById('draggablenrd');
+       	if(currentid=="draggablenrd" && doElsCollide(nrddrg,divrecep,nrdposition)==true && nrdposition=='L' )            	  
+        {
+           		   clone=$("#draggablenrd");
+           		   clone.detach();
+           		   $("#divreception").append(clone);
+           		   clone.css('top', 'auto').css('left', 'auto');
+           		   clone.css('z-index', 1000);
+           		nrdposition="R";
+           		
+       	}else if(currentid=="draggablenrd" && doElsCollide(nrddrg,divinit,nrdposition)==true && nrdposition=='R')            	  
+       	{
+           		   clone=$("#draggablenrd");
+           		   clone.detach();
+           		   $("#panierinit").append(clone);
+           		   clone.css('top', 'auto').css('left', 'auto');
+           		   clone.css('z-index', 1000);
+           		nrdposition="L";
+           		
+       	}
+
+     	 /*
+    	  *Gestion des scanner
+    	  *
+    	  */
+      	  var scannerdrg = document.getElementById('draggablescanner');
+    	  if(currentid=="draggablescanner" && doElsCollide(scannerdrg,divrecep,scannerposition)==true && scannerposition=='L')            	  
+    		   {
+      		   clone=$("#draggablescanner");
+      		   clone.detach();
+      		   $("#divreception").append(clone);
+      		   clone.css('top', 'auto').css('left', 'auto');
+      		   clone.css('z-index', 1000);
+      		   scannerposition="R";
+      		 
+    		}else if(currentid=="draggablescanner" && doElsCollide(scannerdrg,divinit,scannerposition)==true && scannerposition=='R')            	  
+    		{
+      		   clone=$("#draggablescanner");
+      		   clone.detach();
+      		   $("#panierinit").append(clone);
+      		   clone.css('top', 'auto').css('left', 'auto');
+      		   clone.css('z-index', 1000);
+      		   scannerposition="L";
+      		 
+			}
+
+    	 	 /*
+    		  *Gestion des radio
+    		  *
+    		  */
+    	  	  var radiodrg = document.getElementById('draggableradio');
+    		  if(currentid=="draggableradio" && doElsCollide(radiodrg,divrecep,radioposition)==true && radioposition=='L')            	  
+    			   {
+    	  		   clone=$("#draggableradio");
+    	  		   clone.detach();
+    	  		   $("#divreception").append(clone);
+    	  		   clone.css('top', 'auto').css('left', 'auto');
+    	  		   clone.css('z-index', 1000);
+    	  		 radioposition="R";
+    	  		
+    			}else if(currentid=="draggableradio" && doElsCollide(radiodrg,divinit,radioposition)==true && radioposition=='R')            	  
+    			{
+    	  		   clone=$("#draggableradio");
+    	  		   clone.detach();
+    	  		   $("#panierinit").append(clone);
+    	  		   clone.css('top', 'auto').css('left', 'auto');
+    	  		   clone.css('z-index', 1000);
+    	  		 radioposition="L";
+    	  		
+    			}  
+
+
+		 	 /*
+			  *Gestion des mammo
+			  *
+			  */
+		  	  var mammodrg = document.getElementById('draggablemammo');
+			  if(currentid=="draggablemammo" && doElsCollide(mammodrg,divrecep,mammoposition)==true && mammoposition=='L')            	  
+				   {
+		  		   clone=$("#draggablemammo");
+		  		   clone.detach();
+		  		   $("#divreception").append(clone);
+		  		   clone.css('top', 'auto').css('left', 'auto');
+		  		   clone.css('z-index', 1000);
+		  		 mammoposition="R";
+		  		
+				}else if(currentid=="draggablemammo" && doElsCollide(mammodrg,divinit,mammoposition)==true && mammoposition=='R')            	  
+				{
+		  		   clone=$("#draggablemammo");
+		  		   clone.detach();
+		  		   $("#panierinit").append(clone);
+		  		   clone.css('top', 'auto').css('left', 'auto');
+		  		   clone.css('z-index', 1000);
+		  		 mammoposition="L";
+		  		
+				}  
+
+				var url="{{ url('worklistsearchFiltre',{'withradio':'_withradio','withscan':'_withscan','withmammo':'_withmammo',
+			        'withnrd':'_withnrd','withpediatrie':'_withpediatrie','withpatientproc':'_withpatientproc',screenheigth:"_screenheigth",'offset':"0"}) }}";
+			    addFilter(url,patienteposition,pediatrieposition,nrdposition,scannerposition,radioposition,mammoposition);			
+         }
+        
+        $(document).ready(function() { 
+        
+
+            $('#Femmesdraggable').draggable({
+                containment: '#filtreparent',
+                revert: true
+            });
+            $('#pediatriedraggable').draggable({
+                containment: '#filtreparent',
+                revert: true
+            });
+            $('#draggablescanner').draggable({
+                containment: '#filtreparent',
+                revert: true
+            });
+            $('#draggableradio').draggable({
+                containment: '#filtreparent',
+                revert: true
+            });
+            $('#draggablemammo').draggable({
+                containment: '#filtreparent',
+                revert: true
+            });
+            $('#draggablenrd').draggable({
+                containment: '#filtreparent',
+                revert: true
+            });
+
+ 
+            var femmefocused=false
+            var pediatriefocused=false
+     
+            $("#Femmesdraggable").mouseup(manageeventmouseup);
+            $("#pediatriedraggable").mouseup(manageeventmouseup);
+            $("#draggablenrd").mouseup(manageeventmouseup);
+            $("#draggablescanner").mouseup(manageeventmouseup);
+            $("#draggableradio").mouseup(manageeventmouseup);
+            $("#draggablemammo").mouseup(manageeventmouseup);
+            
+            
+            $("#Femmesdraggable").mousedown(function(){
+            	$("#Femmesdraggable").css('z-index', 3000);            	
+            });
+            $("#pediatriedraggable").mousedown(function(){
+            	$("#pediatriedraggable").css('z-index', 3000);            	
+            });
+            $("#draggablenrd").mousedown(function(){
+            	$("#draggablenrd").css('z-index', 3000);            	
+            });
+            $("#draggablescanner").mousedown(function(){
+            	$("#draggablescanner").css('z-index', 3000);            	
+             });
+            $("#draggableradio").mousedown(function(){
+            	$("#draggableradio").css('z-index', 3000);            	
+             });
+            $("#draggablemammo").mousedown(function(){
+            	$("#draggablemammo").css('z-index', 3000);            	
+             });           
+        });
+
+      </script>
+            

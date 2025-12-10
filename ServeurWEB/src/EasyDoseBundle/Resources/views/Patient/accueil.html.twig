@@ -1,0 +1,378 @@
+
+<div class="row">
+
+<div class="col-lg-8 col-xs-12"><span class="textNongras">Bonjour</span> <span class="textgras">{{ app.user.firstname }} </span>.<br/> <span class="textNongras">Bienvenue sur </span><span class="textgras">EasyDose</span><span class="textNongras">, votre espace de gestion des doses.</span></div>
+ <div class="col-lg-4 text-lg-right">
+ 
+ <img src="{{ asset(etablissement.addrlogo) }}" width="50px" height="50px" alt="Bootstrap" class="img-responsive"/> <span class="textNongras"> {{ etablissement.nom }} <br/>Support logiciel : (+262)0693706962</span></div>
+</div>
+
+<div class="row">
+<div class="col-lg-8">&nbsp;</div>
+</div>
+
+ <div class="box" style="border: none;">
+ 
+  <div class="row">
+        <div class="col-md-12 ml-3" style="left:-2px; padding-right:2.7rem!important;">
+            <div class="row">
+            	<div class="col-md-10 onglet1adown pr-0 mr-0 pt-1" >Récapitulatif </div> <div class="pl-0 ml-0 col-md-2 onglet1bdown" > </div>
+            
+            </div>
+        </div>
+	</div>
+	
+  <div class="mb3 flatcard">
+  
+   <div  class="card-hearder">
+
+        </div>
+     <div class=" row card-body">
+       
+       
+       
+        <div class="boxcliquable col-lg-3 col-xs-6" onclick='reinitfilter("{{ url('worklistsearchFiltre',{'withradio':'_withradio','withscan':'_withscan','withmammo':'_withmammo',
+  	        'withnrd':'_withnrd','withpediatrie':'_withpediatrie','withpatientproc':'_withpatientproc',screenheigth:"_screenheigth",'offset':"0"}) }}");'>
+        
+          <!-- small box -->
+          <div class="small-box bg-whitecust">
+          
+            <div class="inner">
+            
+            <div  id="nbexamens">			
+		    </div>
+              <p class="textinboxthin">Examens</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-android-list"></i>
+            </div>
+          </div>
+        </div>
+       
+
+
+  
+        <div class=" boxcliquable col-lg-3 col-xs-6" onclick='reinitfilter("{{ url('worklistsearchFiltre',{'withradio':'_withradio','withscan':'_withscan','withmammo':'_withmammo',
+  	        'withnrd':'_withnrd','withpediatrie':'_withpediatrie','withpatientproc':'_withpatientproc',screenheigth:"_screenheigth",'offset':"0"}) }}");'>
+          <!-- small box -->
+          <div class="small-box bg-whitecust">
+            <div class="inner">
+              <div id="nbpatients"></div>
+
+              <p class="textinboxthin">Patients enregistrés</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-android-person"></i>
+            </div>
+          </div>
+        </div>
+
+    
+        <div class="boxcliquable col-lg-3 col-xs-6" onclick='chargerNrd("{{ url('worklistsearchFiltre',{'withradio':'_withradio','withscan':'_withscan','withmammo':'_withmammo',
+  	        'withnrd':'_withnrd','withpediatrie':'_withpediatrie','withpatientproc':'_withpatientproc',screenheigth:"_screenheigth",'offset':"0"}) }}");'>
+          <!-- small box -->
+          <div class="small-box bg-whitecust2">
+            <div class="inner">
+              <div id="examswithNRD"></div>
+
+              <p class="textinboxthin2" >Dépassement des N.R.D.</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-ios-bell"></i>
+            </div>
+          </div>
+        </div>
+    
+        
+        
+        
+  
+        <div class="boxcliquable col-lg-3 col-xs-6" onclick="optimdose('{{ url('optimdose') }}');">
+          <!-- small box -->
+          <div class="small-box bg-whitecust">
+            <div class="inner">
+              <div id="nboptims"></div>
+
+              <p class="textinboxthin">Optimistation dosimétrique</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-ios-monitor"></i>
+            </div>
+          </div>
+        </div>
+        
+        
+          <div class="boxcliquable col-lg-3 col-xs-6" onclick='chargerRadio("{{ url('worklistsearchFiltre',{'withradio':'_withradio','withscan':'_withscan','withmammo':'_withmammo',
+  	        'withnrd':'_withnrd','withpediatrie':'_withpediatrie','withpatientproc':'_withpatientproc',screenheigth:"_screenheigth",'offset':"0"}) }}");'>
+          <!-- small box -->
+          <div class="small-box bg-whitecust">
+            <div class="inner">
+              <div id="ExamsRadio"></div>
+
+              <p><span class="label btn-unique">&nbsp;RADIOGRAPHIE&nbsp;</span></p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-archive"></i>
+            </div>
+          </div>
+        </div>
+        
+        
+        
+         <div class="boxcliquable col-lg-3 col-xs-6" onclick='chargerScanner("{{ url('worklistsearchFiltre',{'withradio':'_withradio','withscan':'_withscan','withmammo':'_withmammo',
+  	        'withnrd':'_withnrd','withpediatrie':'_withpediatrie','withpatientproc':'_withpatientproc',screenheigth:"_screenheigth",'offset':"0"}) }}");'>
+          <!-- small box -->
+          <div class="small-box bg-whitecust">
+            <div class="inner">
+              <div id="ExamsScanner"></div>
+
+             <p><span class="label label-info">&nbsp;SCANNER&nbsp;</span></p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-ios-medical"></i>
+            </div>
+          </div>
+        </div>
+ 
+          <div class="boxcliquable col-lg-3 col-xs-6" onclick='chargerMammo("{{ url('worklistsearchFiltre',{'withradio':'_withradio','withscan':'_withscan','withmammo':'_withmammo',
+  	        'withnrd':'_withnrd','withpediatrie':'_withpediatrie','withpatientproc':'_withpatientproc',screenheigth:"_screenheigth",'offset':"0"}) }}");'>
+          <!-- small box -->
+          <div class="small-box bg-whitecust">
+            <div class="inner">
+              <div id="ExamsMammo"></div>
+
+             <p><span class="label labelmammographie">&nbsp;MAMMOGRAPHIE&nbsp;</span></p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-female"></i>
+            </div>
+          </div>
+        </div>
+
+        
+         <div class="boxcliquable col-lg-3 col-xs-6" onclick="esr('{{ url('esr',{screenheigth:"_screenheigth"}) }}');">
+          <!-- small box -->
+          <div class="small-box bg-whitecust">
+            <div class="inner">
+              <div id="nbesr"></div>
+
+              <p class="textinboxthin">E.S.R.</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-ios-bell"></i>
+            </div>
+          </div>
+        </div>   
+ </div> 
+ </div> 
+</div> 
+
+ <div class="box box-success">
+ 
+  <div class="mb3 flatcard">
+ <div class="row">
+ 
+   
+ 
+   <div class="col-sm12 col-lg-6">
+
+        <div  class="card-hearder">
+            <h3 class="card-title  text-center"> Examens</h3>
+        </div>
+        <div  class="card-body" id="courbe1">
+           <canvas id="patients-canvas" height="300" style="height: 300px; display: block; width: 901px;" width="901" class="chartjs-render-monitor">
+           </canvas>
+   
+   
+        </div>
+     
+        <div  class="card-body" id="courbe2">
+           <canvas id="patients-canvas-2" height="300" style="height: 300px; display: block; width: 901px;" width="901" class="chartjs-render-monitor">
+           </canvas>
+   
+   
+        </div>
+   </div>
+ 
+
+    <div class="col-sm12 col-lg-6">
+
+        <div  class="card-hearder">
+            <h3 class="card-title text-center"> Classement des dépassements de seuil</h3>
+        </div>
+        <div id="top5">
+        
+        </div>
+     
+   
+   </div>
+ 
+ 
+    </div>
+ 
+ </div>
+ </div>
+ <div class="box box-primary">
+  <div class="mb3 flatcard">
+    <div class="box-header whith-border"> 
+   
+       <h3 class="box-title">
+         Derniers examens réalisés
+       </h3>
+       
+       <div class="box-tools pull-right">
+       
+       </div>
+       <div class="box-body">
+       				<ul class="products-list product-list-in-box">
+       				{% for exam in lastexams %}
+       					<li class="item">
+           					<div class="product-info">
+           					   {%  if exam.modalite== 'MG' %}
+           						 <span class="label labelmammographie">Mammographie</span>
+           						
+           						
+           						 {% else %}
+           						
+           						            {%  if exam.modalite == 'SR' and '2' in exam.unite %}
+           						
+           						                     <span class="label label-danger">Radiographie</span>
+           						
+           						            {% else %}
+           						              
+           						                     <span class="label label-info">Scanner</span>
+           						              
+           						            {% endif %}
+                                                      						
+           					     {% endif %}
+           					   
+           					   
+           					   
+           					   
+           					   
+           					</div>
+           					<span class="product-description">
+           						<i>Le {{ exam.date | date('m/d/Y') }}</i> - Examen de <b>
+           						 {%  if exam.sex=="FEMME" %}
+           						     Madame
+           						  {%else %}
+           						     Mr
+           						  {%endif%}
+           						 {{ exam.nom}} {{  exam.prenom }}</b>
+           					</span>
+       					</li>
+       					
+       				{% endfor %}
+       				
+       				</ul>
+       </div>
+  
+   </div>
+    
+ </div>
+ </div>   
+
+
+
+<script>
+
+
+
+function getOnlyTopStats(whithspinner){
+
+	var iswithspinner= whithspinner  || true;
+    if(iswithspinner){
+	$("#nbexamens").html("<div class=\"spinner-border\" role=\"status\"><span class=\"sr-only\">Loading...</span></div>");
+
+	$("#nbpatients").html("<div class=\"spinner-border\" role=\"status\"><span class=\"sr-only\">Loading...</span></div>");
+	$("#examswithNRD").html("<div class=\"spinner-border\" role=\"status\"><span class=\"sr-only\">Loading...</span></div>");
+	$("#nboptims").html("<div class=\"spinner-border\" role=\"status\"><span class=\"sr-only\">Loading...</span></div>");
+	$("#ExamsRadio").html("<div class=\"spinner-border\" role=\"status\"><span class=\"sr-only\">Loading...</span></div>");
+	$("#ExamsScanner").html("<div class=\"spinner-border\" role=\"status\"><span class=\"sr-only\">Loading...</span></div>");
+	$("#ExamsMammo").html("<div class=\"spinner-border\" role=\"status\"><span class=\"sr-only\">Loading...</span></div>");
+    }
+	$.ajax({
+	       
+    	contentType: "application/json; charset=utf-8",
+    	url: "{{ url('getOnlyTopStats') }}",
+      	dataType: "json",
+        data: "{}",
+
+        success: function( _data ) {
+        	
+        	$("#nbexamens").html("<h3>"+_data.nbexamens+"</h3>");
+        	$("#nbpatients").html("<h3>"+_data.nbpatients+"</h3>");
+        	$("#examswithNRD").html("<h3>"+_data.examswithNRD+"</h3>");
+        	$("#nboptims").html("<h3>"+_data.nboptims+"</h3>");
+        	$("#ExamsRadio").html("<h3>"+_data.ExamsRadio+"</h3>");
+        	$("#ExamsScanner").html("<h3>"+_data.ExamsScanner+"</h3>");
+        	$("#ExamsMammo").html("<h3>"+_data.ExamsMammo+"</h3>");
+        	$("#nbesr").html("<h3>"+_data.nbesr+"</h3>");
+        	
+	  }
+    });
+		
+}
+
+
+function setcourbe1(whithspinner){
+	var iswithspinner= whithspinner  || true;
+    if(iswithspinner){
+	$("#courbe1").html("<center><div class=\"spinner-border\" role=\"status\"><span class=\"sr-only\">Loading...</span></div></center>");
+    }
+	var url="{{ url('getCourbeExams') }}";
+	
+	$('#courbe1').load(url);
+}
+
+
+
+
+function setcourbe2(whithspinner){
+	var iswithspinner= whithspinner  || true;
+    if(iswithspinner){
+	$("#courbe2").html("<center><div class=\"spinner-border\" role=\"status\"><span class=\"sr-only\">Loading...</span></div></center>");
+    }
+	var url="{{ url('getCourbeExamsNRD') }}";
+	
+	$('#courbe2').load(url);
+}
+
+
+function settop5(whithspinner){
+	var iswithspinner= whithspinner  || true;
+    if(iswithspinner){
+	$("#top5").html("<center><div class=\"spinner-border\" role=\"status\"><span class=\"sr-only\">Loading...</span></div></center>");
+    }
+	var url="{{ url('top5') }}";
+	
+	$('#top5').load(url);
+}
+
+
+</script>
+
+ <script>
+
+
+ 
+$(document).ready(function() {
+	$('#maincontent').loading('stop');
+	getOnlyTopStats();
+	setcourbe1();
+	setcourbe2();
+	settop5();
+	
+
+	
+
+	});
+
+
+
+
+</script>
+
+
+
+ 

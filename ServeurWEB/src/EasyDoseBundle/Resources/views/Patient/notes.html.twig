@@ -1,0 +1,5 @@
+{% for note in  notes %}
+<div class="col-md-8"><span id="lastcommentdate" >Le {{ note.datenote }}</span><span id="lastcomentuser"  >, de <span style="font-weight:bold;">{{ note.user }}</span></span><span style="font-style: italic; color:rgb(132,132,132);" id="lastcoment" >&nbsp;{{ note.content }}</span></div>
+
+{% endfor %}
+

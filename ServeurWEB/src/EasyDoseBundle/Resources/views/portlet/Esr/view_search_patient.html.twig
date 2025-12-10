@@ -1,0 +1,31 @@
+<div class="col">
+    <input type="checkbox" class="custom-control-input chkesrpatient" id="patient{{ id }}" name="{{ nom }} {{ prenom }}" value="{{ id }}^{{ ed }}" >
+    <label class="custom-control-label" for="patient{{ id }}">{{ nom }} {{ prenom }} n° Patient : {{ ed  }}</label>
+</div>
+
+
+
+
+<script>
+    $('#patient{{ id }}').change(function() {
+        // this will contain a reference to the checkbox 
+        //alert('test');  
+        if (this.checked) {                
+        	$('.chkesrpatient').prop( "checked", false );
+    		this.checked=true;
+    		patientid=this.value.split("^")[0];
+    		idregional=this.value.split("^")[1];
+    		esrid=$('#esrid').prop("value");
+    		$('#idpatientesrselected').prop("value",patientid);
+    		$('#edpatientselected').prop("value",idregional);
+    		$('#namepatientesrselected').prop("value",this.name);
+    		$("#cardptid"+esrid).attr("onclick",'getinfopatient(patientid,"{{url('infopatient',{'id':'idtoreplace'})}}","{{ url('tdpatient',{'id':'idtoreplace'}) }}");');
+
+    		
+    		
+    		$("#cardptid"+esrid).addClass( "hovered" );
+    	    } else {
+       
+        }
+    });
+</script>

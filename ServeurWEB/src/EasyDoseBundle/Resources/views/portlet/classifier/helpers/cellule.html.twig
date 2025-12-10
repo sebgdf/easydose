@@ -1,0 +1,7 @@
+<li class="paginate_button page-item {% if status == 'selected' %}active{% endif %}">
+    <a href="#" aria-controls="dtBasicExample" data-dt-idx="{{ i }}" tabindex="0" {% if status == 'selected' %} 
+    style="background-color: rgb(56,107,255)!important;" {% endif %} class="page-link" 
+    onclick="{{ actionfunction }}">
+             {{ i }}
+    </a>
+</li>

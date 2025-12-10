@@ -1,0 +1,43 @@
+            <div class="row"  style="height: 12em;">
+              <!--Slides-->
+              <div class="col-lg-6">
+                <div class="carousel-item active">
+                  <img class="d-block w-100"
+                    src="{{ asset(dispositif.image )}}"
+                    alt="First slide">
+                </div>
+                
+                </div>
+                <div class="col-lg-5">
+                <div>
+                Mis en service le: <br> {{ dispositif.datemiseenservice |date('d-m-Y') }}
+                </div>
+
+              </div>
+
+            </div>
+            <div class="row">
+            	<div class="col-lg-12">
+            		<strong>Marque </strong>: {{ dispositif.marque }}
+            	</div>
+            </div>
+            
+            <div class="row">
+            	<div class="col-lg-12">
+            		<strong>Dénomination </strong>: {{ dispositif.denomination }}
+            	</div>
+            </div>
+            
+            <div class="row">
+            	<div class="col-lg-12">
+            		<strong>Numéro de série </strong>: {{ dispositif.numSerie }}
+            	</div>
+            </div>
+            
+            
+            <div class="row">
+            	<div class="col-lg-12">
+            		<strong>Nom de la salle </strong>: {{ dispositif.numSalle }}.
+            	</div>
+            </div>
+          

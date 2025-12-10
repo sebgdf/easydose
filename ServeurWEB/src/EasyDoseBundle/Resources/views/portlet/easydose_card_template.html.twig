@@ -1,0 +1,25 @@
+<!--  easydose_card_template.html.twig
+-->
+
+<div>
+    {% if isesr is defined and isesr %}
+        {% set left='ml-2'%}
+    {% else %}
+         {% set left='ml-4'%}
+    {% endif %}
+
+    <div class="card weather-card mb-4 mt-4 mr-2 {{left}} content2" {% block stylecard %}  {% endblock %}>   
+  
+    {%  block content %}
+    
+    {% endblock %}
+    </div>
+    
+</div>
+
+
+
+{%  block javascript %}
+
+
+{% endblock %}

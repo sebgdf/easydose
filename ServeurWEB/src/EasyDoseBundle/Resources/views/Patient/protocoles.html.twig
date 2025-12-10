@@ -1,0 +1,34 @@
+<div class="col-md-3">			            
+ <select id="optionproto" class="custom-select browser-default" >
+          <option selected="">Choisir</option>
+           {% for dd in detaildose %}
+         	 <option   value="{{ dd.protocole }}">{{ dd.protocole  |convert_encoding('latin1','UTF-8')| raw }}</option>
+           {% endfor %}
+</select>
+
+</div>
+          
+
+
+<script>
+$(document).ready(function() {
+	$('#optionproto').click(function(e) {
+		var url="";
+		var val=$(this).find(":selected").val()
+	////	//$('#libprotocole').text($(this).text());
+	//	$('#libprotocole').attr('value',$(this).attr('value'));
+        var find="/";
+        var re = new RegExp(find,'g');
+		protocole=encodeURI(val.replace(re,"*"));
+		
+	     url="{{ url('statdose',{protocolename:"_protocole"}) }}";
+	    
+	     url2=url.replace("_protocole",protocole);
+		
+		$('#resdetaildoseproto').load(url2);
+
+	});
+		
+	});
+
+</script>

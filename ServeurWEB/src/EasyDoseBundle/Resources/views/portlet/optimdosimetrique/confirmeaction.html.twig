@@ -1,0 +1,58 @@
+<!-- Modal -->
+<div class="modal fade" id="confirmaction_view" tabindex="-1" role="dialog" aria-labelledby="confirmaction_view"
+  aria-hidden="true">
+
+  <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+  <div class="modal-dialog modal-dialog-centered" role="document">
+
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Suppression</h5>
+        <button type="button" id="confirmactionclose" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Voulez vous supprimer cette Optimisation ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn"  style="background-color: #72afd2;"  data-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-secondary" onclick="deleteoptim()">Confirmer</button>
+        <input type="hidden" id="valueOptimHidden" value=""/>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+
+function rechargerpageOptim(){
+	url="{{ url('optimdose') }}";
+	$('#maincontent').load(url);
+}
+
+
+
+$('#confirmaction_view').on('hidden.bs.modal', function () {
+	rechargerpageOptim(); 
+});
+
+function deleteoptim(){
+	optimid=$("#valueOptimHidden").val();
+	urltmp="{{url('deleteOptim',{'optimid':'_optimid'})}}";
+	url3=urltmp.replace('_optimid',optimid);
+
+      $.ajax({
+	       url: url3,
+	       type: 'GET',
+	       dataType : 'json',
+	       success: function(datas){
+	               console.log(datas);
+	               $('#confirmactionclose').click();
+	               }
+	           
+	       });
+}
+</script>

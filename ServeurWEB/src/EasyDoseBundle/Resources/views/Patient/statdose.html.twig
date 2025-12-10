@@ -1,0 +1,132 @@
+ <!--Table-->
+                      <table id="tabledspatient" class="table display table-bordered table-striped" style="">
+                
+                
+                
+                        <!--Table head-->
+                        <thead class="white-text" style="background-color:#243a51;">
+                          <tr>
+                			<th scope="col" class="fixedthwidth">
+                              <a>Patient
+                                
+                              </a>
+                            </th>
+                            <th scope="col" class="fixedthwidth">
+                              <a>Date
+                                
+                              </a>
+                            </th>
+                
+                            <th scope="col" class="fixedthwidth">
+                              <a>Protocole
+                               
+                              </a>
+                            </th>
+                            <th scope="col" class="fixedthwidth">
+                              <a>Dose
+                                
+                              </a>
+                            </th>
+                            <th scope="col" class="fixedthwidth">
+                              <a>NRD
+                                
+                              </a>
+                            </th>
+                            <th scope="col" class="fixedthwidth">
+                              <a>Kvp
+                                
+                              </a>
+                            </th>
+                
+                             <th scope="col" class="fixedthwidth">
+                              <a>Xray
+                                
+                              </a>
+                            </th>
+                                        
+                             <th scope="col" class="fixedthwidth">
+                              <a>Modalité
+                                
+                              </a>
+                            </th>
+                            
+                             <th scope="col" class="fixedthwidth">
+                              <a>Machine
+                                
+                              </a>
+                            </th>
+                            
+                            <th scope="col" class="fixedthwidth">
+                              <a>Zone exposée               
+                              </a>
+                            </th>
+                            
+                          </tr>
+                        </thead>
+                        <!--Table head-->
+                
+                
+                
+                
+                        <!--Table body-->
+                        <tbody style="overflow:hidden;" >
+                        {% for dose in  listedetaildose %}
+                          <tr>
+                
+                
+                            <td class="fixedtdwidth font-weight-bolder">{{ dose.nom }} {{ dose.prenom }}</td>
+                            <td class="fixedtdwidth font-weight-bolder">{{ dose.date | date('d/m/Y') }}</td>
+                            <td class="fixedtdwidth font-weight-bolder">{{ dose.protocole |convert_encoding('latin1','UTF-8')| raw }}</td>
+                            {% if dose.nrdhavealerte %}
+                            	<td class="fixedtdwidth font-weight-bolder">{{ dose.valeur }}  <span class="font-weight-bolder">{{ dose.unite  }}</span> <i class="fas fa-exclamation red-text"></i></td>
+                            {% else %}
+                            	<td class="fixedtdwidth font-weight-bolder">{{ dose.valeur }} <span class="font-weight-bolder">{{ dose.unite  }}</span></td>            
+                            {% endif %}
+                            {% if dose.nrdvaleur == 0 %}
+                            <td class="fixedtdwidth font-weight-bolder"> </td>
+                             {% else %}
+                             <td class="fixedtdwidth font-weight-bolder">{{ "%.2e"| format(dose.nrdvaleur) }} {{ dose.uniteseuil }}</td>
+                             {% endif %}
+                            <td class="fixedtdwidth font-weight-bolder">{{ dose.kvp }}</td>
+                            <td class="fixedtdwidth font-weight-bolder">{{ dose.xray_tube_content }}  <span class="font-weight-bolder">{{ dose.unitexray_tube_content }}</span></td>
+                            <td class="fixedtdwidth font-weight-bolder">{{ dose.modalite }}</td>
+                            <td class="fixedtdwidth font-weight-bolder">{{ dose.machine }}</td>
+                            <td class="fixedtdwidth font-weight-bolder">{{ dose.body_part }}</td>
+                          </tr>
+                        {% endfor %}          
+                        </tbody>
+                        <!--Table body-->.
+                        
+                      </table>
+                      <!--Table-->
+                
+                
+                
+                
+                <script type="text/javascript">
+                
+                
+                $(document).ready(function () {
+                
+                    $('#tabledspatient').DataTable( {
+                        "scrollY":        "400px",
+                        "scrollCollapse": true,
+                        "paging":         true,
+                        "scrollX":  false,
+                        "language": {
+                            "lengthMenu": "",
+                            "zeroRecords": "Aucun enregistrement trouvé - désolé",
+                            "info": "Page  _PAGE_ sur _PAGES_",
+                            "infoEmpty": "Pas d'enregistrement disponible",
+                            "infoFiltered": "(Filtré sur un total de _MAX_ enregistrements)",
+                            "search" : "Rechercher",
+                            "paginate": {
+                                "first":      "Premier",
+                                "last":       "Dernier",
+                                "next":       "Suivant",
+                                "previous":   "Précédent"
+                            }
+                        }
+                    } );
+                	});
+                </script>  

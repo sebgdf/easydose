@@ -1,0 +1,130 @@
+{% extends "@EasyDose/portlet/Esr/viewer/template.html.twig" %}
+
+{% block entete %}
+{% if isei is defined %}
+    COMPTE-RENDU D’ÉVÉNEMENT INDESIRABLE
+ {% else %}
+    COMPTE-RENDU D’ÉVÉNEMENT SIGNIFICATIF<br>
+    DANS LE DOMAINE DE LA RADIOPROTECTION<br>
+
+    (hors événement intéressant un patient soumis à une exposition en radiothérapie)
+{% endif %}
+{% endblock %}
+
+
+
+{% block apparte %}
+    {% if isei is defined %}
+
+    {% else %}
+        Le « compte-rendu d’événement significatif » est à adresser à l’Autorité de sûreté nucléaire dans les 2 mois suivant la déclaration de l’événement significatif en radioprotection. Il intègre une analyse détaillée de l’événement et l’exposé des mesures correctives mises en œuvre ou envisagées.
+
+        Pour un événement significatif de radioprotection patient en radiothérapie (critère 2.1), merci de vous référer au modèle
+        CRES/MED/RT disponible sur http://professionnels.asn.fr.
+    {% endif %}
+{% endblock %}
+
+
+{% block entetedeclarant %}
+I. Renseignement sur le déclarant
+{% endblock %}
+{% block titledeclarant %}Declarant{% endblock %}
+{% block circonstancesdetection %}Circonstances de la détection{% endblock %}
+{% block descriptioncirconstances %} {{ esr.circonstancesDetection }} {% endblock %} 
+
+    {% block nomdeclarant %} 
+        {% if ConnectedUser==esr.user or ConnectedUser.issuperadmin() %}  
+            {{ esr.nomDeclarant }}
+        {% else %}
+            ***************
+        {% endif %}
+    {% endblock %}
+    
+    {% block prenomnomdeclarant %} 
+    {% if ConnectedUser==esr.user or ConnectedUser.issuperadmin() %}      
+        {{ esr.prenomDeclarant }}
+    {% else %}
+            ***************
+    {% endif %}
+    {% endblock %}
+
+{% block fonctiondeclarant %} 
+
+
+ {% for groupe in groupes %}
+        {% if groupe.id == esr.fonctionDeclarant %}
+            {{ groupe }}
+       {% endif %}
+{% endfor %}
+                            
+
+
+{% endblock %}
+ 
+    {% block emaildeclarant %}
+        {% if ConnectedUser==esr.user or ConnectedUser.issuperadmin() %}  
+            {{ esr.emailDeclarant }} 
+        {% else %}
+            *************** 
+        {% endif %}
+    {% endblock %}
+    {% block phonedeclarant %}
+        {% if ConnectedUser==esr.user or ConnectedUser.issuperadmin() %} 
+            {{ esr.telephoneDeclarant}}
+        {% else %}
+            *************** 
+        {% endif %}
+    {% endblock %}
+
+
+{% block titleetablissement %}Identification de l'installation{% endblock %}
+{% block raisonsocialetablissement %} {{  esr.etablissement.nom }}{% endblock %}
+{% block adresseetablissement %} {{ esr.etablissement.adresse }}{% endblock %}
+
+{% block unite %} 
+    {% if  (dispositif is defined) and (dispositif is not null) %}
+       {{  dispositif.marque }} - {{  dispositif.denomination }} , {{  dispositif.numSalle }}
+    {% else %}
+     	-
+    {% endif %}  
+{% endblock %}
+{% block resp_activite %} {{ resp_prenom }} {{ resp_nom }} , {{ resp_email }} {% endblock %}
+
+
+  
+
+{% block enteteevent1 %}
+
+II. Renseignements sur l'évènement
+
+{% endblock %}
+{% block datesurvenue %} {{ esr.dateSurvenueESR}}  {% endblock %} {% block heuresurvenue %} {{ esr.heureSurvenueESR}}  {% endblock %}
+{% block datedetection %} {{ esr.dateDetectionESR}}  {% endblock %} {% block heuredetection %} {{ esr.heureDetectionESR}} {% endblock %}
+{% block criteredeclarationevent %} {{ esr.idCritereDeclaration.libelle }}{% endblock %}
+{% block dispositif %}Identification de l'installation{% endblock %}
+{% block origineevent %} {{ origine.libelle }}{% endblock %}
+
+
+{% block enteteconsequences %}
+III. Conséquences
+{% endblock %}
+
+{% block agepersoevent %} {{ esr.agePersonneConserne}}  {% endblock %}
+{% block genrepersoevent %} {{ esr.sex }}  {% endblock %}
+{% block consequencespotentielles %}Conséquences potentielles{% endblock %}
+{% block contenuconsequencesreelles %} {{ esr.consequencereelleim}} {% endblock %}
+
+
+{% block consequencesreelles %}Conséquences réelles{% endblock %}
+
+{% block contenuconsequencespotentielles %} {{ esr.consequencepotentielle}}{% endblock %}
+
+{% block entetemesures %}
+
+IV. Mesures
+
+{% endblock %}
+
+{% block mesuresconcervatoires%}{{ esr.actionconservatoires}}{% endblock %}
+{% block mesuresorrective%} {{ esr.actioncorrectives}}{% endblock %}
+

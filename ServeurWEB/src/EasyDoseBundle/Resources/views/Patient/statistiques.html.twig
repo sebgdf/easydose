@@ -1,0 +1,430 @@
+
+ 
+  <div style=" position:absolute;top:-35px;left:28px;">
+	<a onclick="getreturn('{{url('worklist',{screenheigth:"_screenheigth"})}}','{{ url('getjsonPatientAllname') }}');";><i class="fa fa-2x fa-angle-left"></i> <span style="text-decoration:underline;display: table-cell; vertical-align: middle; line-height: normal;font-weight:400;font-size:large;">Retour</span> </a>
+  </div>
+  
+
+<div class="flatcard card-cascade narrower">
+
+	  <div class="row">
+    <div class="col-md-12 ml-3" style="left:-2px; padding-right:2.65rem!important;">
+        <div class="row">
+        	<div class="col-md-10 onglet1a pr-0 mr-0 pt-1" >Statistiques </div> <div class="pl-0 ml-0 col-md-2 onglet1b" > </div>
+        
+        </div>
+    </div>
+    
+    <div class="row">
+    <div class="ml-4  col-md-12">
+    	<ul class="nav md-pills pills-secondary">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" onclick="changeToAll();" role="tab">Tous les patients</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" onclick="changeToPediatrie();" role="tab">Pédiatrie</a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" onclick="changeToAdulte()" role="tab">+ de 15 ans</a>
+          </li>
+          
+        </ul>
+    </div>	
+    </div>
+</div>
+
+    <div  class="card-body">
+
+	
+	
+			
+			
+                
+                    <div class="row mb-3">  
+                       <div class="col-lg-6 col-md-6">
+                           <div class="mb3 card" >
+                           		<div class="box box-primary"  style="height: 27rem;">
+                                        <div  class="card-hearder">
+                                            <h3 class="card-title  text-center"> Proportion des dépassements</h3>
+                                        </div>   
+                                        <div class="row">     
+                                            <div class="col-lg-6" id="divPourDeptNrdMod">                          
+                                            </div>          
+                                            
+                                             <div class="col-lg-6" id="divPourDeptNrdScan">                                     
+                                                          
+                            				</div>
+                            				<div class="col-lg-6" id="divPourDeptNrdMammo">                                     
+                                                          
+                            				</div>
+                        				</div>  
+                           		</div>
+                        	</div>
+               	 	    </div>   
+               	 	    
+               	 	    
+                        				
+                        				
+               	 	    <div class="col-lg-6 col-md-6">
+                           <div class="mb3 card">
+                           		<div class="box box-primary" style="height: 27rem;" data-toggle="modal" data-id="typepyramide" data-target="#statistique_modal">
+                                        <div  class="card-hearder">
+                                            <h3 class="card-title  text-center"> Pyramide des âges</h3>
+                                        </div>   
+                                        <div id="divPyramideAge">    
+                                             
+                        				</div>                    
+                           		</div>
+                        	</div>
+               	 	    </div>  
+               	 	    
+               	 	                	 	              	 	
+            	    </div>
+			
+			   
+            <div class="row mb-3 ">  
+        		<div class="col-lg-6 col-md-6">
+                                   <div class="mb3 card">
+                                   		<div class="box box-primary" style="height: 15rem;" data-toggle="modal"  data-id="typemoyennnerdradio" data-target="#statistique_modal">
+                                                <div  class="card-hearder">
+                                                    <h3 class="card-title  text-center">Dépassements Radiographie</h3>
+                                                </div>   
+                                                <div class="row"> 
+                                                		<div class="col-lg-12"> 
+                                                           <div id="divMoynrdRadio"> 
+                                                            </div>
+                                                              
+                                                        </div>
+                                                        
+                                                </div> 
+                                         </div>
+                                                
+                                                
+                                                
+                                        </div>
+                          </div>              
+                          <div class="col-lg-6 col-md-6">              
+                                        <div class="mb3 card">
+                                   		<div class="box box-primary" style="height: 15rem;" data-toggle="modal"  data-id="typemoyennnerdscanner" data-target="#statistique_modal">
+                                                <div  class="card-hearder">
+                                                    <h3 class="card-title  text-center"> Dépassements Scanner</h3>
+                                                </div>   
+                                                <div class="row">                                                         
+                                                        <div class="col-lg-12">                                                    
+                                                            <div id="divMoynrdScanner">
+                                                            </div>  
+                                                        </div>
+                                                </div> 
+                                         </div>
+                                                
+                                                
+                                                
+                                        </div>
+                                     
+                                     
+        				</div>
+        		
+        		</div>
+            
+            
+                    <div class="row">  
+                       <div class="col-lg-12 col-md-12">
+                           <div class="mb3 card">
+                           		<div class="box box-danger">
+                                        <div  class="card-hearder">
+                                            <h3 class="card-title  text-center"> Filtre par modalité</h3>
+                                        </div>   
+                                        <div class="row mt-4 mb-4">  
+                                         <div class="ml-4 col-md-3 text-monospace purple-text pr-0"> 
+                                           Choissisez une modalité.
+                                         </div>
+                                            <div class="pl-0 col-md-3 "> 
+                                            
+                                            	    <select id="optionstat" class="custom-select browser-default optiontype" >
+                                            	    		  <option   value="getprotocolescan" selected>Scanner</option>
+                                                              <option   value="getprotocolerad">Radiographie</option>                                                              
+                                                              <option  value="getprotocolemg">Mammographie</option>
+                                                    </select>
+                                                                                                                     
+                                            </div>          
+                                        </div>   
+                                        
+                                        
+                                        
+                                        
+                                        <div class="row"> 
+                                        		<div class="col-lg-12"> 
+                                                	<div id="divStatNbAlertByProtocol"  data-toggle="modal"  data-id="typeNbAlertByProtocol" data-target="#statistique_modal">                                                                   
+                                                                          
+                                                    </div>  
+                                                
+                                                </div>
+                                        </div> 
+                                        
+                                        <div class="row"> 
+                                        		<div class="col-lg-12"> 
+                                                   <div id="chart"   data-toggle="modal"  data-id="chartlarger" data-target="#statistique_modal">
+    											   </div>
+
+                                                </div>
+                                        </div> 
+                                        
+                                            
+                           		</div>
+                        	</div>
+               	 	</div>
+            	    </div>
+            	   
+            	    
+ 
+          
+		
+		
+		
+    
+    
+</div>
+</div>
+
+{% include ("@EasyDose/Statistiques/statistique_modal_.html.twig") %} 
+{% include ("@EasyDose/Statistiques/statistique2_modal_.html.twig") %} 
+<script>
+
+typestat='ALL';
+currentmodality='SCANNER';
+$("#statistique_modal").on('show.bs.modal', function(e){
+
+
+	  type=$(e.relatedTarget).data('id');
+	  //typepyramide
+	
+	  if(type=='typepyramide'){
+			var urlStatlarger="{{ url('getPyramideAgeLarger',{type:"_type"}) }}";
+			urlStatlarger2=urlStatlarger.replace('_type',typestat);
+			$('#proportiondeptlarger').load(urlStatlarger2);	
+
+	  		
+	  }
+
+	  //typemoyennnerdradio
+	  if(type=='typemoyennnerdradio'){
+		  	var urlStatlarger="{{ url('getStatMoyNrdByProtoLarger',{modalite:"RADIOGRAPHIE",type:"_type"}) }}";
+		  	urlStatlarger2=urlStatlarger.replace('_type',typestat);
+			$('#proportiondeptlarger').load(urlStatlarger2);
+	  }
+
+	//typemoyennnerdscanner
+	  if(type=='typemoyennnerdscanner'){
+		  	var urlStatlarger="{{ url('getStatMoyNrdByProtoLarger',{modalite:"SCANNER",type:"_type"}) }}";
+		  	urlStatlarger2=urlStatlarger.replace('_type',typestat);
+			$('#proportiondeptlarger').load(urlStatlarger2);
+	  }
+
+	  
+	   //typeNbAlertByProtocol
+	  if(type=='typeNbAlertByProtocol'){
+		  	var urlStatlarger="{{ url('getStatNbAlertByProtocolelarger',{modalite:"_modalite",type:"_type"}) }}";
+		  	urlStatlarger2=urlStatlarger.replace('_type',typestat).replace('_modalite',currentmodality);
+		  	
+			$('#proportiondeptlarger').load(urlStatlarger2);
+	  }
+
+	  //chartlarger
+	  if(type=='chartlarger'){
+		  	var urlStatlarger="{{ url('niveaustatdoselarger',{protocolename:"_modalite",type:"_type"}) }}";
+		  	urlStatlarger2=urlStatlarger.replace('_type',typestat).replace('_modalite',currentmodality);
+		  	
+			$('#proportiondeptlarger').load(urlStatlarger2);
+	  }	  
+	  //niveaustatdoselarger
+	});
+	
+$(document).ready(function() {
+	$('#maincontent').loading('stop');
+	//var url="{{ url('getprotocolemg') }}";
+	//$('#divprotocole').load(url);
+
+	//var urlmoynrd="{{ url('getStatMoyNrdMod') }}";
+	//$('#divMoynrdmod').load(urlmoynrd);
+
+	var urlMoynrdRadio="{{ url('getStatMoyNrdByProto',{modalite:"RADIOGRAPHIE",type:'ALL'}) }}";
+	$('#divMoynrdRadio').load(urlMoynrdRadio);
+
+	var urlMoynrdScanner="{{ url('getStatMoyNrdByProto',{modalite:"SCANNER",type:'ALL'}) }}";
+	$('#divMoynrdScanner').load(urlMoynrdScanner);
+
+
+	var urlPourDeptNrdMod="{{ url('getPourDeptNrdMod',{modalite:"Radiographie",type:"ALL"}) }}";
+	$('#divPourDeptNrdMod').load(urlPourDeptNrdMod);
+	
+
+	
+
+	var urlPourDeptNrMammo="{{ url('getPourDeptNrdMod',{modalite:"Mammographie",type:"ALL"}) }}";
+	$('#divPourDeptNrdMammo').load(urlPourDeptNrMammo);
+
+	var urlPourDeptNrdScan="{{ url('getPourDeptNrdMod',{modalite:"Scanner",type:"ALL"}) }}";
+	$('#divPourDeptNrdScan').load(urlPourDeptNrdScan);
+
+	var urlStatNbAlertByProtocol="{{ url('getStatNbAlertByProtocole',{modalite:"SCANNER",type:'ALL'}) }}";
+	$('#divStatNbAlertByProtocol').load(urlStatNbAlertByProtocol);
+
+	var urlPyramideAGe="{{ url('getPyramideAge') }}";
+	$('#divPyramideAge').load(urlPyramideAGe);
+	
+	url2="{{ url('niveaustatdose',{protocolename:"SCANNER",type:'ALL'}) }}";
+	$('#chart').load(url2);
+	
+	$('#optionstat').change(function(e) {
+
+		var val=$(this).find(":selected").val()
+		var url="";
+		//$('#typeexamen').text($(this).text());
+		//$('#typeexamen').attr('value',$(this).attr('value'));
+
+		if(val=='getprotocolemg')
+			{
+				//url="{{ url('getprotocolemg') }}";
+				url2tmp="{{ url('niveaustatdose',{protocolename:"MAMMOGRAPHIE",type:'_type'}) }}";
+				url2=url2tmp.replace('_type',typestat);
+				urltmp="{{ url('getStatNbAlertByProtocole',{modalite:"MAMMOGRAPHIE",type:'_type'}) }}";
+				url3=urltmp.replace('_type',typestat);
+				currentmodality="MAMMOGRAPHIE";
+				
+			}
+		if(val=='getprotocolescan')
+			{
+				//url="{{ url('getprotocolescan') }}";
+				url2tmp="{{ url('niveaustatdose',{protocolename:"SCANNER",type:'_type'}) }}";
+				url2=url2tmp.replace('_type',typestat);
+				urltmp="{{ url('getStatNbAlertByProtocole',{modalite:"SCANNER",type:'_type'}) }}";
+				url3=urltmp.replace('_type',typestat);
+				currentmodality="SCANNER";
+			}
+		if(val=='getprotocolerad')
+			{
+				//url="{{ url('getprotocolerad') }}";
+				url2tmp="{{ url('niveaustatdose',{protocolename:"RADIOGRAPHIE",type:'_type'}) }}";
+				url2=url2tmp.replace('_type',typestat);
+				
+				urltmp="{{ url('getStatNbAlertByProtocole',{modalite:"RADIOGRAPHIE",type:'_type'}) }}";
+				url3=urltmp.replace('_type',typestat);
+				currentmodality="RADIOGRAPHIE";
+			}
+		
+		//$('#divprotocole').load(url); 
+		$('#chart').load(url2);
+		$('#divStatNbAlertByProtocol').load(url3);
+
+	});
+		
+	});
+
+ function changeToPediatrie(){
+		var urlPyramideAGe="{{ url('getPyramideAgePediatrie') }}";
+		$('#divPyramideAge').load(urlPyramideAGe);
+		var urlPourDeptNrMammo="{{ url('getPourDeptNrdMod',{modalite:"Mammographie",type:"PEDIATRIE"}) }}";
+		$('#divPourDeptNrdMammo').load(urlPourDeptNrMammo);
+
+		var urlPourDeptNrdScan="{{ url('getPourDeptNrdMod',{modalite:"Scanner",type:"PEDIATRIE"}) }}";
+		$('#divPourDeptNrdScan').load(urlPourDeptNrdScan);
+
+
+		var urlPourDeptNrdMod="{{ url('getPourDeptNrdMod',{modalite:"Radiographie",type:"PEDIATRIE"}) }}";
+		$('#divPourDeptNrdMod').load(urlPourDeptNrdMod);
+
+
+
+		var urlMoynrdRadio="{{ url('getStatMoyNrdByProto',{modalite:"RADIOGRAPHIE",type:'PEDIATRIE'}) }}";
+		$('#divMoynrdRadio').load(urlMoynrdRadio);
+
+		var urlMoynrdScanner="{{ url('getStatMoyNrdByProto',{modalite:"SCANNER",type:'PEDIATRIE'}) }}";
+		$('#divMoynrdScanner').load(urlMoynrdScanner);
+
+
+		var url3="{{ url('getStatNbAlertByProtocole',{modalite:"_modalite",type:'PEDIATRIE'}) }}";
+		url4=url3.replace('_modalite',currentmodality);		
+		$('#divStatNbAlertByProtocol').load(url4);
+
+
+		urlcharttmp="{{ url('niveaustatdose',{protocolename:"_modalite",type:'PEDIATRIE'}) }}";
+		urlchart=urlcharttmp.replace('_modalite',currentmodality);	
+		$('#chart').load(urlchart);
+
+
+		
+		typestat='PEDIATRIE';
+	 }
+
+ function changeToAdulte(){
+		var urlPyramideAGe="{{ url('getPyramideAgeAdulte') }}";
+		$('#divPyramideAge').load(urlPyramideAGe);
+		var urlPourDeptNrMammo="{{ url('getPourDeptNrdMod',{modalite:"Mammographie",type:"ADULTE"}) }}";
+		$('#divPourDeptNrdMammo').load(urlPourDeptNrMammo);
+
+		var urlPourDeptNrdScan="{{ url('getPourDeptNrdMod',{modalite:"Scanner",type:"ADULTE"}) }}";
+		$('#divPourDeptNrdScan').load(urlPourDeptNrdScan);
+
+
+		var urlPourDeptNrdMod="{{ url('getPourDeptNrdMod',{modalite:"Radiographie",type:"ADULTE"}) }}";
+		$('#divPourDeptNrdMod').load(urlPourDeptNrdMod);
+
+
+		var urlMoynrdRadio="{{ url('getStatMoyNrdByProto',{modalite:"RADIOGRAPHIE",type:'ADULTE'}) }}";
+		$('#divMoynrdRadio').load(urlMoynrdRadio);
+
+		var urlMoynrdScanner="{{ url('getStatMoyNrdByProto',{modalite:"SCANNER",type:'ADULTE'}) }}";
+		$('#divMoynrdScanner').load(urlMoynrdScanner);
+
+		var url3="{{ url('getStatNbAlertByProtocole',{modalite:"_modalite",type:'ADULTE'}) }}";
+		url4=url3.replace('_modalite',currentmodality);		
+		$('#divStatNbAlertByProtocol').load(url4);
+
+
+		urlcharttmp="{{ url('niveaustatdose',{protocolename:"_modalite",type:'ADULTE'}) }}";
+		urlchart=urlcharttmp.replace('_modalite',currentmodality);	
+		$('#chart').load(urlchart);
+		
+		typestat='ADULTE';
+	 }
+ 
+
+ function changeToAll(){
+		var urlPyramideAGe="{{ url('getPyramideAge') }}";
+		$('#divPyramideAge').load(urlPyramideAGe);
+		var urlPourDeptNrMammo="{{ url('getPourDeptNrdMod',{modalite:"Mammographie",type:"ALL"}) }}";
+		$('#divPourDeptNrdMammo').load(urlPourDeptNrMammo);
+
+		var urlPourDeptNrdScan="{{ url('getPourDeptNrdMod',{modalite:"Scanner",type:"ALL"}) }}";
+		$('#divPourDeptNrdScan').load(urlPourDeptNrdScan);
+
+
+		var urlPourDeptNrdMod="{{ url('getPourDeptNrdMod',{modalite:"Radiographie",type:"ALL"}) }}";
+		$('#divPourDeptNrdMod').load(urlPourDeptNrdMod);
+
+
+
+		var urlMoynrdRadio="{{ url('getStatMoyNrdByProto',{modalite:"RADIOGRAPHIE",type:'ALL'}) }}";
+		$('#divMoynrdRadio').load(urlMoynrdRadio);
+
+		var urlMoynrdScanner="{{ url('getStatMoyNrdByProto',{modalite:"SCANNER",type:'ALL'}) }}";
+		$('#divMoynrdScanner').load(urlMoynrdScanner);
+
+
+		var url3="{{ url('getStatNbAlertByProtocole',{modalite:"_modalite",type:'ALL'}) }}";
+		url4=url3.replace('_modalite',currentmodality);		
+		$('#divStatNbAlertByProtocol').load(url4);
+
+
+
+		urlcharttmp="{{ url('niveaustatdose',{protocolename:"_modalite",type:'ALL'}) }}";
+		urlchart=urlcharttmp.replace('_modalite',currentmodality);	
+		$('#chart').load(urlchart);
+		
+		typestat='ALL';
+
+		
+	 }
+
+</script>
