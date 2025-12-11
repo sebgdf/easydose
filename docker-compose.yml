@@ -107,7 +107,9 @@ services:
 #              source: C:/Users/sebastien.girier/Projets/easydose/export
 #              target: /home/dicomserver/export
   eventinfocomreunion:
-    image: ghcr.io/sebastiengdf/eventinfocomreunion:latest
+    build: .
+#    image: ghcr.io/sebastiengdf/eventinfocomreunion:latest
+# ghcr.io/sebgdf/eventinfocomreunion:latest
     container_name: "eventinfocomreunion"
     image: eventinfocomreunion:latest
     restart: unless-stopped

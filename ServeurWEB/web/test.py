@@ -98,7 +98,7 @@ for sop_uid in STORAGE_SOP_UIDS:
 
 print(f"\n✅ {len(ae.requested_contexts)} classes SOP ajoutées.")
 
-addr="localhost"
+addr="192.168.1.54"
 port=11112
 assoc = ae.associate(addr, port)
 if assoc.is_established:
