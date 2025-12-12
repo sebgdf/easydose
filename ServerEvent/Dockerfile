@@ -20,7 +20,7 @@ COPY ../ENV/ /home/easydose/ENV
 #&& chown  www-data:www-data /home
 #COPY ServerEvent/event-entrypoint.sh /usr/local/bin/
 
-#RUN dos2unix /usr/local/bin/event-entrypoint.sh
+#RUN dos2unix /usr/local/bin/event-entrypoint.sh###
 RUN chmod 777 /home/eventinfocomreunion/.env
 USER www-data
 
