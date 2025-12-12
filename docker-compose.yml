@@ -107,12 +107,12 @@ services:
 #              source: C:/Users/sebastien.girier/Projets/easydose/export
 #              target: /home/dicomserver/export
   eventinfocomreunion:
-    build:
-      context: .
-      dockerfile: ServerEvent/Dockerfile
+#    build:
+#      context: .
+#      dockerfile: ServerEvent/Dockerfile
 #    image: ghcr.io/sebastiengdf/eventinfocomreunion:latest
 # ghcr.io/sebgdf/eventinfocomreunion:latest
-    container_name: "eventinfocomreunion"
+    container_name: "ghcr.io/sebgdf/eventinfocomreunion"
     image: eventinfocomreunion:latest
     restart: unless-stopped
     tty: true
@@ -135,12 +135,12 @@ services:
 
 
   eventinfocomreunioncentral:
-    build:
-      context: .
-      dockerfile: ServerEvent/Dockerfile
+#    build:
+#      context: .
+#      dockerfile: ServerEvent/Dockerfile
 #    image: ghcr.io/sebastiengdf/eventinfocomreunion:latest
 # ghcr.io/sebgdf/eventinfocomreunion:latest
-    container_name: "eventinfocomreunioncentral"
+    container_name: "ghcr.io/sebgdf/eventinfocomreunioncentral"
     image: eventinfocomreunioncentral:latest
     restart: unless-stopped
     tty: true
