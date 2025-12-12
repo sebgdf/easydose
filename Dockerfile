@@ -1,4 +1,4 @@
-FROM ghcr.io/sebastiengdf/easydose:latest
+FROM ghcr.io/sebgdf/easydosev3:latest
 #ENV http_proxy=http://proxy.nsa.srr.fr:8080
 #ENV https_proxy=http://proxy.nsa.srr.fr:8080
 #RUN apt-get purge -f libxml2-dev

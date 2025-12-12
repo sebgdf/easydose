@@ -4,7 +4,7 @@
 # PLEASE DO NOT EDIT IT DIRECTLY.
 #
 
-FROM ghcr.io/sebastiengdf/dicomserver:0.2
+FROM ghcr.io/sebgdf/dicomserver:0.2
 
 COPY ./ServeurDICOM/SCPSRV/exec/easyscpserver/model/ /home/dicomserver
 COPY ENV/DEV/easydose.cfg /home/dicomserver/Config
